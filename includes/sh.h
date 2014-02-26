@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:28:19 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 17:20:38 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/26 18:35:15 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 
 enum	e_operator
 {
+	OP_REDIR_RIGHT2,
+	OP_REDIR_LEFT2,
+	OP_AND,
+	OP_OR,
 	OP_PIPE,
 	OP_REDIR_RIGHT,
 	OP_REDIR_LEFT,
-	OP_REDIR_RIGHT2,
-	OP_REDIR_LEFT2,
 	OP_SEMICOLON,
-	OP_AND,
-	OP_OR,
 	OP_WORD
 };
 

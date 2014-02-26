@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 15:09:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 17:30:59 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/26 18:35:05 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,24 @@ void		ft_word_add(t_word **word, char *str, int type)
 	}
 }
 
-int			ft_find_op(char *str, int i)
+int			ft_find_op(char *str, int *i)
 {
-	if (str[i] == '|')
+	if (str[*i] == '>' && str[*i + 1] == '>')
+		return (OP_REDIR_RIGHT2);
+	if (str[*i] == '<' && str[*i + 1] == '<')
+		return (OP_REDIR_LEFT2);
+	if (str[*i] == '&' && str[*i + 1] == '&')
+		return (OP_AND);
+	if (str[*i] == '|' && str[*i + 1] == '|')
+		return (OP_OR);
+	if (str[*i] == '|')
 		return (OP_PIPE);
-	if (str[i] == '>')
+	if (str[*i] == '>')
 		return (OP_REDIR_RIGHT);
+	if (str[*i] == '<')
+		return (OP_REDIR_LEFT);
+	if (str[*i] == ';')
+		return (OP_SEMICOLON);
 	return (-1);
 }
 
@@ -55,6 +67,7 @@ t_word		*ft_lexer(char *line)
 	t_word	*word;
 	int		check_bs;
 	int		save;
+	int		index;
 
 	word = NULL;
 	i = 0;
@@ -67,10 +80,13 @@ t_word		*ft_lexer(char *line)
 			check_bs = !check_bs;
 			i++;
 		}
-		type = ft_find_op(line, i);
+		type = ft_find_op(line, &i);
 		if (type >= 0)
 		{
-			ft_word_add(&word, ft_strsub(line, save, i), OP_WORD);
+			index = (type <= 3) ? 1 : 0;
+			if (index)
+				i++;
+			ft_word_add(&word, ft_strsub(line, save, i - index), OP_WORD);
 			ft_word_add(&word, ft_strsub(line, i, 1), type);
 			save = i + 1;
 		}

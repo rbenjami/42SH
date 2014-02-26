@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:19:14 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 17:01:22 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/26 18:30:00 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,15 @@
 
 void	parse_line(char *line)
 {
-	open_check(line);
-	ft_lexer(line);
+	t_word	*word;
+	//open_check(line);
+	word = ft_lexer(line);
+	while (word)
+	{
+		ft_putnbr(word->type);
+		ft_putendl(word->word);
+		word = word->next;
+	}
 }
 
 int		main(void)
