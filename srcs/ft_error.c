@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh.h                                               :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/26 13:28:19 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 16:10:49 by dsousa           ###   ########.fr       */
+/*   Created: 2014/02/26 15:40:44 by dsousa            #+#    #+#             */
+/*   Updated: 2014/02/26 16:14:21 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SH_H
-# define SH_H
-# define TRUE 1
-# define FALSE 0
+#include <libft.h>
+#include "sh.h"
 
-void	open_check(char *path);
-int		ft_error(int error_num, char *name, int program_end);
+/*
+** pour ajouter une erreur : ajoutez une erreur.
+*/
 
-#endif /* !SH_H */
+int		ft_error(int error_num, char *name, int program_end)
+{
+	static char		*tbl[2] =
+	{
+		": No such file or directory",
+		": No read right"
+	};
+
+	ft_putstr_fd(name, 2);
+	ft_putendl_fd(tbl[error_num], 2);
+	if (program_end == TRUE)
+		exit(0);
+	return (-1);
+}
