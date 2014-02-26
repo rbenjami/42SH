@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:28:19 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 16:57:00 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/26 17:20:38 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ enum	e_operator
 	OP_SEMICOLON,
 	OP_AND,
 	OP_OR,
-	OP_FILE,
-	OP_CMD
+	OP_WORD
 };
 
 typedef struct		s_word

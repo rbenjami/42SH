@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 15:09:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 17:10:23 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/26 17:30:59 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		ft_word_add(t_word **word, char *str, int type)
 	new_word = (t_word *)malloc(sizeof(t_word));
 	if (new_word)
 	{
-		new_word->word = ft_strdup(str);
+		new_word->word = str;
 		new_word->type = type;
 		new_word->next = NULL;
 	}
@@ -55,7 +55,6 @@ t_word		*ft_lexer(char *line)
 	t_word	*word;
 	int		check_bs;
 	int		save;
-	char	c;
 
 	word = NULL;
 	i = 0;
@@ -63,18 +62,21 @@ t_word		*ft_lexer(char *line)
 	while (line[i] != '\0')
 	{
 		check_bs = 0;
-		while (line[i++] == '\\')
-			check_bs = !check_bs;
-		type = ft_find_op(line, i);
-		if (type > 0 || line[i + 1] == '\0')
+		while (line[i] == '\\')
 		{
-			ft_word_add(&word, ft_strsub(line, save, i), OP_CMD);
-			c = line[i];
-			ft_word_add(&word, &c, type);
-			save = i;
+			check_bs = !check_bs;
+			i++;
 		}
+		type = ft_find_op(line, i);
+		if (type >= 0)
+		{
+			ft_word_add(&word, ft_strsub(line, save, i), OP_WORD);
+			ft_word_add(&word, ft_strsub(line, i, 1), type);
+			save = i + 1;
+		}
+		else if (line[i + 1] == '\0')
+			ft_word_add(&word, ft_strsub(line, save, i + 1), OP_WORD);
 		i++;
 	}
-	ft_putendl(word->word);
 	return (word);
 }
