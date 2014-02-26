@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 15:09:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 18:35:05 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/26 19:26:33 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ t_word		*ft_lexer(char *line)
 			index = (type <= 3) ? 1 : 0;
 			if (index)
 				i++;
-			ft_word_add(&word, ft_strsub(line, save, i - index), OP_WORD);
-			ft_word_add(&word, ft_strsub(line, i, 1), type);
+			ft_word_add(&word, ft_strsub(line, save, (i - index) - save), OP_WORD);
+			ft_word_add(&word, ft_strsub(line, i - index, 1 + index), type);
 			save = i + 1;
 		}
 		else if (line[i + 1] == '\0')
-			ft_word_add(&word, ft_strsub(line, save, i + 1), OP_WORD);
+			ft_word_add(&word, ft_strsub(line, save - index, 1 + index), OP_WORD);
 		i++;
 	}
 	return (word);
