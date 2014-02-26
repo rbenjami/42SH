@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 12:21:39 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 13:19:23 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/26 13:34:15 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <string.h>
 # include "define_type.h"
+# include "get_next_line.h"
 
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
@@ -86,5 +87,7 @@ t_list	*ft_lstmap(t_list *lst, t_list * (*f)(t_list *elem));
 void	*ft_realloc(void *ptr, size_t size);
 void	ft_strtolower(char *str);
 void	ft_strtouper(char *str);
+
+int		get_next_line(int fd, char **line);
 
 #endif	/* !LIBFT_H */

@@ -6,7 +6,7 @@
 #    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/02/26 13:22:24 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/02/26 13:31:02 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME		=	42SH
 
 INC			+=	-I includes
 
-HEAD		=	includes/
+HEAD		=	includes/sh.h
 
 SRC_DIR		=	srcs/
 
