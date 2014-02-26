@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   open_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/26 13:19:14 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 15:05:32 by dsousa           ###   ########.fr       */
+/*   Created: 2014/02/26 15:01:26 by dsousa            #+#    #+#             */
+/*   Updated: 2014/02/26 16:13:03 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <libft.h>
 #include "sh.h"
 
-void	parse_line(char *line)
+void	open_check(char *path)
 {
-	open_check(line);
-}
-
-int		main(void)
-{
-	char	*line;
-
-	while (1)
-	{
-		ft_putstr("~> ");
-		get_next_line(1, &line);
-		if (line[0] != '\0')
-			parse_line(line);
-		free(line);
-	}
-	return (0);
+	if (access(path, F_OK) == -1)
+		ft_error(0, path, FALSE);
+	else if (access(path, R_OK) == -1)
+		ft_error(1, path, FALSE);
 }

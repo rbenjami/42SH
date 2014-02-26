@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/26 13:19:14 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 15:05:32 by dsousa           ###   ########.fr       */
+/*   Created: 2014/02/26 15:40:44 by dsousa            #+#    #+#             */
+/*   Updated: 2014/02/26 16:14:21 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include "sh.h"
 
-void	parse_line(char *line)
-{
-	open_check(line);
-}
+/*
+** pour ajouter une erreur : ajoutez une erreur.
+*/
 
-int		main(void)
+int		ft_error(int error_num, char *name, int program_end)
 {
-	char	*line;
-
-	while (1)
+	static char		*tbl[2] =
 	{
-		ft_putstr("~> ");
-		get_next_line(1, &line);
-		if (line[0] != '\0')
-			parse_line(line);
-		free(line);
-	}
-	return (0);
+		": No such file or directory",
+		": No read right"
+	};
+
+	ft_putstr_fd(name, 2);
+	ft_putendl_fd(tbl[error_num], 2);
+	if (program_end == TRUE)
+		exit(0);
+	return (-1);
 }
