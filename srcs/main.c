@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:19:14 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 15:05:32 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/02/26 17:01:22 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	parse_line(char *line)
 {
 	open_check(line);
+	ft_lexer(line);
 }
 
 int		main(void)

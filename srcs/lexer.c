@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 15:09:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 16:53:35 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/26 17:10:23 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,18 @@
 //	ls -a|cat Makefile -e > pok|wc;ls
 //	ls -a|cat > pok -e|wc;ls
 
-enum	e_operator
-{
-	OP_PIPE,
-	OP_REDIR_RIGHT,
-	OP_REDIR_LEFT,
-	OP_REDIR_RIGHT2,
-	OP_REDIR_LEFT2,
-	OP_SEMICOLON,
-	OP_AND,
-	OP_OR,
-	OP_FILE,
-	OP_CMD
-};
-
-typedef struct		s_word
-{
-	char			*word;
-	int				type;
-	struct s_word	*next;
-}					t_word;
-
 void		ft_word_add(t_word **word, char *str, int type)
 {
 	t_word	*tmp;
 	t_word	*new_word;
 
 	new_word = (t_word *)malloc(sizeof(t_word));
+	if (new_word)
+	{
+		new_word->word = ft_strdup(str);
+		new_word->type = type;
+		new_word->next = NULL;
+	}
 	if (!*word)
 		*word = new_word;
 	else
@@ -81,15 +66,15 @@ t_word		*ft_lexer(char *line)
 		while (line[i++] == '\\')
 			check_bs = !check_bs;
 		type = ft_find_op(line, i);
-		if (type > 0)
+		if (type > 0 || line[i + 1] == '\0')
 		{
-			ls|wc
-			ft_word_add(&word, ft_strsub(line, save, i - 1 - save), OP_CMD);
+			ft_word_add(&word, ft_strsub(line, save, i), OP_CMD);
 			c = line[i];
-			ft_word_add(&word, &ßc, type);
+			ft_word_add(&word, &c, type);
 			save = i;
 		}
 		i++;
 	}
+	ft_putendl(word->word);
 	return (word);
 }

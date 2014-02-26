@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
+#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/02/26 16:12:19 by dsousa           ###   ########.fr        #
+#    Updated: 2014/02/26 16:56:21 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC_DIR		=	srcs/
 
 SRC			=	$(SRC_DIR)main.c\
 				$(SRC_DIR)open_check.c\
-				$(SRC_DIR)ft_error.c
+				$(SRC_DIR)ft_error.c\
+				$(SRC_DIR)lexer.c
 
 OBJ			=	$(SRC:.c=.o)
 
