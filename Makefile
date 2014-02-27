@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
+#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/02/26 19:09:59 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/02/27 12:43:27 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ include		libft/Makefile.sources
 
 export	CFLAGS	=	-Wall -Wextra -Werror -g
 
-export	CC		=	cc
+export	CC		=	gcc
 
 export	INC		=	-I $(PWD)/libft
 

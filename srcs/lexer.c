@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 15:09:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/27 12:19:53 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/02/27 16:10:25 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,23 @@ int		ft_word_add(t_word **word, char *str, int type)
 	return (ft_strlen(str));
 }
 
-int			ft_find_op(char *str, int *i)
+int			ft_find_op(char *str, int i)
 {
-	if (str[*i] == '>' && str[*i + 1] == '>')
+	if (str[i] == '>' && str[i + 1] == '>')
 		return (OP_REDIR_RIGHT2);
-	if (str[*i] == '<' && str[*i + 1] == '<')
+	if (str[i] == '<' && str[i + 1] == '<')
 		return (OP_REDIR_LEFT2);
-	if (str[*i] == '&' && str[*i + 1] == '&')
+	if (str[i] == '&' && str[i + 1] == '&')
 		return (OP_AND);
-	if (str[*i] == '|' && str[*i + 1] == '|')
+	if (str[i] == '|' && str[i + 1] == '|')
 		return (OP_OR);
-	if (str[*i] == '|')
+	if (str[i] == '|')
 		return (OP_PIPE);
-	if (str[*i] == '>')
+	if (str[i] == '>')
 		return (OP_REDIR_RIGHT);
-	if (str[*i] == '<')
+	if (str[i] == '<')
 		return (OP_REDIR_LEFT);
-	if (str[*i] == ';')
+	if (str[i] == ';')
 		return (OP_SEMICOLON);
 	return (-1);
 }
@@ -68,9 +68,48 @@ char	*ft_detect_word(char *line, int i)
 	save = i;
 	while (line[i] == ' ')
 		i++;
-	while (line[i] != ' ')
+	while (line[i] != '\0' && line[i] != ' ' && (ft_find_op(line, i) == -1))
 		i++;
 	return (ft_strsub(line, save, i - save));
+}
+
+int			ft_bs_creator(char *line, int i, t_word	**word)
+{
+	int		bs_count;
+	int		save;
+	char	*str;
+
+	bs_count = 0;
+	while (line[i] == '\\')
+	{
+		i++;
+		bs_count++;
+	}
+	str = malloc(sizeof(str) * (bs_count / 2) + 1);
+	str[bs_count / 2] = '\0';
+	str = (char *)ft_memset(str, '\\', bs_count / 2);
+	if (!(bs_count % 2))
+	{
+		if (ft_find_op(line, i) == -1)
+		{
+			save = i;
+			while (line[i] != '\0' && (ft_find_op(line, i) == -1) && line[i] != ' ')
+				i++;
+			str = ft_strjoin(str, ft_strsub(line, save, (i - save)));
+		}
+	}
+	else
+	{
+		save = i;
+		i++;
+		while (line[i] != '\0' && (ft_find_op(line, i) == -1) && line[i] != ' ')
+			i++;
+		str = ft_strjoin(str, ft_strsub(line, save, (i - save)));
+	}
+	ft_word_add(word, str, OP_WORD);
+	while (line[i] == ' ')
+		i++;
+	return (i);
 }
 
 t_word		*ft_lexer(char *line)
@@ -87,16 +126,15 @@ t_word		*ft_lexer(char *line)
 	while (line[i] != '\0')
 	{
 		save = 0;
-		type = ft_find_op(line, &i);
-		if (type >= 0)
+		type = ft_find_op(line, i);
+		if (type >= 0 && line[i])
 		{
 			index = (type <= 3) ? 1 : 0;
-			ft_word_add(&word, "", OP_WORD);
 			ft_word_add(&word, ft_strsub(line, i, 1 + index), type);
 			i += (1 + index);
 		}
-		else
-			i += ft_word_add(&word, ft_detect_word(line, i), OP_WORD);
+		else if (line[i])
+			i = ft_bs_creator(line, i, &word);
 		while (line[i] == ' ')
 			i++;
 	}
