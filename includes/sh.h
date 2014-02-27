@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:28:19 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/27 19:08:12 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/27 21:06:35 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ enum	e_token
 typedef struct		s_token
 {
 	char			*value;
-	int				type;
+	enum e_token	type;
 	struct s_token	*next;
 }					t_token;
 
@@ -61,7 +61,7 @@ int			is_alpha(char c);
 /*
 **	token.c
 */
-void		add_token(t_token **token, char *value, int type);
+void		add_token(t_token **token, char *value, enum e_token type);
 
 /*
 **	operator.c

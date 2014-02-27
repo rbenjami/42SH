@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/27 19:03:16 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/27 19:03:28 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/27 21:02:32 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-void		add_token(t_token **token, char *value, int type)
+void		add_token(t_token **token, char *value, enum e_token type)
 {
 	t_token	*tmp;
 	t_token	*new_token;
