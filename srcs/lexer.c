@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 15:09:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/27 12:04:21 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/02/27 12:19:53 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,6 @@ t_word		*ft_lexer(char *line)
 	{
 		save = 0;
 		type = ft_find_op(line, &i);
-		write(1, &line[i], 1);
-		if (line[i + 1])
-			write(1, &line[i + 1], 1);
 		if (type >= 0)
 		{
 			index = (type <= 3) ? 1 : 0;
