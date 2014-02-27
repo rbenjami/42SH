@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
+#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/02/27 12:43:27 by dsousa           ###   ########.fr        #
+#    Updated: 2014/02/27 19:07:43 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ include		libft/Makefile.sources
 
 export	CFLAGS	=	-Wall -Wextra -Werror -g
 
-export	CC		=	gcc
+export	CC		=	cc
 
 export	INC		=	-I $(PWD)/libft
 
@@ -29,7 +29,10 @@ SRC_DIR		=	srcs/
 SRC			=	$(SRC_DIR)main.c\
 				$(SRC_DIR)open_check.c\
 				$(SRC_DIR)ft_error.c\
-				$(SRC_DIR)lexer.c
+				$(SRC_DIR)lexer.c\
+				$(SRC_DIR)lexer_is.c\
+				$(SRC_DIR)operator.c\
+				$(SRC_DIR)token.c
 
 OBJ			=	$(SRC:.c=.o)
 

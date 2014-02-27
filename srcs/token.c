@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/02/26 15:40:44 by dsousa            #+#    #+#             */
-/*   Updated: 2014/02/27 17:06:29 by rbenjami         ###   ########.fr       */
+/*   Created: 2014/02/27 19:03:16 by rbenjami          #+#    #+#             */
+/*   Updated: 2014/02/27 19:03:28 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include "sh.h"
 
-/*
-** pour ajouter une erreur : ajoutez une erreur.
-*/
-
-int		ft_error(int error_num, char *name, int program_end)
+void		add_token(t_token **token, char *value, int type)
 {
-	static char		*tbl[3] =
-	{
-		": No such file or directory",
-		": No read right",
-		": Lexer quote"
-	};
+	t_token	*tmp;
+	t_token	*new_token;
 
-	ft_putstr_fd(name, 2);
-	ft_putendl_fd(tbl[error_num], 2);
-	if (program_end == TRUE)
-		exit(0);
-	return (-1);
+	new_token = (t_token *)malloc(sizeof(t_token));
+	if (new_token)
+	{
+		new_token->value = value;
+		new_token->type = type;
+		new_token->next = NULL;
+	}
+	if (!*token)
+		*token = new_token;
+	else
+	{
+		tmp = *token;
+		while ((*token)->next)
+			*token = (*token)->next;
+		(*token)->next = new_token;
+		*token = tmp;
+	}
 }

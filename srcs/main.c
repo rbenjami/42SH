@@ -3,27 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:19:14 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/27 15:02:21 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/02/27 19:06:30 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include "sh.h"
 
+///////////////////	DEBUG !
+
+char* tab_type[4] =
+{
+	"STRING",
+	"DIGIT",
+	"ALPHA",
+	"OPERATOR"
+};
+
+///////////////////	DEBUG !
+
 void	parse_line(char *line)
 {
-	t_word	*word;
-	//open_check(line);
-	word = ft_lexer(line);
-	while (word)
+	t_token	*token;
+
+	token = NULL;
+	lexer(&token, line);
+	//	DEBUG !
+	while (token)
 	{
-		ft_putnbr(word->type);
-		ft_putendl(word->word);
-		word = word->next;
+		ft_putstr("\033[32mTYPE: \033[33m");
+		ft_putstr(tab_type[token->type]);
+		ft_putstr("\033[m : \033[31m");
+		ft_putnbr(token->type);
+		ft_putstr("\n\033[32mVALUE: \033[33m");
+		ft_putendl(token->value);
+		ft_putstr("\n\033[0m");
+		token = token->next;
 	}
+	//	DEBUG !
 }
 
 int		main(void)
