@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:28:19 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 18:35:15 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/27 11:01:28 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int			ft_error(int error_num, char *name, int program_end);
 /*
 **	lexer.c
 */
+
 t_word		*ft_lexer(char *line);
 
 #endif /* !SH_H */

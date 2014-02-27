@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 15:09:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 19:31:37 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/27 12:04:21 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //	ls -a|cat Makefile -e > pok|wc;ls
 //	ls -a|cat > pok -e|wc;ls
 
-void		ft_word_add(t_word **word, char *str, int type)
+int		ft_word_add(t_word **word, char *str, int type)
 {
 	t_word	*tmp;
 	t_word	*new_word;
@@ -37,6 +37,7 @@ void		ft_word_add(t_word **word, char *str, int type)
 		(*word)->next = new_word;
 		*word = tmp;
 	}
+	return (ft_strlen(str));
 }
 
 int			ft_find_op(char *str, int *i)
@@ -60,12 +61,23 @@ int			ft_find_op(char *str, int *i)
 	return (-1);
 }
 
+char	*ft_detect_word(char *line, int i)
+{
+	int		save;
+
+	save = i;
+	while (line[i] == ' ')
+		i++;
+	while (line[i] != ' ')
+		i++;
+	return (ft_strsub(line, save, i - save));
+}
+
 t_word		*ft_lexer(char *line)
 {
 	int		i;
 	int		type;
 	t_word	*word;
-	int		check_bs;
 	int		save;
 	int		index;
 
@@ -74,26 +86,22 @@ t_word		*ft_lexer(char *line)
 	save = 0;
 	while (line[i] != '\0')
 	{
-		check_bs = 0;
-		while (line[i] == '\\')
-		{
-			check_bs = !check_bs;
-			i++;
-		}
+		save = 0;
 		type = ft_find_op(line, &i);
+		write(1, &line[i], 1);
+		if (line[i + 1])
+			write(1, &line[i + 1], 1);
 		if (type >= 0)
 		{
 			index = (type <= 3) ? 1 : 0;
-			if (index)
-				i++;
-			ft_word_add(&word, ft_strsub(line, save, (i - index) - save), OP_WORD);
-			ft_word_add(&word, ft_strsub(line, i - index, 1 + index), type);
-			save = i + 1;
+			ft_word_add(&word, "", OP_WORD);
+			ft_word_add(&word, ft_strsub(line, i, 1 + index), type);
+			i += (1 + index);
 		}
-		else if (line[i + 1] == '\0')
-			ft_word_add(&word, ft_strsub(line, save - index, 1 + index), OP_WORD);
-		i++;
+		else
+			i += ft_word_add(&word, ft_detect_word(line, i), OP_WORD);
+		while (line[i] == ' ')
+			i++;
 	}
 	return (word);
 }
-
