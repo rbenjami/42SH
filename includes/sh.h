@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:28:19 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/28 13:32:20 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/28 14:44:22 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,20 @@ enum	e_token
 	OPERATOR,
 	QUOTE
 };
+
+typedef struct 		s_ast
+{
+	t_token			*tk;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}					t_ast;
+
+typedef struct		s_ctrl
+{
+	t_ast			*ast_start;
+	t_token			*tk_start;
+	char			**env;
+}					t_ctrl;
 
 typedef struct		s_token
 {
