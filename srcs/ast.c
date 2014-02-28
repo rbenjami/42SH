@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/28 14:50:14 by mgarcin           #+#    #+#             */
-/*   Updated: 2014/02/28 15:48:04 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/02/28 17:36:52 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,19 @@ int		ft_insert_left(t_ast **n_node, t_ast **n_to_ins);
 int		ft_insert_right(t_ast **n_node, t_ast **n_to_ins);
 
 
-int		ft_create_tree(t_ctrl *ctrl) // A GENERER SELON TOKENS
+int		ft_create_tree(t_ctrl *ctrl) // A GENERER SELON TOKENS PAS FINI PAS FINI PAS FINI PAS FINI
 {
+	t_ast *tmp;
+
 	if (!ctrl->tk_start)
 		return (-1);
+	if (!ctrl->ast_start)
+	{
+		tmp = (*ctrl)->tk_start;
+		(*ctrl)->start = tk_tmp;
+	}
+	// parcourir le tableau, start reste a nul au depart, aller ds le node de gauche, puis remonter pr mettre le premier op, puis droite, etc
+	tmp = tmp->next;
 	return (0);
 }
 
