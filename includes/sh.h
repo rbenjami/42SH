@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:28:19 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/28 14:44:22 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/02/28 14:56:07 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,27 @@ enum	e_operator
 	OP_WORD
 };
 
+// enum	e_token
+// {
+// 	STRING,
+// 	DIGIT,
+// 	ALPHA,
+// 	OPERATOR,
+// 	QUOTE
+// };
+
 enum	e_token
 {
 	STRING,
-	DIGIT,
-	ALPHA,
-	OPERATOR,
-	QUOTE
+	OPERATOR
 };
+
+typedef struct		s_token
+{
+	char			*value;
+	enum e_token	type;
+	struct s_token	*next;
+}					t_token;
 
 typedef struct 		s_ast
 {
@@ -49,13 +62,6 @@ typedef struct		s_ctrl
 	t_token			*tk_start;
 	char			**env;
 }					t_ctrl;
-
-typedef struct		s_token
-{
-	char			*value;
-	enum e_token	type;
-	struct s_token	*next;
-}					t_token;
 
 void		open_check(char *path);
 int			ft_error(int error_num, char *name, int program_end);
@@ -86,6 +92,6 @@ int			find_op(char *str);
 /*
 **	getenv.c
 */
-char	*ft_getenv(const char *name);
+char		*ft_getenv(const char *name);
 
 #endif /* !SH_H */

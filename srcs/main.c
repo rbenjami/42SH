@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:19:14 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/28 13:33:05 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/02/28 14:56:21 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,10 @@
 
 ///////////////////	DEBUG !
 
-char* tab_type[5] =
+char* tab_type[2] =
 {
 	"STRING",
-	"DIGIT",
-	"ALPHA",
-	"OPERATOR",
-	"QUOTE"
+	"OPERATOR"
 };
 
 ///////////////////	DEBUG !
