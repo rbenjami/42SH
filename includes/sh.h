@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:28:19 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/27 21:06:35 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/02/28 13:28:54 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,10 @@ void		add_token(t_token **token, char *value, enum e_token type);
 **	operator.c
 */
 int			find_op(char *str);
+
+/*
+**	getenv.c
+*/
+char	*ft_getenv(const char *name);
 
 #endif /* !SH_H */

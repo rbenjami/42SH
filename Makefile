@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
+#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/02/27 19:07:43 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/02/28 13:28:07 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC			=	$(SRC_DIR)main.c\
 				$(SRC_DIR)lexer.c\
 				$(SRC_DIR)lexer_is.c\
 				$(SRC_DIR)operator.c\
+				$(SRC_DIR)getenv.c\
 				$(SRC_DIR)token.c
 
 OBJ			=	$(SRC:.c=.o)
