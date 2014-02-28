@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
+#    By: tdeniset <tdeniset@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/02/28 13:28:07 by dsousa           ###   ########.fr        #
+#    Updated: 2014/02/28 15:28:34 by tdeniset         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,14 +26,17 @@ HEAD		=	includes/sh.h
 
 SRC_DIR		=	srcs/
 
-SRC			=	$(SRC_DIR)main.c\
-				$(SRC_DIR)open_check.c\
-				$(SRC_DIR)ft_error.c\
-				$(SRC_DIR)lexer.c\
-				$(SRC_DIR)lexer_is.c\
-				$(SRC_DIR)operator.c\
-				$(SRC_DIR)getenv.c\
-				$(SRC_DIR)token.c
+FILES		=	main.c\
+				open_check.c\
+				ft_error.c\
+				lexer.c\
+				lexer_is.c\
+				operator.c\
+				getenv.c\
+				token.c\
+				42sh_init.c
+
+SRC			=	$(addprefix $(SRC_DIR)/, $(FILES))
 
 OBJ			=	$(SRC:.c=.o)
 
