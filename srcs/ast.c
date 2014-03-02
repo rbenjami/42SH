@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/28 14:50:14 by mgarcin           #+#    #+#             */
-/*   Updated: 2014/03/02 15:32:06 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/02 17:18:04 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,35 @@ typedef struct		s_token
 }					t_token;
 */
 
-int		ft_create_tree(t_ctrl *ctrl);
+int		ft_fill_tree(t_ctrl *ctrl);
 int		ft_swap_node_right(t_ast **n_to_swap);
 int		ft_swap_node_left(t_ast **n_to_swap);
 int		ft_insert_left(t_ast **n_node, t_ast **n_to_ins);
 int		ft_insert_right(t_ast **n_node, t_ast **n_to_ins);
 
 
-int		ft_create_tree(t_ctrl *ctrl) // A GENERER SELON TOKENS PAS FINI PAS FINI PAS FINI PAS FINI
+int		ft_create_tree(t_ctrl *ctrl)
 {
-	t_ast *tmp;
+	t_token	*token;
 
-	if (!ctrl->tk_start)
+	token = tk_start;
+	if (token)
 		return (-1);
-	if (!ctrl->ast_start)
+	while (token)
 	{
-		tmp = (*ctrl)->tk_start;
-		(*ctrl)->start = tk_tmp;
+		ft_fill_tree(ctrl, token);
+		token = token->next;
+	}
+}
+
+int		ft_fill_tree(t_ctrl *ctrl, t_token *token) // A GENERER SELON TOKENS PAS FINI PAS FINI PAS FINI PAS FINI
+{
+	t_ast 	*tmp;
+
+	if (token->type == )
+	if (ctrl->ast_start->left)
+	{
+
 	}
 	// parcourir le tableau, start reste a nul au depart, aller ds le node de gauche, puis remonter pr mettre le premier op, puis droite, etc
 	tmp = tmp->next;
