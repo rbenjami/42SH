@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:19:14 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/28 17:49:02 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/02 16:41:47 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,20 @@ void	parse_line(char *line)
 int		main(void)
 {
 	char		*line;
+	t_ctrl_h	ctrl;
 	t_hist		hist;
 
-	creat_hist(&hist);
+	ctrl.start = &hist;
+	creat_hist(&ctrl);
 	while (1)
 	{
 		ft_putstr("~> ");
 		get_next_line(1, &line);
-		save_hist(hist.start, line, 1);
+		save_hist(ctrl.start, line, 1, &ctrl);
 		if (ft_strcmp(line, "history -c") == 0)
-			builtin_history_c(hist.start);
+			builtin_history_c(ctrl.start);
 		else if (ft_strcmp(line, "history") == 0)
-			builtin_history(hist.start);
+			builtin_history(ctrl.last, &ctrl);
 		if (line[0] != '\0')
 			parse_line(line);
 		free(line);

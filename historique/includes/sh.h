@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:28:19 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/28 17:48:41 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/02 16:33:09 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,15 @@ typedef struct			s_hist
 	char				*data;
 	struct s_hist		*next;
 	struct s_hist		*prev;
-	struct s_hist		*start;
-	struct s_hist		*last;
 	int					new;
 }						t_hist;
+
+typedef struct			s_ctrl_h
+{
+	struct s_hist		*start;
+	struct s_hist		*last;
+	char				**env;
+}						t_ctrl_h;
 
 void		open_check(char *path);
 int			ft_error(int error_num, char *name, int program_end);
@@ -87,13 +92,13 @@ char		*ft_getenv(const char *name);
 /*
 **	histfile.c
 */
-void		creat_hist(t_hist *hist);
-void		save_hist(t_hist *hist, char *line, int new);
+void		creat_hist(t_ctrl_h *ctrl);
+void		save_hist(t_hist *hist, char *line, int new, t_ctrl_h *ctrl);
 
 /*
 ** history.c
 */
-void	builtin_history_c(t_hist *start);
-void	builtin_history(t_hist *hist);
+void		builtin_history_c(t_hist *start);
+void		builtin_history(t_hist *hist, t_ctrl_h *ctrl);
 
 #endif /* !SH_H */
