@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/28 14:50:14 by mgarcin           #+#    #+#             */
-/*   Updated: 2014/03/02 18:42:59 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/02 19:57:03 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		ft_insert_left(t_ast **n_node, t_ast **n_to_ins);
 int		ft_insert_right(t_ast **n_node, t_ast **n_to_ins);
 
 
-int		ft_create_tree(t_ctrl *ctrl)
+int		ft_create_tree(t_ctrl **ctrl)
 {
 	t_token	*token;
 
@@ -54,25 +54,39 @@ int		ft_create_tree(t_ctrl *ctrl)
 	}
 }
 
-int		ft_fill_tree(t_ctrl *ctrl, t_token *token) // A GENERER SELON TOKENS PAS FINI PAS FINI PAS FINI PAS FINI
+int		ft_fill_tree(t_ctrl **ctrl, t_token *token) // A GENERER SELON TOKENS PAS FINI PAS FINI PAS FINI PAS FINI
 {
 	t_ast 	*tmp;
 
 	tmp = ctrl->ast_start;
 	if (token->type == OPERATOR)
 	{
-		if (tmp)
+		if (tmp && tmp->type == OPERATOR)
 		{
 			while (tmp->right->tk)
 				tmp = tmp->right;
 			tmp->right->tk = token;
+		}
+		else if (tmp && tmp->type == STRING)
+		{
+			ft_swap_node_left(ctrl->ast_start);
+			ctrl->ast_start->tk = token;
 		}
 		else
 			ctrl->ast_start->tk = token;
 	} // DONE
 	else if (token->type == STRING)
 	{
-		if (ctrl->ast_start->left && !ctrl->ast_start->ctr)
+		if (tmp->tk->type == STRING && !tmp->tk->left) // gauche puis centre puis droite
+		{
+			ctrl->ast_start->tk = token;
+			ft_swap_node_left(ctrl->ast_start);
+		}
+		if (tmp->tk->type == OPERATEUR)
+		{
+			if (tmp->tk->left->type) // damnit
+
+		}
 	{
 	else
 	{
