@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/28 14:50:14 by mgarcin           #+#    #+#             */
-/*   Updated: 2014/03/02 17:18:04 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/02 18:42:59 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,30 @@ int		ft_fill_tree(t_ctrl *ctrl, t_token *token) // A GENERER SELON TOKENS PAS FI
 {
 	t_ast 	*tmp;
 
-	if (token->type == )
-	if (ctrl->ast_start->left)
+	tmp = ctrl->ast_start;
+	if (token->type == OPERATOR)
 	{
-
+		if (tmp)
+		{
+			while (tmp->right->tk)
+				tmp = tmp->right;
+			tmp->right->tk = token;
+		}
+		else
+			ctrl->ast_start->tk = token;
+	} // DONE
+	else if (token->type == STRING)
+	{
+		if (ctrl->ast_start->left && !ctrl->ast_start->ctr)
+	{
+	else
+	{
+		ft_putendl("Error token type\n")
+		return (-1)
 	}
 	// parcourir le tableau, start reste a nul au depart, aller ds le node de gauche, puis remonter pr mettre le premier op, puis droite, etc
 	tmp = tmp->next;
+	}
 	return (0);
 }
 

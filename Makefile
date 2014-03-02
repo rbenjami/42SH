@@ -6,7 +6,7 @@
 #    By: tdeniset <tdeniset@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/02/28 15:28:34 by tdeniset         ###   ########.fr        #
+#    Updated: 2014/03/02 18:31:38 by mgarcin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,7 @@ FILES		=	main.c\
 				lexer_is.c\
 				operator.c\
 				getenv.c\
-				token.c\
-				42sh_init.c
+				token.c
 
 SRC			=	$(addprefix $(SRC_DIR)/, $(FILES))
 
