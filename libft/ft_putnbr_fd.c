@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/20 11:50:44 by rbenjami          #+#    #+#             */
-/*   Updated: 2013/11/20 11:50:54 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/03 17:23:44 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,5 @@ void	ft_putnbr_fd(int n, int fd)
 
 	nbr = ft_itoa(n);
 	ft_putstr_fd(nbr, fd);
+	free(nbr);
 }

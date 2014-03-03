@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/03 17:18:08 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/03 20:40:13 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,23 @@ int			collect_string(t_token **token, char *line)
 {
 	int		i;
 	char	*str;
+	int		quote;
+	char	q;
 
 	i = 0;
-	while (line[i] && !is_operator(line[i]))
+	quote = 0;
+	q = 0;
+	while (line[i] && (!is_operator(line[i]) || quote))
+	{
+		if (line[i] == '\\')
+			i++;
+		if (is_quote(line[i]) && (line[i] == q || q == 0))
+		{
+			q = line[i];
+			quote = !quote;
+		}
 		i++;
+	}
 	str = ft_strsub(line, 0, i);
 	add_token(token, str, STRING);
 	ft_strdel(&str);
@@ -46,7 +59,9 @@ void		lexer(t_token **token, char *line)
 	i = 0;
 	while (is_space(line[i]))
 		i++;
-	if (is_operator(line[i]))
+	if (line[i] == '\\')
+		i++;
+	else if (is_operator(line[i]))
 		i += collect_operator(token, &line[i]);
 	else if (line[i] != '\0')
 		i += collect_string(token, &line[i]);
@@ -72,8 +87,28 @@ void	DEBUG(t_token *token)
 		ft_putnbr(token->type);
 		ft_putstr("\n\033[32mVALUE: \033[33m");
 		ft_putendl(token->value);
-		ft_putstr("\n\033[0m");
+		ft_putstr("\033[32mPRIORITY: \033[33m");
+		ft_putnbr(token->prio);
+		ft_putstr("\n\n\033[0m");
 		token = token->next;
+	}
+}
+
+void	DEBUG2(t_ast *tree)
+{
+	if (tree)
+	{
+		ft_putstr("\033[32mTYPE: \033[33m");
+		ft_putstr(tab_type[tree->tk->type]);
+		ft_putstr("\033[m : \033[31m");
+		ft_putnbr(tree->tk->type);
+		ft_putstr("\n\033[32mVALUE: \033[33m");
+		ft_putendl(tree->tk->value);
+		ft_putstr("\033[32mPRIORITY: \033[33m");
+		ft_putnbr(tree->tk->prio);
+		ft_putstr("\n\n\033[0m");
+		// DEBUG2(tree->left);
+		// DEBUG2(tree->right);
 	}
 }
 ///////////////////	DEBUG !
@@ -95,6 +130,7 @@ int		main(void)
 {
 	char		*line;
 	t_token		*token;
+	t_ast		*tree;
 
 	token = NULL;
 	while (1)
@@ -102,8 +138,9 @@ int		main(void)
 		ft_putstr("~> ");
 		get_next_line(0, &line);
 		lexer(&token, line);
+		init_tree(token, &tree);
 		free(line);
-		DEBUG(token);
+		DEBUG2(tree);
 		free_token(&token);
 	}
 	return (0);
