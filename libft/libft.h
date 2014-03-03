@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 12:21:39 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/26 13:34:15 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/03 15:10:10 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s);
 char	**ft_strsplit(char const *s, char c);
+char	**ft_strsplit_space(char *str);
 char	*ft_itoa(int n);
 void	ft_putchar(char c);
 void	ft_putstr(char const *s);
@@ -89,5 +90,7 @@ void	ft_strtolower(char *str);
 void	ft_strtouper(char *str);
 
 int		get_next_line(int fd, char **line);
+size_t	ft_tablen(char **tab);
+void	ft_free_tab(char ***tab);
 
 #endif	/* !LIBFT_H */

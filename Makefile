@@ -6,8 +6,7 @@
 #    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/02 18:59:07 by rbenjami         ###   ########.fr        #
-#    Updated: 2014/03/02 18:31:38 by mgarcin          ###   ########.fr        #
+#    Updated: 2014/03/03 15:58:56 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +27,7 @@ HEAD		=	includes/sh.h
 SRC_DIR		=	srcs/
 
 FILES		=	main.c\
-				open_check.c\
-				ft_error.c\
-				lexer.c\
-				lexer_is.c\
-				operator.c\
-				getenv.c\
-				token.c
+
 
 SRC			=	$(addprefix $(SRC_DIR)/, $(FILES))
 

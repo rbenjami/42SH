@@ -74,4 +74,7 @@ SRC_LIB		=	ft_isascii.c		\
 				ft_strtolower.c		\
 				ft_strtoupper.c		\
 				ft_atod.c			\
+				ft_strsplit_space.c	\
+				ft_tablen.c			\
+				ft_free_tab.c		\
 				get_next_line.c
