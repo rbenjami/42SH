@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
+#    By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/03 15:58:56 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/03/03 16:43:12 by mgarcin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ HEAD		=	includes/sh.h
 SRC_DIR		=	srcs/
 
 FILES		=	main.c\
+				lexer_is.c\
+				token.c
 
 
 SRC			=	$(addprefix $(SRC_DIR)/, $(FILES))
