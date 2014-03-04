@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/04 17:51:59 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/04 19:18:42 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,8 @@ void	free_ast(t_ast **tree)
 	{
 		free_ast(&(*tree)->left);
 		free_ast(&(*tree)->right);
-	//	ft_putstr("delete : ");
-	//	ft_putendl((*tree)->tk->value);
+		// ft_putstr("delete : ");
+		// ft_putendl((*tree)->tk->value);
 		free((*tree)->tk->value);
 		(*tree)->tk->value = NULL;
 		free((*tree)->tk);
@@ -164,9 +164,10 @@ int		main(void)
 		lexer(&token, line);
 		free(line);
 		fill_tree(token, &tree);
-		resolve_tree(tree);
-		// DEBUG2(tree);
+		// resolve_tree(tree);
+		DEBUG2(tree);
 		free_ast(&tree);
+		tree = NULL;
 		token = NULL;
 	}
 	return (0);

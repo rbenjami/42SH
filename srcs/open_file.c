@@ -6,13 +6,17 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:04:17 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/04 17:05:01 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/04 17:36:26 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "sh.h"
 
 int		open_file(char *file, int flags)
 {
 
+}
+
+int main(int argc, char const *argv[])
+{
+	/* code */
+	return 0;
 }

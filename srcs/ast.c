@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/04 18:09:24 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/04 19:42:06 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@
 //	struct s_ast	*father;
 // }					t_ast;
 
-void	resolve_tree(t_ast *tree)
+int		open_fd(char *)
+{
+
+}
+
+void	resolve_tree(t_ast *tree, int fd[2])
 {
 	int				ind;
 	static op_func	*tab_op = NULL;
@@ -36,10 +41,17 @@ void	resolve_tree(t_ast *tree)
 		init_op(&tab_op);
 	if (tree)
 	{
-		if (!tree->right && !tree->left)
-			execute(tree->tk->value);
-		if ((ind = ft_ind_op(tree->tk->value)) != -1)
-			tab_op[ind](tree->left, tree->right);
+		fd = open_fd(tree->tk->value);
+		if (tree->right->tk->prio == 0 && tree->left->tk->prio == 0)
+		{
+			if ((ind = ft_ind_op(tree->tk->value)) != -1)
+				tab_op[ind](tree->left, tree->right);
+			// execute(tree->tk->value);
+		}
+		// resolve_tree(tree->left);
+		// resolve_tree(tree->right);
+		// if ((ind = ft_ind_op(tree->tk->value)) != -1)
+		// 	tab_op[ind](tree->left, tree->right);
 	}
 }
 
@@ -92,7 +104,7 @@ void		fill_tree(t_token *tk, t_ast **tree)
 	start_tk = tk;
 	while (tk)
 	{
-		if (tk->prio > tmp_t->prio)
+		if (tk->prio >= tmp_t->prio)
 			tmp_t = tk;
 		tk = tk->next;
 	}
