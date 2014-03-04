@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/04 17:18:12 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/04 17:51:59 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,24 +152,21 @@ int		main(void)
 	char		*line;
 	t_token		*token;
 	t_ast		*tree;
-	op_func		*tab_op;
-	int			ind;
 
 	token = NULL;
 	tree = NULL;
-	init_op(&tab_op);
 	while (1)
 	{
 		ft_putstr("~> ");
 		if (get_next_line(0, &line) <= 0)
 			exit(0);
-		if ((ind = ft_ind_op(line)) != -1)
-			tab_op[ind](NULL, NULL);
-		// lexer(&token, line);
-		// fill_tree(token, &tree);
+		// execute(line);
+		lexer(&token, line);
 		free(line);
+		fill_tree(token, &tree);
+		resolve_tree(tree);
 		// DEBUG2(tree);
-		// free_ast(&tree);
+		free_ast(&tree);
 		token = NULL;
 	}
 	return (0);

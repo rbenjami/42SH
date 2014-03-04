@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/04 15:34:36 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/04 18:09:24 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,22 @@
 // 	struct s_ast	*right;
 //	struct s_ast	*father;
 // }					t_ast;
+
+void	resolve_tree(t_ast *tree)
+{
+	int				ind;
+	static op_func	*tab_op = NULL;
+
+	if (!tab_op)
+		init_op(&tab_op);
+	if (tree)
+	{
+		if (!tree->right && !tree->left)
+			execute(tree->tk->value);
+		if ((ind = ft_ind_op(tree->tk->value)) != -1)
+			tab_op[ind](tree->left, tree->right);
+	}
+}
 
 void	ft_add_node(t_ast **tree, t_token *tk)
 {

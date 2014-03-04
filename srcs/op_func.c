@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_func.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 16:04:09 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/04 16:53:16 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/04 18:14:42 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,14 @@ int		op_or(t_ast *left, t_ast *right)
 
 int		op_semi_col(t_ast *left, t_ast *right)
 {
-	(void)left;
-	(void)right;
-	ft_putendl("semi col");
+	if (left && left->tk->prio > 0)
+		resolve_tree(left);
+	if (right && right->tk->prio > 0)
+		resolve_tree(right);
+	if (left && left->tk->prio == 0)
+		execute(left->tk->value);
+	if (right && right->tk->prio == 0)
+		execute(right->tk->value);
 	return(0);
 }
 

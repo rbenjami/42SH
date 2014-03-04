@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/04 17:12:48 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/04 18:08:19 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ int		execute(char *cmd)
 	if ((pid = fork()) < 0)
 		return (error("fork error !", NULL));
 	if (pid == 0)
-		execve(path, args, environ);
+	{
+		if (execve(path, args, environ) == -1)
+			exit(0);
+	}
 	else
 		waitpid(pid, 0, 0);
 	return (1);

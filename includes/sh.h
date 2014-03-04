@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/04 17:19:29 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/04 17:49:40 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,7 @@ int		op_semi_col(t_ast *left, t_ast *right);
 int		op_bin_and(t_ast *left, t_ast *right);
 
 int		execute(char *cmd);
+
+void	resolve_tree(t_ast *tree);
 
 #endif /* !SH_H */
