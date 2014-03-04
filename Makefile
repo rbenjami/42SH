@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
+#    By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/04 16:36:05 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/03/04 17:22:27 by smakroum         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ FILES		=	main.c\
 				ast.c\
 				token.c\
 				execute.c\
-				error.c
+				error.c\
+				op_func.c\
+				find_op.c
 
 
 SRC			=	$(addprefix $(SRC_DIR)/, $(FILES))
