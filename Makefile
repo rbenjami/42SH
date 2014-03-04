@@ -6,7 +6,7 @@
 #    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/04 15:35:44 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/03/04 16:36:05 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,9 @@ SRC_DIR		=	srcs/
 FILES		=	main.c\
 				lexer_is.c\
 				ast.c\
-				token.c
+				token.c\
+				execute.c\
+				error.c
 
 
 SRC			=	$(addprefix $(SRC_DIR)/, $(FILES))

@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:28:19 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/04 15:31:56 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/04 16:37:10 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct		s_ast
 	struct s_ast	*father;
 }					t_ast;
 
+int		error(const char *s1, char *s2);
 
 int		is_operator(char c);
 int		is_space(char c);
@@ -46,5 +47,7 @@ void	add_token(t_token **token, char *value, enum e_token);
 
 void	fill_tree(t_token *tk, t_ast **tree);
 int		init_tree(t_token *tk, t_ast **tree);
+
+int		execute(char *cmd);
 
 #endif /* !SH_H */
