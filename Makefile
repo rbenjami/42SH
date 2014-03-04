@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+         #
+#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/04 15:25:18 by smakroum         ###   ########.fr        #
+#    Updated: 2014/03/04 15:35:44 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC_DIR		=	srcs/
 
 FILES		=	main.c\
 				lexer_is.c\
-				ast2.c\
+				ast.c\
 				token.c
 
 

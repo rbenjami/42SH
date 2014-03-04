@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/26 13:28:19 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/03 20:09:30 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/04 15:31:56 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		is_alpha(char c);
 
 void	add_token(t_token **token, char *value, enum e_token);
 
-int		fill_tree(t_token *tk, t_ast **tree);
+void	fill_tree(t_token *tk, t_ast **tree);
 int		init_tree(t_token *tk, t_ast **tree);
 
 #endif /* !SH_H */

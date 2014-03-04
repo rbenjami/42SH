@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/04 15:04:25 by smakroum         ###   ########.fr       */
+/*   Created: 2014/03/03 17:24:53 by mgarcin           #+#    #+#             */
+/*   Updated: 2014/03/04 15:34:39 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,66 +27,56 @@
 //	struct s_ast	*father;
 // }					t_ast;
 
-void	ft_add_node(t_ast **tree, t_token *tk)
+t_ast	*ft_malloc_n(t_ast *father, t_token *tk)
 {
-	*tree = (t_ast *)malloc(sizeof(t_ast));
-	if (*tree)
-	{
-		(*tree)->tk = tk;
-		(*tree)->left = NULL;
-		(*tree)->right = NULL;
-	}
+	t_ast	*new_tree;
+
+	new_tree = (t_ast *)malloc(sizeof(t_ast));
+	if (!new_tree)
+		return (NULL);
+	new_tree->father = father;
+	new_tree->tk = tk;
+	new_tree->left = NULL;
+	new_tree->right = NULL;
+	return (new_tree);
 }
 
-///////////////////	DEBUG !
-
-void		ft_putlst(t_token *tk)
+void	ft_add_node(t_token *start, t_token *tk, t_ast **tree)
 {
-	while (tk && tk->next)
-	{
-		ft_putstr(tk->value);
-		ft_putstr(" -> ");
-		tk = tk->next;
-	}
-	if (tk)
-		ft_putendl(tk->value);
+	(*tree)->tk = tk;
+	if ((*tree)->tk != start)
+		(*tree)->left = ft_malloc_n(*tree, start);
+	if ((*tree)->tk->next != NULL)
+		(*tree)->right = ft_malloc_n(*tree, tk->next);
 }
-///////////////////	END DEBUG !
 
-t_token		*ft_lstsub(t_token *start_tk, t_token *tmp_t)
+int		init_tree(t_token *tk, t_ast **tree)
 {
-	t_token	*new_lst;
-
-	new_lst = start_tk;
-	while (start_tk && start_tk->next != tmp_t)
-		start_tk = start_tk->next;
-	if (start_tk)
-		start_tk->next = NULL;
-	return (new_lst);
+	if (!tk)
+		return (-1);
+	if (!(*tree))
+		(*tree) = ft_malloc_n(NULL, NULL);
+	fill_tree(tk, tree);
+	return (0);
 }
 
 int		fill_tree(t_token *tk, t_ast **tree)
 {
 	t_token *tmp_t;
 	t_token *start_tk;
-	t_token *left;
-	t_token *right;
 
-	tmp_t = tk;
 	start_tk = tk;
-	while (tk)
+	tmp_t = tk;
+	while (tk && (*tree)->father && (*tree)->father->tk != tk) // ICI < --------------------------------------------------------
 	{
 		if (tk->prio > tmp_t->prio)
 			tmp_t = tk;
 		tk = tk->next;
 	}
-	if (tmp_t)
-		ft_add_node(tree, tmp_t);
-	right = (tmp_t) ? tmp_t->next : tmp_t;
-	left = ft_lstsub(start_tk, tmp_t);
+	ft_add_node(start_tk, tmp_t, tree);
 	if (start_tk != tmp_t)
-		fill_tree(left, &(*tree)->left);
-	if (right)
-	 	fill_tree(right, &(*tree)->right);
+		return (fill_tree(start_tk, &(*tree)->left));
+	if (tmp_t->next)
+		return (fill_tree(tmp_t->next, &(*tree)->right));
 	return (0);
 }
