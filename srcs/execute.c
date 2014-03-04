@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/04 16:45:22 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/04 17:12:48 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <fcntl.h>
 #include "sh.h"
 
-int		ft_find_arg_path(void)
+int		find_arg_path(void)
 {
 	int				i;
 	extern char		**environ;
@@ -75,7 +75,7 @@ char	*find_path(char *cmd, char **environ)
 	stat(cmd, &s);
 	if ((s.st_mode & S_IFREG) && cmd[0] == '/')
 		return (cmd);
-	i = ft_find_arg_path();
+	i = find_arg_path();
 	if (i == -1)
 		return (NULL);
 	path = ft_strsplit(&environ[i][5], ':');
