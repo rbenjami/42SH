@@ -6,7 +6,7 @@
 #    By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/04 15:06:54 by smakroum         ###   ########.fr        #
+#    Updated: 2014/03/04 15:25:18 by smakroum         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ SRC_DIR		=	srcs/
 
 FILES		=	main.c\
 				lexer_is.c\
-				#ast.c\
 				ast2.c\
 				token.c
 
@@ -46,7 +45,7 @@ HEAD_LIB	=	libft/libft.h libft/get_next_line.h libft/define_type.h
 all:			libft.a $(NAME)
 
 libft.a:		libft/$(OBJ_LIB) $(HEAD_LIB)
-	@Make -C libft
+	@make -C libft
 
 $(NAME):		$(OBJ)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
@@ -66,8 +65,7 @@ clean:
 fclean:			clean
 	@/bin/rm -f $(NAME)
 	@echo "\033[31m"$(NAME) : deleted"\033[0m"
-	@Make fclean -C libft
-
+	@make fclean -C libft
 re:				fclean all
 
 .PHONY:			all clean fclean re
