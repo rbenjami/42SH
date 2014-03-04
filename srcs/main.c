@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/03 20:40:13 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/04 15:05:32 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ void	DEBUG2(t_ast *tree)
 		ft_putstr("\033[32mPRIORITY: \033[33m");
 		ft_putnbr(tree->tk->prio);
 		ft_putstr("\n\n\033[0m");
-		// DEBUG2(tree->left);
-		// DEBUG2(tree->right);
+		DEBUG2(tree->left);
+		DEBUG2(tree->right);
 	}
 }
 ///////////////////	DEBUG !
@@ -121,8 +121,29 @@ void	free_token(t_token **token)
 	{
 		tmp = *token;
 		*token = (*token)->next;
-		ft_strdel(&tmp->value);
-		ft_memdel((void **)&tmp);
+		free(tmp->value);
+		tmp->value = NULL;
+		//ft_strdel(&tmp->value);
+		free(tmp);
+		tmp = NULL;
+	}
+		//ft_memdel((void **)&tmp);
+}
+
+void	free_ast(t_ast **tree)
+{
+	if (*tree)
+	{
+		free_ast(&(*tree)->left);
+		free_ast(&(*tree)->right);
+	//	ft_putstr("delete : ");
+	//	ft_putendl((*tree)->tk->value);
+		free((*tree)->tk->value);
+		(*tree)->tk->value = NULL;
+		free((*tree)->tk);
+		(*tree)->tk = NULL;
+		free(*tree);
+		*tree = NULL;
 	}
 }
 
@@ -133,15 +154,19 @@ int		main(void)
 	t_ast		*tree;
 
 	token = NULL;
+	tree = NULL;
 	while (1)
 	{
 		ft_putstr("~> ");
-		get_next_line(0, &line);
+		if (get_next_line(0, &line) <= 0)
+			exit(0);
 		lexer(&token, line);
-		init_tree(token, &tree);
+		//init_tree(token, &tree);
+		fill_tree(token, &tree);
 		free(line);
 		DEBUG2(tree);
-		free_token(&token);
+		free_ast(&tree);
+		token = NULL;
 	}
 	return (0);
 }
