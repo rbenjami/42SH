@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/04 19:42:06 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/05 17:06:45 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,50 @@
 //	struct s_ast	*father;
 // }					t_ast;
 
-int		open_fd(char *)
-{
+// int		open_fd(char *)
+// {
 
+// }
+void	ft_pipe(t_ast *tree, int pfd_old[2])
+{
+	int		pfd[2];
+	pid_t		pid;
+
+	if (pipe(pfd) != -1)
+	{
+		execute(tree->left->tk->value, pfd_old, pfd, 1);
+		if (pfd_old)
+		{
+			close(pfd_old[0]);
+			close(pfd_old[1]);
+		}
+		if (tree->right && tree->right->tk->prio > 0)
+			resolve_tree(tree->right, pfd);
+		else
+		{
+			pid = execute(tree->right->tk->value, NULL, pfd, 0);
+			close(pfd[0]);
+			close(pfd[1]);
+			waitpid(pid, 0, 0);
+		}
+	}
 }
 
-void	resolve_tree(t_ast *tree, int fd[2])
+void	resolve_tree(t_ast *tree, int pfd_old[2])
 {
-	int				ind;
-	static op_func	*tab_op = NULL;
-
-	if (!tab_op)
-		init_op(&tab_op);
 	if (tree)
 	{
-		fd = open_fd(tree->tk->value);
-		if (tree->right->tk->prio == 0 && tree->left->tk->prio == 0)
-		{
-			if ((ind = ft_ind_op(tree->tk->value)) != -1)
-				tab_op[ind](tree->left, tree->right);
-			// execute(tree->tk->value);
-		}
-		// resolve_tree(tree->left);
-		// resolve_tree(tree->right);
-		// if ((ind = ft_ind_op(tree->tk->value)) != -1)
-		// 	tab_op[ind](tree->left, tree->right);
+		if (ft_ind_op(tree->tk->value) == -1)
+			waitpid(execute(tree->tk->value, NULL, NULL, 0), 0, 0);
+		else if (ft_ind_op(tree->tk->value) == 4)
+			ft_pipe(tree, pfd_old);
+		// else
+		// {
+		// 	resolve_tree(tree->left);
+		// 	resolve_tree(tree->right);
+		// 	 if (tree->tk->prio == 0)
+		// 		execute(tree->tk->value);
+		// }
 	}
 }
 
@@ -104,7 +123,7 @@ void		fill_tree(t_token *tk, t_ast **tree)
 	start_tk = tk;
 	while (tk)
 	{
-		if (tk->prio >= tmp_t->prio)
+		if (tk->prio > tmp_t->prio)
 			tmp_t = tk;
 		tk = tk->next;
 	}

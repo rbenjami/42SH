@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/04 19:18:42 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/05 16:09:44 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,10 +162,11 @@ int		main(void)
 			exit(0);
 		// execute(line);
 		lexer(&token, line);
+		// DEBUG(token);
 		free(line);
 		fill_tree(token, &tree);
-		// resolve_tree(tree);
-		DEBUG2(tree);
+		resolve_tree(tree, NULL);
+		// DEBUG2(tree);
 		free_ast(&tree);
 		tree = NULL;
 		token = NULL;

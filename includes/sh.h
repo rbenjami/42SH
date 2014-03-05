@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/04 17:49:40 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/05 16:10:51 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ int		op_or(t_ast *left, t_ast *right);
 int		op_semi_col(t_ast *left, t_ast *right);
 int		op_bin_and(t_ast *left, t_ast *right);
 
-int		execute(char *cmd);
+pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b);
+// void		execute(char *cmd, int in, int out);
 
-void	resolve_tree(t_ast *tree);
+void	resolve_tree(t_ast *tree, int pfd_old[2]);
 
 #endif /* !SH_H */
