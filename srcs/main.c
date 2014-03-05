@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/05 16:09:44 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/05 18:36:48 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ int		main(void)
 		free(line);
 		fill_tree(token, &tree);
 		resolve_tree(tree, NULL);
-		// DEBUG2(tree);
+		//DEBUG2(tree);
 		free_ast(&tree);
 		tree = NULL;
 		token = NULL;

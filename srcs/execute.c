@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/05 16:58:13 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/05 19:45:57 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,10 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 			dup2(pfd[b], b);
 		}
 		if (execve(path, args, environ) == -1)
-			exit(0);
+			exit(1);
 	}
 	ft_free_tab(&args);
 	free(path);
-	//	waitpid(pid, 0, 0);
 	return (pid);
 }
 

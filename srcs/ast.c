@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/05 17:06:45 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/05 19:48:03 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,39 +31,89 @@
 // {
 
 // }
-void	ft_pipe(t_ast *tree, int pfd_old[2])
+pid_t	ft_pipe(t_ast *tree, int pfd_old[2])
 {
 	int		pfd[2];
 	pid_t		pid;
+	char		*line;
 
+	pid = 0;
 	if (pipe(pfd) != -1)
 	{
-		execute(tree->left->tk->value, pfd_old, pfd, 1);
+		if (tree->left)
+		{
+			execute(tree->left->tk->value, pfd_old, pfd, 1);
+			if (pfd_old)
+			{
+				close(pfd_old[0]);
+				close(pfd_old[1]);
+			}
+			if (tree->right && tree->right->tk->prio > 0)
+				resolve_tree(tree->right, pfd);
+			else
+			{
+				if (tree->right)
+					pid = execute(tree->right->tk->value, NULL, pfd, 0);
+				else
+				{
+					ft_putstr("pipe> ");
+					get_next_line(0, &line);
+					pid = execute(line, NULL, pfd, 0);
+					ft_strdel(&line);
+				}
+				close(pfd[0]);
+				close(pfd[1]);
+				//return (pid);
+				//waitpid(pid, 0, 0);
+			}
+		}
+		else
+			error("parse error near `|'", "");
+	}
+	return (pid);
+}
+
+void    ft_redir_right(t_ast *tree, int pfd_old[2])
+{
+	int		pfd[2];
+	int		pid;
+
+	if (tree->right)
+	{
+		pfd[0] = -1;
+		if (tree->right && tree->right->tk->prio > 0)
+			pfd[1] = open(tree->right->tk->value, O_WRONLY | O_CREAT | O_TRUNC, 00644);
+	//	if (tree->right && tree->right->tk->prio == 0)
+		pid = execute(tree->left->tk->value, pfd_old, pfd, 1);
 		if (pfd_old)
 		{
 			close(pfd_old[0]);
 			close(pfd_old[1]);
 		}
-		if (tree->right && tree->right->tk->prio > 0)
-			resolve_tree(tree->right, pfd);
-		else
-		{
-			pid = execute(tree->right->tk->value, NULL, pfd, 0);
-			close(pfd[0]);
-			close(pfd[1]);
-			waitpid(pid, 0, 0);
-		}
+		//waitpid(pid, 0, 0);
+		close(pfd[1]);
 	}
 }
 
 void	resolve_tree(t_ast *tree, int pfd_old[2])
 {
+	int		status;
+	int		pid;
+
+	pid = 0;
 	if (tree)
 	{
 		if (ft_ind_op(tree->tk->value) == -1)
-			waitpid(execute(tree->tk->value, NULL, NULL, 0), 0, 0);
+			pid = execute(tree->tk->value, NULL, NULL, 0);
+		else if (ft_ind_op(tree->tk->value) == 0)
+			ft_redir_right(tree, pfd_old);
+		// else if (ft_ind_op(tree->tk->value) == 5)
+		// 	ft_and(tree, pfd_old);
 		else if (ft_ind_op(tree->tk->value) == 4)
-			ft_pipe(tree, pfd_old);
+			pid = ft_pipe(tree, pfd_old);
+		waitpid(pid, &status, 0);
+		ft_putnbr(WEXITSTATUS(status));
+		ft_putchar('\n');
 		// else
 		// {
 		// 	resolve_tree(tree->left);

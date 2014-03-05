@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/05 16:10:51 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/05 18:13:13 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SH_H
 # define SH_H
 # include "libft.h"
+# include <fcntl.h>
 
 enum				e_token
 {
@@ -33,7 +34,7 @@ typedef struct		s_ast
 	t_token			*tk;
 	struct s_ast	*left;
 	struct s_ast	*right;
-	struct s_ast	*father;
+//	struct s_ast	*father;
 }					t_ast;
 
 typedef int (*op_func)(t_ast *left, t_ast *rigth);
