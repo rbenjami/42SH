@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/07 13:41:05 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/07 16:20:18 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,9 @@ void	free_token(t_token **token)
 		*token = (*token)->next;
 		free(tmp->value);
 		tmp->value = NULL;
-		//ft_strdel(&tmp->value);
 		free(tmp);
 		tmp = NULL;
 	}
-		//ft_memdel((void **)&tmp);
 }
 
 void	free_ast(t_ast **tree)
@@ -155,6 +153,7 @@ int		main(void)
 
 	token = NULL;
 	tree = NULL;
+	init_op(&tab_op);
 	while (1)
 	{
 		ft_putstr("~> ");

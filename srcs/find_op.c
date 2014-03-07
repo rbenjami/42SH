@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solve_ast.c                                        :+:      :+:    :+:   */
+/*   find_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 16:12:54 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/04 17:22:03 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/07 15:50:43 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 int		ft_ind_op(char *v)
 {
 	if (!ft_strcmp(v, ">"))
-		return (0);
+		return (OP_REDIR_R);
 	if (!ft_strcmp(v, "<"))
-		return (1);
+		return (OP_REDIR_L);
 	if (!ft_strcmp(v, ">>"))
-		return (2);
+		return (OP_2REDIR_R);
 	if (!ft_strcmp(v, "<<"))
-		return (3);
+		return (OP_2REDIR_L);
 	if (!ft_strcmp(v, "|"))
-		return (4);
+		return (OP_PIPE);
 	if (!ft_strcmp(v, "&&"))
-		return (5);
+		return (OP_AND);
 	if (!ft_strcmp(v, "||"))
-		return (6);
+		return (OP_OR);
 	if (!ft_strcmp(v, ";"))
-		return (7);
+		return (OP_SEMI_COL);
 	if (!ft_strcmp(v, "&"))
-		return (8);
+		return (OP_BIN_AND);
 	return (-1);
 }
 
