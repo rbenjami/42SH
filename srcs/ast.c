@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/05 19:48:03 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/07 15:01:03 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@
 //	struct s_ast	*father;
 // }					t_ast;
 
-// int		open_fd(char *)
-// {
-
-// }
 pid_t	ft_pipe(t_ast *tree, int pfd_old[2])
 {
 	int		pfd[2];
@@ -68,7 +64,7 @@ pid_t	ft_pipe(t_ast *tree, int pfd_old[2])
 			}
 		}
 		else
-			error("parse error near `|'", "");
+			error("parse error near `|'", NULL);
 	}
 	return (pid);
 }
@@ -81,7 +77,7 @@ void    ft_redir_right(t_ast *tree, int pfd_old[2])
 	if (tree->right)
 	{
 		pfd[0] = -1;
-		if (tree->right && tree->right->tk->prio > 0)
+		if (tree->right && tree->right->tk->prio == 0)
 			pfd[1] = open(tree->right->tk->value, O_WRONLY | O_CREAT | O_TRUNC, 00644);
 	//	if (tree->right && tree->right->tk->prio == 0)
 		pid = execute(tree->left->tk->value, pfd_old, pfd, 1);
@@ -90,7 +86,7 @@ void    ft_redir_right(t_ast *tree, int pfd_old[2])
 			close(pfd_old[0]);
 			close(pfd_old[1]);
 		}
-		//waitpid(pid, 0, 0);
+		waitpid(pid, 0, 0);
 		close(pfd[1]);
 	}
 }

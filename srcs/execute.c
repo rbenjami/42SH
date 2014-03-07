@@ -3,27 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/05 19:45:57 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/07 15:07:30 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <dirent.h>
-# include <signal.h>
-# include <libft.h>
-# include <sys/stat.h>
-# include <sys/types.h>
-# include <fcntl.h>
+#include <dirent.h>
 #include "sh.h"
 
-int		find_arg_path(void)
+int		find_arg_path(char **environ)
 {
 	int				i;
-	extern char		**environ;
 
 	i = 0;
 	while (environ[i])
@@ -36,55 +28,65 @@ int		find_arg_path(void)
 	return (-1);
 }
 
-char	*find_path2(char *cmd, char **path)
+int			is_dir(char *cmd, char *path)
 {
-	int				i;
-	char			*res;
-	char			*tmp;
 	DIR				*rep;
 	struct dirent	*lecture;
 
-	i = 0;
-	while (path[i])
+	rep = opendir(path);
+	if (rep == NULL)
+		return (-1);
+	lecture = readdir(rep);
+	while (lecture)
 	{
-		rep = opendir(path[i]);
-		if (rep == NULL)
-			return (NULL);
-		lecture = readdir(rep);
-		while (lecture)
+		if (ft_strcmp(cmd, lecture->d_name) == 0)
 		{
-			if (ft_strcmp(cmd, lecture->d_name) == 0)
-			{
-				res = ft_strjoin(path[i], "/");
-				closedir(rep);
-				// FUITE MEM !!!!
-				tmp = ft_strjoin(res, lecture->d_name);
-				free(res);
-				return (tmp);
-			}
-			lecture = readdir(rep);
+			closedir(rep);
+			return (1);
 		}
-		closedir(rep);
-		i++;
+		lecture = readdir(rep);
 	}
-	ft_free_tab(&path);
+	closedir(rep);
 	return (0);
 }
 
-char	*find_path(char *cmd, char **environ)
+char		*find_path(char *cmd, char **environ, int i)
 {
-	struct stat		s;
-	char			**path;
-	int				i;
+	static char	**path = NULL;
+	char		*res;
+	char		*tmp;
+	int			j;
 
-	stat(cmd, &s);
-	if ((s.st_mode & S_IFREG) && cmd[0] == '/')
-		return (cmd);
-	i = find_arg_path();
 	if (i == -1)
 		return (NULL);
-	path = ft_strsplit(&environ[i][5], ':');
-	return (find_path2(cmd, path));
+	j = 0;
+	if (!path)
+		path = ft_strsplit(&environ[i][5], ':');
+	while (path[j])
+	{
+		if (is_dir(cmd, path[j]) == 1)
+		{
+			tmp = ft_strjoin(path[j], "/");
+			res = ft_strjoin(tmp, cmd);
+			free(tmp);
+			return (res);
+		}
+		j++;
+	}
+	return (NULL);
+}
+
+void		dup_close(int *pfd, int *pfd_old, int b)
+{
+	if (pfd_old && b)
+	{
+		close(pfd_old[b]);
+		close(!b);
+		dup2(pfd_old[!b], !b);
+	}
+	close(pfd[!b]);
+	close(b);
+	dup2(pfd[b], b);
 }
 
 pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
@@ -95,7 +97,7 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 	pid_t			pid;
 
 	args = ft_strsplit(cmd, ' ');
-	path = find_path(args[0], environ);
+	path = find_path(args[0], environ, find_arg_path(environ));
 	if (!path)
 		error("command not found: ", cmd);
 	if ((pid = fork()) < 0)
@@ -103,17 +105,7 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 	if (pid == 0)
 	{
 		if (pfd || pfd_old)
-		{
-			if (pfd_old && b)
-			{
-				close(pfd_old[b]);
-				close(!b);
-				dup2(pfd_old[!b], !b);
-			}
-			close(pfd[!b]);
-			close(b);
-			dup2(pfd[b], b);
-		}
+			dup_close(pfd, pfd_old, b);
 		if (execve(path, args, environ) == -1)
 			exit(1);
 	}
@@ -121,35 +113,3 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 	free(path);
 	return (pid);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
