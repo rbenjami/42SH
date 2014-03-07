@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/07 16:20:18 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/07 18:53:01 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ int			collect_string(t_token **token, char *line)
 		i++;
 	}
 	str = ft_strsub(line, 0, i);
-	add_token(token, str, STRING);
-	ft_strdel(&str);
+	if (str[0])
+	{
+		add_token(token, str, STRING);
+		ft_strdel(&str);
+	}
 	return (i - 1);
 }
 
@@ -48,8 +51,11 @@ int			collect_operator(t_token **token, char *line)
 	while (is_operator(line[i]))
 		i++;
 	str = ft_strsub(line, 0, i);
-	add_token(token, str, OPERATOR);
-	ft_strdel(&str);
+	if (str[0])
+	{
+		add_token(token, str, OPERATOR);
+		ft_strdel(&str);
+	}
 	return (i - 1);
 }
 void		lexer(t_token **token, char *line)
@@ -151,11 +157,11 @@ int		main(void)
 	t_token		*token;
 	t_ast		*tree;
 
-	token = NULL;
-	tree = NULL;
 	init_op(&tab_op);
 	while (1)
 	{
+		tree = NULL;
+		token = NULL;
 		ft_putstr("~> ");
 		if (get_next_line(0, &line) <= 0)
 			exit(0);
@@ -163,12 +169,11 @@ int		main(void)
 		lexer(&token, line);
 		// DEBUG(token);
 		free(line);
-		fill_tree(token, &tree);
+		if (token)
+			fill_tree(token, &tree);
 		resolve_tree(tree, NULL);
 		//DEBUG2(tree);
 		free_ast(&tree);
-		tree = NULL;
-		token = NULL;
 	}
 	return (0);
 }

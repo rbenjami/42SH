@@ -56,6 +56,7 @@ SRC_LIB		=	ft_isascii.c		\
 				ft_strnequ.c		\
 				ft_strsub.c			\
 				ft_strjoin.c		\
+				ft_strnjoin.c		\
 				ft_strtrim.c		\
 				ft_strsplit.c		\
 				ft_itoa.c			\
@@ -77,4 +78,5 @@ SRC_LIB		=	ft_isascii.c		\
 				ft_strsplit_space.c	\
 				ft_tablen.c			\
 				ft_free_tab.c		\
+				ft_memrealloc.c		\
 				get_next_line.c

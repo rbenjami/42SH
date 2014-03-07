@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_memrealloc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/19 12:21:39 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/07 18:36:48 by rbenjami         ###   ########.fr       */
+/*   Created: 2013/11/21 14:46:50 by mgarcin           #+#    #+#             */
+/*   Updated: 2014/03/07 18:14:28 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+void	*ft_memrealloc(void **ptr, size_t size, size_t new_size)
 {
-	int		i;
+	void	*mem;
 
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
+	if (size == new_size)
+		return (*ptr);
+	mem = ft_memalloc(new_size);
+	if (mem)
+	{
+		ft_memcpy(mem, *ptr, MIN(size, new_size));
+		ft_memdel(ptr);
+	}
+	return (mem);
 }

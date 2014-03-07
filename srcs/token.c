@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:25:47 by mgarcin           #+#    #+#             */
-/*   Updated: 2014/03/04 14:54:28 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/07 18:54:48 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		add_token(t_token **token, char *value, enum e_token type)
 	t_token		*new_token;
 	t_token		*tmp;
 
-	new_token = (t_token *)malloc(sizeof(t_token));
+	new_token = (t_token *)ft_memalloc(sizeof(t_token));
 	if (!new_token)
 		return ;
 	new_token->value = ft_strdup(value);

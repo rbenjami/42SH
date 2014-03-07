@@ -6,14 +6,14 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/07 15:07:30 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/07 18:46:38 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dirent.h>
 #include "sh.h"
 
-int		find_arg_path(char **environ)
+int			find_arg_path(char **environ)
 {
 	int				i;
 

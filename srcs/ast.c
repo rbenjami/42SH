@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/07 16:20:34 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/07 18:55:21 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@
 // 	OP_BIN_AND
 // };
 
-void	resolve_tree(t_ast *tree, int pfd_old[2])
+void		resolve_tree(t_ast *tree, int pfd_old[2])
 {
 	int		status;
 	int		pid;
 	int		ind;
 
 	pid = 0;
-	if (tree)
+	if (tree && tree->tk->value)
 	{
 		if ((ind = ft_ind_op(tree->tk->value)) != -1)
 			tab_op[ind](tree, pfd_old);
@@ -44,9 +44,9 @@ void	resolve_tree(t_ast *tree, int pfd_old[2])
 	}
 }
 
-void	ft_add_node(t_ast **tree, t_token *tk)
+void		ft_add_node(t_ast **tree, t_token *tk)
 {
-	*tree = (t_ast *)malloc(sizeof(t_ast));
+	*tree = (t_ast *)ft_memalloc(sizeof(t_ast));
 	if (*tree)
 	{
 		(*tree)->tk = tk;
