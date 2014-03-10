@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
+#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/10 13:48:48 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/03/10 17:31:22 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ FILES		=	main.c\
 				op_func.c\
 				find_op.c\
 				lexer.c\
-				parse_string.c
+				parse_string.c\
+				builtin.c
 
 
 SRC			=	$(addprefix $(SRC_DIR)/, $(FILES))

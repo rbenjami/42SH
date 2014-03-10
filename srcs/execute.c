@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/10 17:23:32 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/10 18:01:26 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,15 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 {
 	char			**args;
 	char			*path;
-	extern char		**environ;
 	pid_t			pid;
+	int				(*builtin)(char **);
 
 	if (!cmd[0])
 		return (error("permission denied: ", NULL));
 	args = ft_strsplit(cmd, ' ');
+	builtin = find_builtin(args[0]);
 	path = find_path(args[0], environ, find_arg_path(environ));
-	if (!path)
+	if (!path && !builtin)
 		error("command not found: ", cmd);
 	if ((pid = fork()) < 0)
 		error("fork error !", NULL);
@@ -108,10 +109,13 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 	{
 		if (pfd || pfd_old)
 			dup_close(pfd, pfd_old, b);
-		if (execve(path, args, environ) == -1)
+		if (builtin && builtin(args) == -1)
+			exit(1);
+		else if (!builtin && execve(path, args, environ) == -1)
 			exit(1);
 	}
 	ft_free_tab(&args);
-	free(path);
+	if (path)
+		free(path);
 	return (pid);
 }

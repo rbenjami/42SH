@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/10 14:04:32 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/10 17:37:49 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,19 @@ typedef struct		s_ast
 	struct s_ast	*right;
 }					t_ast;
 
+typedef struct		s_find
+{
+	char			*cmd;;
+	int				(*f)(char **);
+}					t_find;
+
 typedef pid_t (*op_func)(t_ast *tree, int pfd_old[2]);
 
 /*
 **	GLOBAL !
 */
-op_func		*tab_op;
-
+op_func			*tab_op;
+extern char		**environ;
 int		error(const char *s1, char *s2);
 
 int		is_operator(char c);
@@ -87,5 +93,7 @@ pid_t	execute(char *cmd, int	pfd_old[2], int	pfd[2], int b);
 void	resolve_tree(t_ast *tree, int pfd_old[2]);
 
 void	parse_string(t_token **token);
+
+int		(*find_builtin(char *cmd))(char **);
 
 #endif /* !SH_H */
