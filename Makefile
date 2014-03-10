@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
+#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/10 18:22:55 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/03/10 18:44:46 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ HEAD		=	includes/sh.h
 
 SRC_DIR		=	srcs/
 
-BUI_DIR		=	$(SRC_DIR)/builtin/
+BUI_DIR		=	$(SRC_DIR)builtin/
 
 FILES		=	main.c			\
 				lexer_is.c		\
@@ -37,7 +37,8 @@ FILES		=	main.c			\
 				op_func.c		\
 				find_op.c		\
 				lexer.c			\
-				parse_string.c
+				parse_string.c	\
+				ft_getenv.c
 
 BUI_FILES	=	builtin.c		\
 				cd.c			\
@@ -47,7 +48,7 @@ BUI_FILES	=	builtin.c		\
 				env.c			\
 				echo.c
 
-SRC			=	$(addprefix $(SRC_DIR)/, $(FILES))	\
+SRC			=	$(addprefix $(SRC_DIR), $(FILES))\
 				$(addprefix $(BUI_DIR), $(BUI_FILES))
 
 OBJ			=	$(SRC:.c=.o)

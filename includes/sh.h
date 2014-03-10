@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/10 17:37:49 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/10 18:48:18 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,18 @@ void	resolve_tree(t_ast *tree, int pfd_old[2]);
 
 void	parse_string(t_token **token);
 
+char	*ft_getenv(const char *name);
+
 int		(*find_builtin(char *cmd))(char **);
+
+/*
+**	BUILTIN
+*/
+int		builtin_echo(char **argv);
+int		builtin_cd(char **av);
+int		builtin_exit(char **av);
+int		builtin_env(char **av);
+int		builtin_setenv(char **av);
+int		builtin_unsetenv(char **av);
 
 #endif /* !SH_H */
