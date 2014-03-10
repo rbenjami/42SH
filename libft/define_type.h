@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/27 18:28:48 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/01/27 18:52:47 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/10 14:01:33 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,15 @@
 # define TRUE 1
 # define FALSE 0
 
+/*
+**	Common char
+*/
 # define SPACE_CHAR ' '
+# define RETURN_CHAR '\n'
 # define TAB_CHAR '\t'
+
+# define DOUBLE_QUOTE '\"'
+# define QUOTE '\''
 
 /*
 **	Standard stream

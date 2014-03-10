@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/10 13:45:16 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/10 13:48:23 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int		main(void)
 			exit(0);
 		// execute(line);
 		lexer(&token, line);
+		parse_string(&token);
 		// DEBUG(token);
 		free(line);
 		if (token)

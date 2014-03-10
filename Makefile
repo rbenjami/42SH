@@ -6,7 +6,7 @@
 #    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/10 13:46:19 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/03/10 13:48:48 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ FILES		=	main.c\
 				error.c\
 				op_func.c\
 				find_op.c\
-				lexer.c
+				lexer.c\
+				parse_string.c
 
 
 SRC			=	$(addprefix $(SRC_DIR)/, $(FILES))

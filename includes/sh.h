@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/10 13:45:45 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/10 14:04:32 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ pid_t	op_bin_and(t_ast *tree, int pfd_old[2]);
 pid_t	execute(char *cmd, int	pfd_old[2], int	pfd[2], int b);
 
 void	resolve_tree(t_ast *tree, int pfd_old[2]);
+
+void	parse_string(t_token **token);
 
 #endif /* !SH_H */

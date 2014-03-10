@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/07 18:46:38 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/10 17:23:32 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 	extern char		**environ;
 	pid_t			pid;
 
+	if (!cmd[0])
+		return (error("permission denied: ", NULL));
 	args = ft_strsplit(cmd, ' ');
 	path = find_path(args[0], environ, find_arg_path(environ));
 	if (!path)
