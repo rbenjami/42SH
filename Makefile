@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
+#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/10 17:31:22 by dsousa           ###   ########.fr        #
+#    Updated: 2014/03/10 18:22:55 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,20 +26,29 @@ HEAD		=	includes/sh.h
 
 SRC_DIR		=	srcs/
 
-FILES		=	main.c\
-				lexer_is.c\
-				ast.c\
-				token.c\
-				execute.c\
-				error.c\
-				op_func.c\
-				find_op.c\
-				lexer.c\
-				parse_string.c\
-				builtin.c
+BUI_DIR		=	$(SRC_DIR)/builtin/
 
+FILES		=	main.c			\
+				lexer_is.c		\
+				ast.c			\
+				token.c			\
+				execute.c		\
+				error.c			\
+				op_func.c		\
+				find_op.c		\
+				lexer.c			\
+				parse_string.c
 
-SRC			=	$(addprefix $(SRC_DIR)/, $(FILES))
+BUI_FILES	=	builtin.c		\
+				cd.c			\
+				exit.c			\
+				setenv.c		\
+				unsetenv.c		\
+				env.c			\
+				echo.c
+
+SRC			=	$(addprefix $(SRC_DIR)/, $(FILES))	\
+				$(addprefix $(BUI_DIR), $(BUI_FILES))
 
 OBJ			=	$(SRC:.c=.o)
 
