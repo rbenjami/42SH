@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+         #
+#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/04 17:22:27 by smakroum         ###   ########.fr        #
+#    Updated: 2014/03/10 13:46:19 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ FILES		=	main.c\
 				execute.c\
 				error.c\
 				op_func.c\
-				find_op.c
+				find_op.c\
+				lexer.c
 
 
 SRC			=	$(addprefix $(SRC_DIR)/, $(FILES))
