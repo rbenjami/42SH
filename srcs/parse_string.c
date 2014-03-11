@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 13:48:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/11 13:03:26 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/11 13:19:29 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,14 @@ void	parse(t_token *token)
 	while (token->value[i] != '\0')
 	{
 		if (token->value[i] == BACK_SLASH)
-			i += 2;
-		if (token->value[i] == DOUBLE_QUOTE)
-			dquote = (quote) ? dquote : !dquote;
-		if (token->value[i] == QUOTE)
-			quote = (dquote) ? quote : !quote;
+			i++;
+		else
+		{
+			if (token->value[i] == DOUBLE_QUOTE)
+				dquote = (quote) ? dquote : !dquote;
+			if (token->value[i] == QUOTE)
+				quote = (dquote) ? quote : !quote;
+		}
 		i++;
 	}
 	if (dquote || quote)
@@ -73,7 +76,8 @@ void	sup_quote(char **token)
 	{
 		if ((*token)[cpy] == BACK_SLASH || back)
 		{
-			cpy++;
+			if ((*token)[cpy] == BACK_SLASH)
+				cpy++;
 			back = !back;
 		}
 		if ((*token)[cpy] == DOUBLE_QUOTE)
