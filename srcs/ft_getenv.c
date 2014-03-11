@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:14:38 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/11 14:33:41 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/11 14:49:05 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ char	*ft_getenv(const char *name)
 	}
 	else
 	{
-		lenth = ft_strlen(tmp);
-		write(2, tmp, (lenth - 1));
 		ft_strdel(&tmp);
-		ft_putendl_fd(": not found", 2);
 		return (NULL);
 	}
 }
