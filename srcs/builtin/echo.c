@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:13:04 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/11 16:59:35 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/11 17:06:11 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static int		smart_print(char *str)
 		i++;
 	while (str[i] && !ft_isspace(str[i]) && str[i] != '$')
 		i++;
-	if (str[i])
-		write(1, &str[i++], 1);
-	if (str[i])
+	if (!str[i + 1])
+		write(1, &str[i], 1);
+	if (str[i + 1])
 		smart_print(&str[i]);
 	return (wr);
 }
