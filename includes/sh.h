@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/10 18:48:18 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/11 15:34:37 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,18 @@ typedef struct		s_find
 
 typedef pid_t (*op_func)(t_ast *tree, int pfd_old[2]);
 
+typedef struct		s_handler
+{
+	op_func			*tab_op;
+	char			**environ;
+	int				cmd;
+}					t_handler;
+
 /*
 **	GLOBAL !
 */
-op_func			*tab_op;
-extern char		**environ;
+t_handler			handler;
+
 int		error(const char *s1, char *s2);
 
 int		is_operator(char c);

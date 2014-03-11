@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/11 14:37:53 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/11 15:35:56 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,13 @@ void	prompt()
 		i++;
 	ft_putstr("\033[40m");
 	ft_putstr(ft_getenv("LOGNAME"));
-	ft_putstr("\033[m\033[44m\033[30m~");
+	ft_putstr("\033[m\033[44m\033[30m");
 	ft_putstr(&pwd[i]);
-	ft_putstr("\033[m");
-	ft_putstr(" ~> ");
+	if (handler.cmd == 0)
+		ft_putstr("\033[m\033[32m");
+	else
+		ft_putstr("\033[m\033[31m");
+	ft_putstr(" ~> \033[m");
 }
 
 int		main(void)
@@ -112,8 +115,11 @@ int		main(void)
 	char		*line;
 	t_token		*token;
 	t_ast		*tree;
+	extern char	**environ;
 
-	init_op(&tab_op);
+	init_op(&handler.tab_op);
+	handler.environ = environ;
+	handler.cmd = 0;
 	while (1)
 	{
 		tree = NULL;
