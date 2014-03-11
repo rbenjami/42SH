@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/11 15:35:56 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/11 17:20:18 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int		main(void)
 		tree = NULL;
 		token = NULL;
 		prompt();
+		handler.cmd = 0;
 		if (get_next_line(0, &line) <= 0)
 			exit(0);
 		lexer(&token, line);
