@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/27 18:28:48 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/10 14:01:33 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/11 12:15:01 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define SPACE_CHAR ' '
 # define RETURN_CHAR '\n'
 # define TAB_CHAR '\t'
+# define BACK_SLASH '\\'
 
 # define DOUBLE_QUOTE '\"'
 # define QUOTE '\''

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/10 18:01:26 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/11 12:45:48 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 
 	if (!cmd[0])
 		return (error("permission denied: ", NULL));
-	args = ft_strsplit(cmd, ' ');
+	if ((args = ft_strsplit_space(cmd)) == NULL)
+		return (error("command not found: ", NULL));
 	builtin = find_builtin(args[0]);
 	path = find_path(args[0], environ, find_arg_path(environ));
 	if (!path && !builtin)

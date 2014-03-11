@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_is.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:16:34 by mgarcin           #+#    #+#             */
-/*   Updated: 2014/03/03 17:42:21 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/11 12:31:49 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,6 @@
 int		is_operator(char c)
 {
 	if (c == '>' || c == '<' || c == '|' || c == ';' || c == '&')
-		return (1);
-	return (0);
-}
-
-int		is_space(char c)
-{
-	if (c == ' ' || c == '\n' || c == '\t')
 		return (1);
 	return (0);
 }

@@ -6,24 +6,11 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/10 17:28:29 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/11 12:16:13 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-// enum				e_operator
-// {
-// 	OP_REDIR_R,
-// 	OP_REDIR_L,
-// 	OP_2REDIR_R,
-// 	OP_2REDIR_L,
-// 	OP_PIPE,
-// 	OP_AND,
-// 	OP_OR,
-// 	OP_SEMI_COL,
-// 	OP_BIN_AND
-// };
 
 void		resolve_tree(t_ast *tree, int pfd_old[2])
 {

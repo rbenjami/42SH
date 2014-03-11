@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 13:45:05 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/10 17:25:03 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/11 12:40:05 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			collect_string(t_token **token, char *line)
 	q = 0;
 	while (line[i] && (!is_operator(line[i]) || quote))
 	{
-		if (line[i] == '\\')
+		if (line[i] == BACK_SLASH)
 			i++;
 		if (is_quote(line[i]) && (line[i] == q || q == 0))
 		{
@@ -64,9 +64,9 @@ void		lexer(t_token **token, char *line)
 	int		i;
 
 	i = 0;
-	while (is_space(line[i]))
+	while (ft_isspace(line[i]))
 		i++;
-	if (line[i] == '\\')
+	if (line[i] == BACK_SLASH)
 		i++;
 	else if (is_operator(line[i]))
 		i += collect_operator(token, &line[i]);
