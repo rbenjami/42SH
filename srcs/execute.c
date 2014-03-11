@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/11 16:39:07 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/11 17:48:27 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char		*find_path(char *cmd, char **environ, int i)
 	char		*tmp;
 	int			j;
 
+	if (ft_strchr(cmd, '/'))
+		return (cmd);
 	if (i == -1)
 		return (NULL);
 	j = 0;
@@ -103,9 +105,9 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 	builtin = find_builtin(args[0]);
 	path = find_path(args[0], handler.environ, find_arg_path());
 	if (!path && !builtin)
-		error("command not found: ", cmd);
+		return (error("command not found: ", cmd));
 	if ((pid = fork()) < 0)
-		error("fork error !", NULL);
+		return (error("fork error !", NULL));
 	if (pid == 0)
 	{
 		if (pfd || pfd_old)
@@ -116,7 +118,7 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 			exit(1);
 	}
 	ft_free_tab(&args);
-	if (path)
+	if (path[0])
 		free(path);
 	return (pid);
 }
