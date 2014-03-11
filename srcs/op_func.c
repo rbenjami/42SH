@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_func.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 16:04:09 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/11 16:09:13 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/11 16:45:17 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ pid_t		op_pipe(t_ast *tree, int pfd_old[2])
 				}
 				close_pfd(pfd);
 			}
+			waitpid(pid, 0, 0);
 		}
 		else
 			error("parse error near `|'", NULL);
