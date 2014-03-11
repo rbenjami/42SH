@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_func.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 16:04:09 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/07 16:25:46 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/11 16:09:13 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,24 +112,24 @@ pid_t		op_pipe(t_ast *tree, int pfd_old[2])
 
 pid_t		op_and(t_ast *tree, int pfd_old[2])
 {
-	(void)tree;
-	(void)pfd_old;
-	ft_putendl("and");
+	resolve_tree(tree->left, pfd_old);
+	if (handler.cmd == 0)
+		resolve_tree(tree->right, pfd_old);
 	return(0);
 }
 
 pid_t		op_or(t_ast *tree, int pfd_old[2])
 {
-	(void)tree;
-	(void)pfd_old;
-	ft_putendl("or");
+	resolve_tree(tree->left, pfd_old);
+	if (handler.cmd != 0)
+		resolve_tree(tree->right, pfd_old);
 	return(0);
 }
 
 pid_t		op_semi_col(t_ast *tree, int pfd_old[2])
 {
-	(void)tree;
-	(void)pfd_old;
+	resolve_tree(tree->left, pfd_old);
+	resolve_tree(tree->right, pfd_old);
 	return(0);
 }
 
