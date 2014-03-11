@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/10 13:48:23 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/11 14:01:41 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,25 @@ void	free_ast(t_ast **tree)
 	}
 }
 
+void	prompt()
+{
+	int		i;
+	char	*pwd;
+	char	*home;
+
+	i = 0;
+	pwd = ft_getenv("PWD");
+	home = ft_getenv("HOME");
+	while (pwd[i] == home[i])
+		i++;
+	ft_putstr("\033[40m");
+	ft_putstr(ft_getenv("LOGNAME"));
+	ft_putstr("\033[m\033[44m\033[30m~");
+	ft_putstr(&pwd[i]);
+	ft_putstr("\033[m");
+	ft_putstr(" ~> ");
+}
+
 int		main(void)
 {
 	char		*line;
@@ -99,10 +118,9 @@ int		main(void)
 	{
 		tree = NULL;
 		token = NULL;
-		ft_putstr("~> ");
+		prompt();
 		if (get_next_line(0, &line) <= 0)
 			exit(0);
-		// execute(line);
 		lexer(&token, line);
 		parse_string(&token);
 		// DEBUG(token);
