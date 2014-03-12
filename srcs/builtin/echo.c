@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:13:04 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/12 14:43:17 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/12 16:28:00 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,5 @@ int				builtin_echo(char **argv)
 	}
 	if (!argv[1] || wr == 0)
 		write(1, "\n", 1);
-	exit(0);
 	return (0);
 }

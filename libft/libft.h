@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 12:21:39 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/12 15:11:10 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/12 16:09:09 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_list	*ft_lstmap(t_list *lst, t_list * (*f)(t_list *elem));
 
 void	*ft_realloc(void *ptr, size_t size);
 void	ft_strtolower(char *str);
-void	ft_strtouper(char *str);
+void	ft_strtoupper(char *str);
 
 int		get_next_line(int fd, char **line);
 size_t	ft_tablen(char **tab);

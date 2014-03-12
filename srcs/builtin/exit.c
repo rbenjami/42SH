@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:45:41 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/11 18:23:34 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/12 15:05:40 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int		builtin_exit(char **av)
 {
-	ft_putendl(av[0]);
-	exit(0);
-	return (1);
+	if (av[1])
+		exit(ft_atoi(av[1]));
+	else
+		exit(0);
 }

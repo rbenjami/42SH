@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/11 17:48:27 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/12 18:28:12 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int			find_arg_path()
 			return (i);
 		i++;
 	}
-	error("no path in env: ", NULL);
 	return (-1);
 }
 
@@ -91,11 +90,22 @@ void		dup_close(int *pfd, int *pfd_old, int b)
 	dup2(pfd[b], b);
 }
 
+int			ft_isfuncfork(char *name)
+{
+	if (ft_strcmp(name, "cd") == 0
+		|| ft_strcmp(name, "setenv") == 0
+		|| ft_strcmp(name, "unsetenv") == 0
+		|| ft_strcmp(name, "exit") == 0)
+		return (0);
+	return (1);
+}
+
 pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 {
 	char			**args;
 	char			*path;
 	pid_t			pid;
+	int				ret;
 	int				(*builtin)(char **);
 
 	if (!cmd[0])
@@ -105,20 +115,31 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 	builtin = find_builtin(args[0]);
 	path = find_path(args[0], handler.environ, find_arg_path());
 	if (!path && !builtin)
+	{
+		ft_free_tab(&args);
 		return (error("command not found: ", cmd));
+	}
+	if (builtin && (ret = ft_isfuncfork(args[0])) == 0)
+	{
+		if (builtin(args) < 0)
+			return (-1);
+	}
 	if ((pid = fork()) < 0)
 		return (error("fork error !", NULL));
 	if (pid == 0)
 	{
 		if (pfd || pfd_old)
 			dup_close(pfd, pfd_old, b);
-		if (builtin && builtin(args) == -1)
-			exit(1);
-		else if (!builtin && execve(path, args, handler.environ) == -1)
+		if (builtin)
+		{
+			if  (ret && builtin(args) < 0)
+				exit(1);
+			exit(0);
+		}
+		else if (execve(path, args, handler.environ) == -1)
 			exit(1);
 	}
 	ft_free_tab(&args);
-	if (path[0])
-		free(path);
+	free(path);
 	return (pid);
 }
