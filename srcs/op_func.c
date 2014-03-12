@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 16:04:09 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/11 18:25:11 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/12 14:04:00 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ pid_t		op_redir_right(t_ast *tree, int pfd_old[2])
 		pid = execute(tree->left->tk->value, pfd_old, pfd, 1);
 		if (pfd_old)
 			close_pfd(pfd_old);
-		waitpid(pid, 0, 0);
+		// waitpid(pid, 0, 0);
 		close(pfd[1]);
 	}
 	return (pid);
@@ -60,7 +60,7 @@ pid_t		op_double_redir_right(t_ast *tree, int pfd_old[2])
 		pid = execute(tree->left->tk->value, pfd_old, pfd, 1);
 		if (pfd_old)
 			close_pfd(pfd_old);
-		waitpid(pid, 0, 0);
+		// waitpid(pid, 0, 0);
 		close(pfd[1]);
 	}
 	return (pid);
@@ -103,7 +103,7 @@ pid_t		op_pipe(t_ast *tree, int pfd_old[2])
 				}
 				close_pfd(pfd);
 			}
-			waitpid(pid, 0, 0);
+			// waitpid(pid, 0, 0);
 		}
 		else
 			error("parse error near `|'", NULL);

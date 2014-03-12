@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/11 16:32:16 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/12 14:03:38 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		resolve_tree(t_ast *tree, int pfd_old[2])
 	if (tree && tree->tk->value)
 	{
 		if ((ind = ft_ind_op(tree->tk->value)) != -1)
-			handler.tab_op[ind](tree, pfd_old);
+			pid = handler.tab_op[ind](tree, pfd_old);
 		else
 			pid = execute(tree->tk->value, NULL, NULL, 0);
 		waitpid(pid, &status, 0);
