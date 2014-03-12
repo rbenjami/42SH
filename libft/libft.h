@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 12:21:39 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/11 12:33:05 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/12 14:55:24 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int		ft_strequ(char const *s1, char const *s2);
 int		ft_strnequ(char const *s1, char const *s2, size_t n);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
+void	ft_strjoin2(char **s1, char const *s2);
 char	*ft_strnjoin(char const *s1, char const *s2, size_t n);
 char	*ft_strtrim(char const *s);
 char	**ft_strsplit(char const *s, char c);

@@ -6,21 +6,11 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 13:48:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/11 13:19:29 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/12 14:53:49 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-void	ft_strjoin2(char **str1, char *str2)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin(*str1, str2);
-	ft_strdel(&(*str1));
-	*str1 = ft_strdup(tmp);
-	ft_strdel(&tmp);
-}
 
 void	parse(t_token *token)
 {

@@ -56,6 +56,7 @@ SRC_LIB		=	ft_isascii.c		\
 				ft_strnequ.c		\
 				ft_strsub.c			\
 				ft_strjoin.c		\
+				ft_strjoin2.c		\
 				ft_strnjoin.c		\
 				ft_strtrim.c		\
 				ft_strsplit.c		\
