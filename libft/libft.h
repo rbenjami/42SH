@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 12:21:39 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/12 14:55:24 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/12 15:11:10 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ void	ft_strtouper(char *str);
 int		get_next_line(int fd, char **line);
 size_t	ft_tablen(char **tab);
 void	ft_free_tab(char ***tab);
+char	**ft_cpytab(char **tab, int lenth);
 
 #endif	/* !LIBFT_H */

@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/12 14:04:46 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/12 15:11:46 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int		main(void)
 	extern char	**environ;
 
 	init_op(&handler.tab_op);
-	handler.environ = environ;
+	handler.environ = ft_cpytab(environ, ft_tablen(environ));
 	handler.cmd = 0;
 	while (1)
 	{
