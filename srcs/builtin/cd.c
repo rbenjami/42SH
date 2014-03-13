@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:45:13 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/12 17:33:43 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/13 14:07:30 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/stat.h>
 #include "sh.h"
 
-void	ft_setenv(char *name, char *value)
+void			ft_setenv(char *name, char *value)
 {
 	char *av[5];
 
@@ -70,9 +70,9 @@ static void		ft_cd2(char *path, int cmp)
 	else
 	{
 		if (path)
-			ft_setenv("OLDPWD", getcwd(buf, 256));
+			ft_setenv("OLDPWD", getcwd(buf, 256) + 13);
 		chdir(path);
-		ft_setenv("PWD", getcwd(buf, 256));
+		ft_setenv("PWD", getcwd(buf, 256) + 13);
 	}
 }
 

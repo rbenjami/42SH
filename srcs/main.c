@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/12 15:11:46 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/13 14:23:51 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +97,22 @@ void	prompt()
 	i = 0;
 	pwd = ft_getenv("PWD");
 	home = ft_getenv("HOME");
-	while (pwd[i] == home[i])
-		i++;
 	ft_putstr("\033[40m");
 	ft_putstr(ft_getenv("LOGNAME"));
 	ft_putstr("\033[m\033[44m\033[30m");
-	ft_putstr(&pwd[i]);
+	if (!ft_strncmp(pwd, home, ft_strlen(home)))
+	{
+		ft_putstr("~");
+		i = ft_strlen(home);
+	}
+	ft_putstr(pwd + i);
 	if (handler.cmd == 0)
 		ft_putstr("\033[m\033[32m");
 	else
-		ft_putstr("\033[m\033[31m");
+	{
+		ft_putstr("\033[m\033[31m ");
+		ft_putnbr(handler.cmd);
+	}
 	ft_putstr(" ~> \033[m");
 }
 
@@ -130,12 +136,10 @@ int		main(void)
 			exit(0);
 		lexer(&token, line);
 		parse_string(&token);
-		// DEBUG(token);
 		free(line);
 		if (token)
 			fill_tree(token, &tree);
 		resolve_tree(tree, NULL);
-		//DEBUG2(tree);
 		free_ast(&tree);
 	}
 	return (0);

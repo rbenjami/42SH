@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:46:39 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/12 16:20:11 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/13 14:21:47 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		builtin_setenv(char **av)
 	i = 0;
 	if (!av[2])
 		return (-1);
-	//ft_strtoupper(av[1]);
 	ov = (av[3]) ? ft_atoi(av[3]) : 0;
 	while (handler.environ[i])
 	{
