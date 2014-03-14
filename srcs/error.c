@@ -6,25 +6,46 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 16:26:15 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/11 12:20:20 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 22:59:49 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "sh.h"
 
-int		error(const char *s1, char *s2)
+/*
+**	Error:
+**	%c -> char
+**	%s -> char*
+**	%d -> int
+**	%p -> perror
+*/
+
+int		error(const char *msg, ...)
 {
-	ft_putstr_fd("42sh: \033[31m", ERR);
-	if (!s2)
+	va_list		ap;
+
+	va_start(ap, msg);
+	while (*msg)
 	{
-		ft_putendl_fd(s1, ERR);
-		ft_putstr_fd("\033[m", ERR);
+		if (*msg == '%')
+		{
+			msg++;
+			if (*msg == '%')
+				ft_putchar('%');
+			else if (*msg == 'c')
+				ft_putchar(va_arg(ap, int));
+			else if (*msg == 's')
+				ft_putstr(va_arg(ap, char*));
+			else if (*msg == 'd')
+				ft_putnbr(va_arg(ap, int));
+			else if (*msg == 'p')
+				perror(va_arg(ap, const char*));
+		}
+		else
+			ft_putcolored_char(*msg, 1);
+		msg++;
 	}
-	else
-	{
-		ft_putstr_fd(s1, ERR);
-		ft_putstr_fd("\033[m", ERR);
-		ft_putendl_fd(s2, ERR);
-	}
+	va_end(ap);
 	return (-42);
 }

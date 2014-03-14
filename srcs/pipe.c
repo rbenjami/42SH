@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:46:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 18:46:55 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 23:09:50 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ pid_t		op_pipe(t_ast *tree, int pfd_old[2])
 				op_pipe2(tree, pfd, &pid);
 		}
 		else
-			error("parse error near `|'", NULL);
+			error("42sh: parse error near `|'\n", NULL);
 	}
 	return (pid);
 }

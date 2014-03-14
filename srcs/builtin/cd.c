@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:45:13 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/13 14:07:30 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 23:05:32 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void			ft_setenv(char *name, char *value)
 {
-	char *av[5];
+	char			*av[5];
 
 	av[0] = "setenv";
 	av[1] = name;
@@ -27,7 +27,7 @@ void			ft_setenv(char *name, char *value)
 
 static int		ft_isdir(char *file)
 {
-	struct stat	*file_mode;
+	struct stat		*file_mode;
 
 	file_mode = ft_memalloc(sizeof(struct stat));
 	lstat(file, file_mode);
@@ -40,13 +40,6 @@ static int		ft_isdir(char *file)
 	return (0);
 }
 
-static void		ft_cd_permission_denied(char *path)
-{
-	ft_putstr_fd("bash: cd: ", 2);
-	ft_putstr_fd(path, 2);
-	ft_putendl_fd(": Permission denied", 2);
-}
-
 static void		ft_cd2(char *path, int cmp)
 {
 	char	buf[256];
@@ -55,7 +48,7 @@ static void		ft_cd2(char *path, int cmp)
 	{
 		if (!(path = ft_getenv("HOME")))
 		{
-			ft_putendl_fd("bash: cd: HOME not set", 2);
+			error("42sh: cd: HOME not set");
 			return ;
 		}
 	}
@@ -63,10 +56,10 @@ static void		ft_cd2(char *path, int cmp)
 	{
 		path = ft_getenv("OLDPWD");
 		if (!path)
-			ft_putendl_fd("bash: cd: OLDPWD not set", 2);
+			error("42sh: cd: OLDPWD not set");
 	}
 	if (path && access(path, X_OK) == -1)
-		ft_cd_permission_denied(path);
+		error("42sh: %s: Permission denied", path);
 	else
 	{
 		if (path)
@@ -76,7 +69,7 @@ static void		ft_cd2(char *path, int cmp)
 	}
 }
 
-int			builtin_cd(char **argv)
+int				builtin_cd(char **argv)
 {
 	int		cmp;
 	char	*path;
@@ -88,5 +81,5 @@ int			builtin_cd(char **argv)
 		ft_cd2(path, cmp);
 		return (0);
 	}
-	return (error(path, ": No such file or directory"));
+	return (error("%s: No such file or directory", path));
 }

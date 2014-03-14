@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 20:33:34 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 23:00:04 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_ast(t_ast **tree)
 	}
 }
 
-void	prompt()
+void	prompt(void)
 {
 	int		i;
 	char	*pwd;
@@ -53,21 +53,6 @@ void	prompt()
 		ft_putnbr(handler.cmd);
 	}
 	ft_putstr(" ~> \033[m");
-}
-
-char	**default_env()
-{
-	char	**environ;
-
-	environ = (char **)ft_memalloc(sizeof(char *) * 7);
-	environ[0] = ft_strdup("PATH=/bin:");
-	environ[1] = ft_strdup("SHLVL=1");
-	environ[2] = ft_strdup("PWD=/");
-	environ[3] = ft_strdup("OLDPWD=/");
-	environ[4] = ft_strdup("HOME=/");
-	environ[5] = ft_strdup("LOGNAME=roger");
-	environ[6] = NULL;
-	return (environ);
 }
 
 void	init_env(char **env)

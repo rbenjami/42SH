@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/27 18:28:48 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/11 12:15:01 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 22:46:53 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,15 @@
 # define ERR 2
 
 /*
-**	Error
+**	Color
 */
+#define BLACK 0
+#define RED 1
+#define GREEN 2
+#define YELLOW 3
+#define BLUE 4
+#define MAGENTA 5
+#define CYAN 6
+#define WITHE 7
 
 #endif /* !DEFINE_TYPE_H */

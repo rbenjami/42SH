@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/14 19:37:26 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 22:37:19 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define SH_H
 # include <libft.h>
 # include <fcntl.h>
+# include <stdarg.h>
+# include <string.h>
 
 # define OPEN_REDIR_R O_WRONLY | O_CREAT | O_TRUNC
 # define OPEN_2REDIR_R O_WRONLY | O_CREAT | O_APPEND
@@ -64,7 +66,7 @@ typedef struct		s_ast
 typedef struct		s_find
 {
 	char			*cmd;
-	int				(*f)(char **);
+	int (*f)(char **);
 }					t_find;
 
 typedef pid_t (*op_func)(t_ast *tree, int pfd_old[2]);
@@ -82,7 +84,7 @@ typedef struct		s_exe
 	char			*path;
 	pid_t			pid;
 	int				ret;
-	int				(*builtin)(char **);
+	int (*builtin)(char **);
 }					t_exe;
 
 /*
@@ -90,7 +92,8 @@ typedef struct		s_exe
 */
 t_handler			handler;
 
-int		error(const char *s1, char *s2);
+int		error(const char *msg, ...)
+						__attribute__((format(printf, 1, 2)));
 
 int		is_operator(char c);
 int		is_space(char c);
@@ -129,7 +132,7 @@ void	parse_string(t_token **token);
 
 char	*ft_getenv(const char *name);
 
-int		(*find_builtin(char *cmd))(char **);
+int (*find_builtin(char *cmd))(char **);
 void	ft_redir(t_token **token);
 
 /*
@@ -138,6 +141,7 @@ void	ft_redir(t_token **token);
 void	close_pfd(int pfd[2]);
 void	dup_close(int *pfd, int *pfd_old, int b);
 int		ft_isfuncfork(char *name);
+char	**default_env(void);
 
 /*
 **	BUILTIN

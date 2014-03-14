@@ -6,14 +6,14 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 19:36:51 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 23:08:51 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dirent.h>
 #include "sh.h"
 
-int			find_arg_path()
+int			find_arg_path(void)
 {
 	int				i;
 
@@ -80,15 +80,15 @@ char		*find_path(char *cmd, char **environ, int i)
 int			execute2(t_exe *exe, char *cmd)
 {
 	if (!cmd[0])
-		return (error("permission denied: ", NULL));
+		return (error("42sh: permission denied: \n"));
 	if ((exe->args = ft_strsplit_space(cmd)) == NULL)
-		return (error("command not found: ", NULL));
+		return (error("42sh: command not found: %s\n", cmd));
 	exe->builtin = find_builtin(exe->args[0]);
 	exe->path = find_path(exe->args[0], handler.env, find_arg_path());
 	if (!exe->path && !exe->builtin)
 	{
 		ft_free_tab(&exe->args);
-		return (error("command not found: ", cmd));
+		return (error("42sh: command not found: %s\n", cmd));
 	}
 	if (exe->builtin && (exe->ret = ft_isfuncfork(exe->args[0])) == 0)
 	{
@@ -105,7 +105,7 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 	if (execute2(&exe, cmd) != 1)
 		return (0);
 	if ((exe.pid = fork()) < 0)
-		return (error("fork error !", NULL));
+		return (error("42sh: fork error !\n"));
 	if (exe.pid == 0)
 	{
 		if (pfd || pfd_old)

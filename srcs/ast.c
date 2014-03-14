@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/14 19:51:43 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 22:58:26 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void		resolve_tree(t_ast *tree, int pfd_old[2])
 {
-	int		status;
-	int		pid;
-	int		ind;
+	int			status;
+	int			pid;
+	int			ind;
 
 	pid = 0;
 	if (tree && tree->tk->value)
@@ -43,7 +43,7 @@ void		ft_add_node(t_ast **tree, t_token *tk)
 
 t_token		*ft_lstsub(t_token *start_tk, t_token *tmp_t)
 {
-	t_token	*new_lst;
+	t_token		*new_lst;
 
 	new_lst = start_tk;
 	while (start_tk && start_tk->next != tmp_t)
@@ -55,10 +55,10 @@ t_token		*ft_lstsub(t_token *start_tk, t_token *tmp_t)
 
 void		fill_tree(t_token *tk, t_ast **tree)
 {
-	t_token *tmp_t;
-	t_token *start_tk;
-	t_token *left;
-	t_token *right;
+	t_token		*tmp_t;
+	t_token		*start_tk;
+	t_token		*left;
+	t_token		*right;
 
 	tmp_t = tk;
 	start_tk = tk;
@@ -75,5 +75,5 @@ void		fill_tree(t_token *tk, t_ast **tree)
 	if (start_tk != tmp_t)
 		fill_tree(left, &(*tree)->left);
 	if (right)
-	 	fill_tree(right, &(*tree)->right);
+		fill_tree(right, &(*tree)->right);
 }

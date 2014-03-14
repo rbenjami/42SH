@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/19 12:21:39 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/12 16:09:09 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/14 22:51:26 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,7 @@ int		get_next_line(int fd, char **line);
 size_t	ft_tablen(char **tab);
 void	ft_free_tab(char ***tab);
 char	**ft_cpytab(char **tab, int lenth);
+int		ft_putcolored_char(char c, int color);
+int		ft_putcolored_str(char *str, int color);
 
 #endif	/* !LIBFT_H */

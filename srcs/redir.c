@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:33:23 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 20:34:12 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/14 23:10:20 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
 
 pid_t		op_redir_right(t_ast *tree, int pfd_old[2])
 {
@@ -30,7 +29,7 @@ pid_t		op_redir_right(t_ast *tree, int pfd_old[2])
 		{
 			pfd_new[0] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
 			if (pfd_new[0] == -1)
-				return (error("no such file or directory :", tree->tk->redir->name));
+				return (error("42sh: no such file or directory : %s\n", tree->tk->redir->name));
 		}
 		else
 			pfd[1] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
@@ -59,7 +58,7 @@ pid_t		op_redir_left(t_ast *tree, int pfd_old[2])
 	{
 		pfd[0] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
 		if (pfd[0] == -1)
-			return (error("no such file or directory :", tree->tk->redir->name));
+			return (error("42sh: no such file or directory : %s\n", tree->tk->redir->name));
 		if (tree->tk->redir->next)
 			close(pfd[0]);
 		tree->tk->redir = tree->tk->redir->next;
@@ -208,7 +207,7 @@ void	ft_redir(t_token **token)
 			}
 			if (!tmp)
 			{
-				error("parse error near `\\n'", "");
+				error("42sh: parse error near `\\n'\n");
 				return ;
 			}
 		}

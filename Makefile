@@ -3,22 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+         #
+#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/14 19:14:40 by smakroum         ###   ########.fr        #
+#    Updated: 2014/03/14 22:02:40 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 include		libft/Makefile.sources
-
-export	CFLAGS	=	-Wall -Wextra -Werror -g
 
 export	CC		=	cc
 
 export	INC		=	-I $(PWD)/libft
 
 NAME		=	42SH
+
+CFLAGS	=	-Wall -Wextra -Werror -g
 
 INC			+=	-I includes
 

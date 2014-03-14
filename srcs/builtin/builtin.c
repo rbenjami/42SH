@@ -6,13 +6,13 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 14:23:16 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/11 12:24:47 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 22:10:03 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int		(*find_builtin(char *cmd))(char **)
+int (*find_builtin(char *cmd))(char **)
 {
 	int					i;
 	static t_find		tbl[7] =
