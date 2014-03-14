@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 15:53:32 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/14 18:44:46 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dirent.h>
 #include "sh.h"
 
-int			find_arg_path(void)
+int			find_arg_path()
 {
 	int				i;
 

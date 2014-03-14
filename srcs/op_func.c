@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getenv.c                                        :+:      :+:    :+:   */
+/*   op_func.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/03/10 18:14:38 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/14 18:39:00 by rbenjami         ###   ########.fr       */
+/*   Created: 2014/03/04 16:04:09 by smakroum          #+#    #+#             */
+/*   Updated: 2014/03/14 18:53:20 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-char	*ft_getenv(const char *name)
+pid_t		op_redir_left(t_ast *tree, int pfd_old[2])
 {
-	int				i;
-	int				lenth;
-	char			*tmp;
+	(void)tree;
+	(void)pfd_old;
+	ft_putendl("redir left");
+	return (0);
+}
 
-	i = 0;
-	tmp = ft_strjoin(name, "=");
-	while (handler.env[i] && ft_strncmp(handler.env[i], tmp, ft_strlen(tmp)))
-		i++;
-	if (handler.env[i])
-	{
-		lenth = ft_strlen(tmp);
-		ft_strdel(&tmp);
-		return (&handler.env[i][lenth]);
-	}
-	else
-	{
-		ft_strdel(&tmp);
-		return (NULL);
-	}
+pid_t		op_double_redir_left(t_ast *tree, int pfd_old[2])
+{
+	(void)tree;
+	(void)pfd_old;
+	ft_putendl("double redir left");
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/14 16:00:05 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/14 18:55:11 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct		s_redir
 {
 	char			*name;
 	int				flag;
+	struct s_redir	*next;
 }					t_redir;
 
 typedef struct		s_token
@@ -49,6 +50,7 @@ typedef struct		s_token
 	int				type;
 	int				prio;
 	t_redir			*redir;
+	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
 
@@ -87,6 +89,8 @@ int		is_quote(char c);
 int		is_alpha(char c);
 
 void	add_token(t_token **token, char *value, enum e_token);
+void	free_token(t_token **token);
+t_token	*append_token(t_token **token, t_token **add);
 
 void	fill_tree(t_token *tk, t_ast **tree);
 int		init_tree(t_token *tk, t_ast **tree);
@@ -95,8 +99,9 @@ void	lexer(t_token **token, char *line);
 
 void	init_op(op_func *tab_op[]);
 int		ft_ind_op(char *v);
-void	close_pfd(int pfd[2]);
-void	dup_close(int *pfd, int *pfd_old, int b);
+
+pid_t	op_redir(t_ast *tree, int pfd_old[2]);
+
 pid_t	op_redir_right(t_ast *tree, int pfd_old[2]);
 pid_t	op_redir_left(t_ast *tree, int pfd_old[2]);
 pid_t	op_double_redir_right(t_ast *tree, int pfd_old[2]);
@@ -116,7 +121,10 @@ void	parse_string(t_token **token);
 char	*ft_getenv(const char *name);
 
 int		(*find_builtin(char *cmd))(char **);
+void	ft_redir(t_token **token);
 
+void		close_pfd(int pfd[2]);
+void		dup_close(int *pfd, int *pfd_old, int b);
 /*
 **	BUILTIN
 */

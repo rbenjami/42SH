@@ -6,7 +6,7 @@
 #    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/14 12:29:14 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/03/14 18:54:05 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,14 +34,15 @@ FILES		=	main.c			\
 				token.c			\
 				execute.c		\
 				error.c			\
-				pipe.c			\
+				op_func.c		\
 				find_op.c		\
 				lexer.c			\
 				parse_string.c	\
 				ft_getenv.c		\
+				redir.c			\
 				utils.c			\
-				operator.c		\
-				redir.c
+				pipe.c			\
+				operator.c
 
 BUI_FILES	=	builtin.c		\
 				cd.c			\

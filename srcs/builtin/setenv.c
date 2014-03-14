@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:46:39 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/14 16:08:21 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/14 18:40:15 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_add(char *name, char *value)
 {
-	char	**tab;
-	int		length;
+	char **tab;
+	int	length;
 
 	length = ft_tablen(handler.env);
 	tab = ft_cpytab(handler.env, length + 1);

@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 15:47:55 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/14 18:45:19 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-void	free_token(t_token **token)
-{
-	t_token		*tmp;
-
-	while (*token)
-	{
-		tmp = *token;
-		*token = (*token)->next;
-		free(tmp->value);
-		tmp->value = NULL;
-		free(tmp);
-		tmp = NULL;
-	}
-}
 
 void	free_ast(t_ast **tree)
 {
@@ -42,7 +27,7 @@ void	free_ast(t_ast **tree)
 	}
 }
 
-void	prompt(void)
+void	prompt()
 {
 	int		i;
 	char	*pwd;
@@ -109,6 +94,7 @@ int		main(void)
 		lexer(&token, line);
 		parse_string(&token);
 		free(line);
+		ft_redir(&token);
 		if (token)
 			fill_tree(token, &tree);
 		resolve_tree(tree, NULL);

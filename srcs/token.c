@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:25:47 by mgarcin           #+#    #+#             */
-/*   Updated: 2014/03/14 16:09:21 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/14 18:52:28 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "sh.h"
 
@@ -35,12 +34,10 @@ void		add_token(t_token **token, char *value, enum e_token type)
 		return ;
 	new_token->value = ft_strdup(value);
 	new_token->next = NULL;
+	new_token->prev = NULL;
 	new_token->redir = NULL;
 	new_token->type = type;
-	if (type == OPERATOR)
-		new_token->prio = ft_check_prio(value);
-	else
-		new_token->prio = 0;
+	new_token->prio = (type == OPERATOR) ? ft_check_prio(value) : 0;
 	if (!*token)
 		*token = new_token;
 	else
@@ -48,7 +45,59 @@ void		add_token(t_token **token, char *value, enum e_token type)
 		tmp = *token;
 		while ((*token)->next)
 			*token = (*token)->next;
+		new_token->prev = (*token);
 		(*token)->next = new_token;
 		*token = tmp;
+	}
+}
+
+t_token		*ft_new_token()
+{
+	t_token	*new_token;
+
+	new_token = (t_token *)ft_memalloc(sizeof(t_token));
+	if (!new_token)
+		return (NULL);
+	new_token->value = ft_strdup("");
+	new_token->prio = 0;
+	new_token->type = 0;
+	new_token->redir = NULL;
+	new_token->prev = NULL;
+	new_token->next = NULL;
+	return (new_token);
+}
+
+t_token		*append_token(t_token **token, t_token **add)
+{
+	t_token	*new_token;
+
+	if ((new_token = ft_new_token()) == NULL)
+		return (NULL);
+	if (*add)
+	{
+		if (!(*add)->prev)
+		{
+			new_token->next = *token;
+			*token = new_token;
+		}
+		else
+		{
+			(*add)->prev->next = new_token;
+			new_token->next = *add;
+			new_token->prev = (*add)->prev;
+			(*add)->prev = new_token;
+		}
+	}
+	return (new_token);
+}
+
+void		free_token(t_token **token)
+{
+	if (*token)
+	{
+		free((*token)->value);
+		(*token)->value = NULL;
+		free(*token);
+		*token = NULL;
 	}
 }
