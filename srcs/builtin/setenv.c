@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:46:39 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/13 14:21:47 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 11:56:13 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	ft_add(char *name, char *value)
 	char **tab;
 	int	length;
 
-	length = ft_tablen(handler.environ);
-	tab = ft_cpytab(handler.environ, length + 1);
+	length = ft_tablen(handler.env);
+	tab = ft_cpytab(handler.env, length + 1);
 	ft_strjoin2(&name, "=");
 	tab[length] = ft_strjoin(name, value);
-	ft_free_tab(&handler.environ);
-	handler.environ = tab;
+	ft_free_tab(&handler.env);
+	handler.env = tab;
 }
 
 int		builtin_setenv(char **av)
@@ -35,15 +35,15 @@ int		builtin_setenv(char **av)
 	if (!av[2])
 		return (-1);
 	ov = (av[3]) ? ft_atoi(av[3]) : 0;
-	while (handler.environ[i])
+	while (handler.env[i])
 	{
-		if (ft_strncmp(handler.environ[i], av[1], ft_strlen(av[1])) == 0)
+		if (ft_strncmp(handler.env[i], av[1], ft_strlen(av[1])) == 0)
 		{
 			if (ov)
 			{
-				ft_strdel(handler.environ + i);
+				ft_strdel(handler.env + i);
 				tmp = ft_strjoin(av[1], "=");
-				handler.environ[i] = ft_strjoin(tmp, av[2]);
+				handler.env[i] = ft_strjoin(tmp, av[2]);
 				ft_strdel(&tmp);
 			}
 			return (0);

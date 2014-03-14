@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/12 18:28:12 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/14 14:39:57 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int			find_arg_path()
 	int				i;
 
 	i = 0;
-	while (handler.environ[i])
+	while (handler.env[i])
 	{
-		if (!(ft_strncmp(handler.environ[i], "PATH", 4)))
+		if (!(ft_strncmp(handler.env[i], "PATH", 4)))
 			return (i);
 		i++;
 	}
@@ -77,19 +77,6 @@ char		*find_path(char *cmd, char **environ, int i)
 	return (NULL);
 }
 
-void		dup_close(int *pfd, int *pfd_old, int b)
-{
-	if (pfd_old && b)
-	{
-		close(pfd_old[b]);
-		close(!b);
-		dup2(pfd_old[!b], !b);
-	}
-	close(pfd[!b]);
-	close(b);
-	dup2(pfd[b], b);
-}
-
 int			ft_isfuncfork(char *name)
 {
 	if (ft_strcmp(name, "cd") == 0
@@ -113,7 +100,7 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 	if ((args = ft_strsplit_space(cmd)) == NULL)
 		return (error("command not found: ", NULL));
 	builtin = find_builtin(args[0]);
-	path = find_path(args[0], handler.environ, find_arg_path());
+	path = find_path(args[0], handler.env, find_arg_path());
 	if (!path && !builtin)
 	{
 		ft_free_tab(&args);
@@ -136,10 +123,11 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 				exit(1);
 			exit(0);
 		}
-		else if (execve(path, args, handler.environ) == -1)
+		else if (execve(path, args, handler.env) == -1)
 			exit(1);
 	}
 	ft_free_tab(&args);
-	free(path);
+	if (path[0])
+		free(path);
 	return (pid);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
+#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/10 18:44:46 by dsousa           ###   ########.fr        #
+#    Updated: 2014/03/14 12:29:14 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,14 @@ FILES		=	main.c			\
 				token.c			\
 				execute.c		\
 				error.c			\
-				op_func.c		\
+				pipe.c			\
 				find_op.c		\
 				lexer.c			\
 				parse_string.c	\
-				ft_getenv.c
+				ft_getenv.c		\
+				utils.c			\
+				operator.c		\
+				redir.c
 
 BUI_FILES	=	builtin.c		\
 				cd.c			\

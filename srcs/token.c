@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:25:47 by mgarcin           #+#    #+#             */
-/*   Updated: 2014/03/07 18:54:48 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 12:18:01 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int			ft_check_prio(char *v)
 {
-	if (!ft_strcmp(v, "|") || !ft_strcmp(v, "<") || !ft_strcmp(v, ">") || !ft_strcmp(v, ">>"))
+	if (!ft_strcmp(v, "|") || !ft_strcmp(v, "<")
+		|| !ft_strcmp(v, ">") || !ft_strcmp(v, ">>"))
 		return (1);
 	if (!ft_strcmp(v, "&&") || !ft_strcmp(v, "||"))
 		return (2);
@@ -33,6 +34,7 @@ void		add_token(t_token **token, char *value, enum e_token type)
 		return ;
 	new_token->value = ft_strdup(value);
 	new_token->next = NULL;
+	new_token->redir = NULL;
 	new_token->type = type;
 	if (type == OPERATOR)
 		new_token->prio = ft_check_prio(value);

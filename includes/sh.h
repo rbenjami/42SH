@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/11 15:34:37 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 12:50:08 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define SH_H
 # include <libft.h>
 # include <fcntl.h>
+
+# define OPEN_REDIR_R O_WRONLY | O_CREAT | O_TRUNC
+# define OPEN_2REDIR_R O_WRONLY | O_CREAT | O_APPEND
 
 enum				e_token
 {
@@ -34,11 +37,18 @@ enum				e_operator
 	OP_BIN_AND
 };
 
+typedef struct		s_redir
+{
+	char			*name;
+	int				flag;
+}					t_redir;
+
 typedef struct		s_token
 {
 	char			*value;
 	int				type;
 	int				prio;
+	t_redir			*redir;
 	struct s_token	*next;
 }					t_token;
 
@@ -60,7 +70,7 @@ typedef pid_t (*op_func)(t_ast *tree, int pfd_old[2]);
 typedef struct		s_handler
 {
 	op_func			*tab_op;
-	char			**environ;
+	char			**env;
 	int				cmd;
 }					t_handler;
 
@@ -85,6 +95,8 @@ void	lexer(t_token **token, char *line);
 
 void	init_op(op_func *tab_op[]);
 int		ft_ind_op(char *v);
+void	close_pfd(int pfd[2]);
+void	dup_close(int *pfd, int *pfd_old, int b);
 pid_t	op_redir_right(t_ast *tree, int pfd_old[2]);
 pid_t	op_redir_left(t_ast *tree, int pfd_old[2]);
 pid_t	op_double_redir_right(t_ast *tree, int pfd_old[2]);

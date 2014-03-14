@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/12 14:03:38 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 13:41:49 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,6 @@ void		ft_add_node(t_ast **tree, t_token *tk)
 		(*tree)->right = NULL;
 	}
 }
-
-///////////////////	DEBUG !
-
-void		ft_putlst(t_token *tk)
-{
-	while (tk && tk->next)
-	{
-		ft_putstr(tk->value);
-		ft_putstr(" -> ");
-		tk = tk->next;
-	}
-	if (tk)
-		ft_putendl(tk->value);
-}
-///////////////////	END DEBUG !
 
 t_token		*ft_lstsub(t_token *start_tk, t_token *tmp_t)
 {
