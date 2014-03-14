@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/14 13:41:49 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 15:11:22 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void		resolve_tree(t_ast *tree, int pfd_old[2])
 		else
 			pid = execute(tree->tk->value, NULL, NULL, 0);
 		waitpid(pid, &status, 0);
-		handler.cmd = WEXITSTATUS(status);
+		if (pid)
+			handler.cmd = WEXITSTATUS(status);
 	}
 }
 
