@@ -6,7 +6,7 @@
 /*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:33:23 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 19:14:13 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/14 20:34:12 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,32 @@
 pid_t		op_redir_right(t_ast *tree, int pfd_old[2])
 {
 	int		pfd[2];
+	int		pfd_new[2];
 	int		pid;
 
 	pid = 0;
 	pfd[0] = -1;
+	pfd_new[0] = -1;
+	pfd_new[1] = -1;
+	pfd[1] = -1;
 	while (tree->tk->redir)
 	{
-		pfd[1] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
+		if (tree->tk->redir->flag == O_RDONLY)
+		{
+			pfd_new[0] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
+			if (pfd_new[0] == -1)
+				return (error("no such file or directory :", tree->tk->redir->name));
+		}
+		else
+			pfd[1] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
 		if (tree->tk->redir->next)
 			close(pfd[1]);
 		tree->tk->redir = tree->tk->redir->next;
 	}
 	if (tree->left)
-		pid = execute(tree->left->tk->value, pfd_old, pfd, 1);
+		pid = execute(tree->left->tk->value, pfd_new, pfd, 1);
 	else
-		pid = execute(ft_strdup("cat"), pfd_old, pfd, 1);
+		pid = execute(ft_strdup("cat"), pfd_new, pfd, 1);
 	if (pfd_old)
 		close_pfd(pfd_old);
 	close(pfd[1]);
@@ -43,7 +54,7 @@ pid_t		op_redir_left(t_ast *tree, int pfd_old[2])
 	int		pid;
 
 	pid = 0;
-	pfd[0] = -1;
+	pfd[1] = -1;
 	while (tree->tk->redir)
 	{
 		pfd[0] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
@@ -63,30 +74,6 @@ pid_t		op_redir_left(t_ast *tree, int pfd_old[2])
 	return (pid);
 }
 
-pid_t		op_double_redir_right(t_ast *tree, int pfd_old[2])
-{
-	int		pfd[2];
-	int		pid;
-
-	pid = 0;
-	if (tree->left)
-	{
-		pfd[0] = -1;
-		while (tree->tk->redir)
-		{
-			pfd[1] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
-			if (tree->tk->redir->next)
-				close(pfd[1]);
-			tree->tk->redir = tree->tk->redir->next;
-		}
-		pid = execute(tree->left->tk->value, pfd_old, pfd, 1);
-		if (pfd_old)
-			close_pfd(pfd_old);
-		close(pfd[1]);
-	}
-	return (pid);
-}
-
 pid_t		op_double_redir_left(t_ast *tree, int pfd_old[2])
 {
 	int		pfd[2];
@@ -95,22 +82,18 @@ pid_t		op_double_redir_left(t_ast *tree, int pfd_old[2])
 
 	if (pipe(pfd) != -1)
 	{
-		ft_putstr("\033[31mheredoc> \033[m");
-		while (get_next_line(0, &line) > 0 && ft_strcmp(line, tree->tk->redir->name))
+		while (tree->tk->redir)
 		{
 			ft_putstr("\033[31mheredoc> \033[m");
-			ft_putendl_fd(line, pfd[1]);
-			ft_strdel(&line);
+			while (get_next_line(0, &line) > 0 && ft_strcmp(line, tree->tk->redir->name))
+			{
+				ft_putstr("\033[31mheredoc> \033[m");
+				ft_putendl_fd(line, pfd[1]);
+				ft_strdel(&line);
+			}
+			tree->tk->redir = tree->tk->redir->next;
 		}
 	}
-	// while (tree->tk->redir)
-	// {
-	// 	if (pfd[0] == -1)
-	// 		return (error("no such file or directory :", tree->tk->redir->name));
-	// 	if (tree->tk->redir->next)
-	// 		close(pfd[0]);
-	// 	tree->tk->redir = tree->tk->redir->next;
-	// }
 	if (tree->left)
 		pid = execute(tree->left->tk->value, pfd_old, pfd, 0);
 	else
