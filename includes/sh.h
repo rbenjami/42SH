@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/14 18:55:11 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 19:37:26 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,15 @@ typedef struct		s_handler
 	int				cmd;
 }					t_handler;
 
+typedef struct		s_exe
+{
+	char			**args;
+	char			*path;
+	pid_t			pid;
+	int				ret;
+	int				(*builtin)(char **);
+}					t_exe;
+
 /*
 **	GLOBAL !
 */
@@ -123,8 +132,13 @@ char	*ft_getenv(const char *name);
 int		(*find_builtin(char *cmd))(char **);
 void	ft_redir(t_token **token);
 
-void		close_pfd(int pfd[2]);
-void		dup_close(int *pfd, int *pfd_old, int b);
+/*
+**	utils.c
+*/
+void	close_pfd(int pfd[2]);
+void	dup_close(int *pfd, int *pfd_old, int b);
+int		ft_isfuncfork(char *name);
+
 /*
 **	BUILTIN
 */

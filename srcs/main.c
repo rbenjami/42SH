@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 18:45:19 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 20:33:34 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,43 @@ void	prompt()
 	ft_putstr(" ~> \033[m");
 }
 
+char	**default_env()
+{
+	char	**environ;
+
+	environ = (char **)ft_memalloc(sizeof(char *) * 7);
+	environ[0] = ft_strdup("PATH=/bin:");
+	environ[1] = ft_strdup("SHLVL=1");
+	environ[2] = ft_strdup("PWD=/");
+	environ[3] = ft_strdup("OLDPWD=/");
+	environ[4] = ft_strdup("HOME=/");
+	environ[5] = ft_strdup("LOGNAME=roger");
+	environ[6] = NULL;
+	return (environ);
+}
+
 void	init_env(char **env)
 {
 	char	**add;
 	char	*lvl;
 
-	handler.env = ft_cpytab(env, ft_tablen(env));
+	if (ft_tablen(env) == 0)
+		handler.env = default_env();
+	else
+	{
+		handler.env = ft_cpytab(env, ft_tablen(env));
+		lvl = ft_getenv("SHLVL");
+		add = ft_memalloc(sizeof(char *) * 4);
+		add[1] = ft_strdup("SHLVL");
+		add[2] = ft_itoa(ft_atoi(lvl) + 1);
+		add[3] = ft_strdup("1");
+		builtin_setenv(add);
+		ft_strdel(&add[1]);
+		ft_strdel(&add[2]);
+		ft_strdel(&add[3]);
+		ft_free_tab(&add);
+	}
 	handler.cmd = 0;
-	lvl = ft_getenv("SHLVL");
-	add = ft_memalloc(sizeof(char *) * 4);
-	add[1] = ft_strdup("SHLVL");
-	add[2] = ft_itoa(ft_atoi(lvl) + 1);
-	add[3] = ft_strdup("1");
-	builtin_setenv(add);
-	ft_strdel(&add[1]);
-	ft_strdel(&add[2]);
-	ft_strdel(&add[3]);
-	ft_free_tab(&add);
 }
 
 int		main(void)

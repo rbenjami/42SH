@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:13:04 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/12 16:28:00 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/14 19:44:13 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ static int		smart_print(char *str, int nxt_arg)
 	while (str[i] && str[i] != '$')
 	{
 		wr++;
-		write(1, &str[i], 1);
-		i++;
+		write(1, &str[i++], 1);
 	}
 	var = str[i + 1] ? ft_getenv(create_var(&str[i + 1])) : NULL;
 	wr = var ? wr + 1 : wr;
@@ -47,8 +46,7 @@ static int		smart_print(char *str, int nxt_arg)
 		i++;
 	if (!str[i + 1])
 		write(1, &str[i], 1);
-	if (str[i + 1])
-		wr += smart_print(&str[i], 0);
+	wr += (str[i + 1]) ? smart_print(&str[i], 0) : 0;
 	if (wr && nxt_arg)
 		write(1, " ", 1);
 	return (wr);

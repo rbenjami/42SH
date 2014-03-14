@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/14 14:38:17 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/14 19:51:43 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,6 @@ void		ft_add_node(t_ast **tree, t_token *tk)
 		(*tree)->right = NULL;
 	}
 }
-
-///////////////////	DEBUG !
-
-void		ft_putlst(t_token *tk)
-{
-	t_redir *redir;
-
-	while (tk && tk->next)
-	{
-		redir = tk->redir;
-		ft_putstr(tk->value);
-		ft_putstr(" -> ");
-		tk = tk->next;
-	}
-	if (tk)
-		ft_putendl(tk->value);
-}
-///////////////////	END DEBUG !
 
 t_token		*ft_lstsub(t_token *start_tk, t_token *tmp_t)
 {
