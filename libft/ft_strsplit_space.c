@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit_space.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/01 13:46:34 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/11 12:47:08 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 15:56:49 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static size_t	ft_words(char const *str)
 	return (size);
 }
 
-char		**ft_strsplit_space(char *str)
+char			**ft_strsplit_space(char *str)
 {
 	char	**tab;
 	size_t	size;

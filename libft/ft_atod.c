@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/02/03 15:56:51 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/05 15:24:34 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 16:09:12 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-double			ft_atod(char *str)
+double	ft_atod(char *str)
 {
 	int				i;
 	unsigned int	j;

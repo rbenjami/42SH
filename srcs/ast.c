@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/14 15:11:22 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 15:56:17 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ t_token		*ft_lstsub(t_token *start_tk, t_token *tmp_t)
 
 void		fill_tree(t_token *tk, t_ast **tree)
 {
-	t_token *tmp_t;
-	t_token *start_tk;
-	t_token *left;
-	t_token *right;
+	t_token	*tmp_t;
+	t_token	*start_tk;
+	t_token	*left;
+	t_token	*right;
 
 	tmp_t = tk;
 	start_tk = tk;
@@ -76,5 +76,5 @@ void		fill_tree(t_token *tk, t_ast **tree)
 	if (start_tk != tmp_t)
 		fill_tree(left, &(*tree)->left);
 	if (right)
-	 	fill_tree(right, &(*tree)->right);
+		fill_tree(right, &(*tree)->right);
 }
