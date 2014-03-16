@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 23:00:04 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/16 15:42:50 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <termios.h>
+#include <termcap.h>
 #include "sh.h"
 
 void	free_ast(t_ast **tree)
@@ -79,13 +81,31 @@ void	init_env(char **env)
 	handler.cmd = 0;
 }
 
+void		turn_on(struct termios *term)
+{
+	char	buffer[2048];
+
+	if (tgetent(buffer, getenv("TERM")) < 1)
+	{
+		write(2, "TERM: not found\n", 16);
+		exit(0);
+	}
+	tcgetattr(0, term);
+	term->c_lflag &= ~(ICANON);
+	term->c_lflag &= ~(ECHO);
+	tputs(tgetstr("ve", NULL), 1, tputs_putchar);
+	tcsetattr(0, 0, term);
+}
+
 int		main(void)
 {
 	char		*line;
 	t_token		*token;
 	t_ast		*tree;
 	extern char	**environ;
+	struct termios		term;
 
+	turn_on(&term);
 	init_env(environ);
 	init_op(&handler.tab_op);
 	while (1)
@@ -93,9 +113,9 @@ int		main(void)
 		tree = NULL;
 		token = NULL;
 		prompt();
+		if (!(line = reader(0)))
+			exit(-1);
 		handler.cmd = 0;
-		if (get_next_line(0, &line) <= 0)
-			exit(0);
 		lexer(&token, line);
 		parse_string(&token);
 		free(line);

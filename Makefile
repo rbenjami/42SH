@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
+#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/14 22:02:40 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/03/16 15:27:14 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,13 @@ FILES		=	main.c			\
 				redir.c			\
 				utils.c			\
 				pipe.c			\
-				operator.c
+				operator.c		\
+				reader.c		\
+				cmp_key.c		\
+				exec_key.c		\
+				list_termcap.c	\
+				tputs_putchar.c	\
+				tools_term.c
 
 BUI_FILES	=	builtin.c		\
 				cd.c			\
@@ -68,7 +74,7 @@ libft.a:		libft/$(OBJ_LIB) $(HEAD_LIB)
 	@make -C libft
 
 $(NAME):		$(OBJ)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
+	@$(CC) $(CFLAGS) -ltermcap -o $(NAME) $(OBJ) $(LIB)
 	@echo ""
 	@echo "\033[33m"compilation of $(NAME) : "\033[32m"Success"\033[0m"
 
