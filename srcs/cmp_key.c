@@ -6,13 +6,42 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 17:11:08 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/17 13:12:06 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/17 13:46:35 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <termcap.h>
+#include <termios.h>
+#include <sys/ioctl.h>
 #include "sh.h"
 
-void	delete_first(t_line *list)
+void					print_rest(int cursor, t_line *list)
+{
+	struct winsize		ws;
+	int					i;
+
+	ioctl(0, TIOCGWINSZ, &ws);
+	i = 0;
+	list = obtain_list(cursor, list);
+	cursor += len_prompt();
+	while (list)
+	{
+		ft_putchar(list->data);
+		list = list->next;
+		i++;
+	}
+	if ((cursor % ws.ws_col) != 0)
+	{
+		if ((cursor % ws.ws_col) > ws.ws_col - i)
+			tputs(tgetstr("up", NULL), 1, tputs_putchar);
+		i = (cursor % ws.ws_col);
+		tputs(tgoto(tgetstr("ch", NULL), 0, i), 1, tputs_putchar);
+	}
+	else
+		tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, tputs_putchar);
+}
+
+void					delete_first(t_line *list)
 {
 	if (list->next)
 	{
@@ -25,19 +54,19 @@ void	delete_first(t_line *list)
 		list->data = 0;
 }
 
-void	ft_down(char *key, int *cursor, t_line *list)
+void					ft_down(char *key, int *cursor, t_line *list)
 {
 	if (key && *cursor && list)
 		ft_putchar('0');
 }
 
-void	ft_up(char *key, int *cursor, t_line *list)
+void					ft_up(char *key, int *cursor, t_line *list)
 {
 	if (key && *cursor && list)
 		ft_putchar('0');
 }
 
-int		cmp_key(char *key, int *cursor, t_line *list)
+int						cmp_key(char *key, int *cursor, t_line *list)
 {
 	int				i;
 	static t_key	tbl[7] =

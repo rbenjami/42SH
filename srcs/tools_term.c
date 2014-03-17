@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:11:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/17 13:08:43 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/17 13:45:47 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 #include <sys/ioctl.h>
 #include "sh.h"
 
-
-int		len_prompt(void)
+int			len_prompt(void)
 {
 	int		i;
 	char	*pwd;
@@ -39,9 +38,9 @@ int		len_prompt(void)
 	return (len);
 }
 
-int		list_len(t_line *list)
+int			list_len(t_line *list)
 {
-	int			i;
+	int		i;
 
 	i = 0;
 	if (list)

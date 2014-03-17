@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 16:15:22 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/16 14:35:10 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/17 13:42:41 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include "sh.h"
 
- char		*create_line(t_line *list)
+char		*create_line(t_line *list)
 {
 	int		len;
 	char	*line;
@@ -44,19 +44,17 @@ char			*reader(int fd)
 	char		c[5];
 	t_line		list;
 	int			cursor;
-	int			stop;
 
 	cursor = 0;
-	stop = 0;
 	ft_bzero(c, 5);
 	list.data = 0;
 	if (read(fd, c, 4) < 0)
 		return (NULL);
 	modif_list(&list, c, &cursor);
 	if (ft_match(c, '\n'))
-		stop = 1;
+		cursor = -42;
 	ft_bzero(c, 5);
-	while (!stop && read(fd, c, 4) > 0)
+	while (cursor != -42 && read(fd, c, 4) > 0)
 	{
 		if (ft_match(c, '\n'))
 		{

@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/17 13:15:17 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/17 13:48:26 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,6 @@
 # define LEFT 4479771
 # define RIGHT 4414235
 # define DOWN 4348699
-# define ENTER 10
-# define ESC 27
-# define BS 127
-# define SPACE 32
 # define SUPR 2117294875
 # define DEL 127
 
@@ -182,12 +178,14 @@ int		builtin_unsetenv(char **av);
 **	reader.c
 */
 char		*reader(int fd);
+char		*create_line(t_line *list);
 
 /*
 **	cmp_key.c
 */
 int			cmp_key(char *key, int *cursor, t_line *list);
 void		delete_first(t_line *list);
+void		print_rest(int cursor, t_line *list);
 
 /*
 **	tputs_putchar.c
@@ -199,7 +197,6 @@ int			tputs_putchar(int c);
 **	list_termcap.c
 */
 void		modif_list(t_line *list, char *c, int *cursor);
-void		print_rest(int cursor, t_line *list);
 
 /*
 **	tools_term.c
@@ -217,10 +214,5 @@ void		ft_left(char *key, int *cursor, t_line *list);
 void		ft_right(char *key, int *cursor, t_line *list);
 void		ft_del(char *key, int *cursor, t_line *list);
 void		ft_supr(char *key, int *cursor, t_line *list);
-
-
-
-
-char		*create_line(t_line *list);
 
 #endif /* !SH_H */
