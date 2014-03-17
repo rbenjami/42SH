@@ -81,6 +81,4 @@ SRC_LIB		=	ft_isascii.c		\
 				ft_memrealloc.c		\
 				ft_isspace.c		\
 				ft_cpytab.c			\
-				ft_putcolored_char.c\
-				ft_putcolored_str.c	\
 				get_next_line.c
