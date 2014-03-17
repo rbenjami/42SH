@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 16:15:22 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/17 13:42:41 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/17 14:51:08 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include <unistd.h>
 #include "sh.h"
 
-char		*create_line(t_line *list)
+char			*create_line(t_line *list)
 {
-	int		len;
-	char	*line;
+	int			len;
+	char		*line;
 
 	if (!list->data)
 	{

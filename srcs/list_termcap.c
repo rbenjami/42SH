@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:05:59 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/17 13:37:18 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/17 14:58:21 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ static void		add_list(t_line *list, char *c, int rank, int *cursor)
 	}
 	add_process(list, tmp, c, rank);
 	*cursor = *(cursor) + 1;
+	tputs(tgetstr("im", NULL), 1, tputs_putchar);
+	if (c[rank] == '\t')
+		ft_putchar(' ');
+	else
+		ft_putchar(c[rank]);
+	tputs(tgetstr("ei", NULL), 1, tputs_putchar);
 	if (c[rank + 1])
 		add_list(list, c, rank + 1, cursor);
-	else
-	{
-		tputs(tgetstr("im", NULL), 1, tputs_putchar);
-		ft_putchar(c[rank]);
-		tputs(tgetstr("ei", NULL), 1, tputs_putchar);
-	}
 }
 
 static void		create_list(t_line *list, char *c, int *cursor)
@@ -65,14 +65,14 @@ static void		create_list(t_line *list, char *c, int *cursor)
 	list->next = 0;
 	list->nb = 0;
 	*cursor = *(cursor) + 1;
+	tputs(tgetstr("im", NULL), 1, tputs_putchar);
+	if (c[0] == '\t')
+		ft_putchar(' ');
+	else
+		ft_putchar(c[0]);
+	tputs(tgetstr("ei", NULL), 1, tputs_putchar);
 	if (c[1])
 		add_list(list, c, 1, cursor);
-	else
-	{
-		tputs(tgetstr("im", NULL), 1, tputs_putchar);
-		ft_putchar(c[0]);
-		tputs(tgetstr("ei", NULL), 1, tputs_putchar);
-	}
 }
 
 static void		add_first(t_line *list, t_line *tmp, char c, int *cursor)
