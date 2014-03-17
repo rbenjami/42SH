@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:11:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/16 15:43:15 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/17 13:08:43 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,55 +15,6 @@
 #include <sys/ioctl.h>
 #include "sh.h"
 
-void	print_list(t_line *list, int cursor)
-{
-	float				back;
-	float				i;
-	struct winsize		ws;
-	int					line;
-// SI ON ARRIVE A WIDTH ON REVIENT A LA LIGNE PUIS POS = truc % width
-	// ON IMPRIME LA SUITE DE LA LISTE A PARTIR DE LA
-
-	ioctl(0, TIOCGWINSZ, &ws);
-	i = len_prompt() + cursor;
-	line = (cursor + i) / ws.ws_col;
-	back = list_len(list) - cursor;
-	while (line)
-	{
-		tputs(tgetstr("up", NULL), 1, tputs_putchar);
-		line = !line ? -42 : line - 1;
-	}
-	cursor = line <= -42 ? len_prompt() + cursor : cursor;
-	while (cursor-- > 1)
-	{
-		if (line > -42)
-			tputs(tgetstr("le", NULL), 1, tputs_putchar);
-		else
-			tputs(tgetstr("nd", NULL), 1, tputs_putchar);
-
-	}
-	tputs(tgetstr("cd", NULL), 1, tputs_putchar);
-	while (list->prev)
-		list = list->prev;
-	while (list)
-	{
-		if (list->data == '\t')
-			ft_putchar(' ');
-		else
-			ft_putchar(list->data);
-		if (i++ == ws.ws_col)
-		{
-			i = 0;
-			tputs(tgetstr("do", NULL), 1, tputs_putchar);
-		}
-		list = list->next;
-	}
-	while (cursor < back)
-	{
-		tputs(tgetstr("le", NULL), 1, tputs_putchar);
-		cursor++;
-	}
-}
 
 int		len_prompt(void)
 {

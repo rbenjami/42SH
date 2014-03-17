@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/17 12:25:10 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/17 13:15:17 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,8 @@ typedef struct		s_exe
 	char			*path;
 	pid_t			pid;
 	int				ret;
-	int (*builtin)(char **);
+	int				(*builtin)(char **);
 }					t_exe;
-
 
 typedef struct			s_line
 {
@@ -105,6 +104,12 @@ typedef struct			s_line
 	struct s_line		*prev;
 	int					nb;
 }						t_line;
+
+typedef struct			s_key
+{
+	int					key;
+	void				(*f)(char *, int *, t_line *);
+}						t_key;
 
 /*
 **	GLOBAL !
@@ -151,8 +156,9 @@ void	parse_string(t_token **token);
 
 char	*ft_getenv(const char *name);
 
-int (*find_builtin(char *cmd))(char **);
+int		(*find_builtin(char *cmd))(char **);
 void	ft_redir(t_token **token);
+void	prompt(void);
 
 /*
 **	utils.c
@@ -177,11 +183,17 @@ int		builtin_unsetenv(char **av);
 */
 char		*reader(int fd);
 
-int			cmp_key(char *key);
+/*
+**	cmp_key.c
+*/
+int			cmp_key(char *key, int *cursor, t_line *list);
+void		delete_first(t_line *list);
 
+/*
+**	tputs_putchar.c
+*/
 int			tputs_putchar(int c);
 
-void		exec_key(char *key, int *cursor, t_line *list);
 
 /*
 **	list_termcap.c
@@ -192,16 +204,22 @@ void		print_rest(int cursor, t_line *list);
 /*
 **	tools_term.c
 */
-void		print_list(t_line *list, int cursor);
+int			ft_match(char *c, char search);
 t_line		*obtain_list(int cursor, t_line *list);
 void		verif_nb(t_line *list);
 int			list_len(t_line *list);
 int			len_prompt(void);
 
+/*
+**	exec_key.c
+*/
+void		ft_left(char *key, int *cursor, t_line *list);
+void		ft_right(char *key, int *cursor, t_line *list);
+void		ft_del(char *key, int *cursor, t_line *list);
+void		ft_supr(char *key, int *cursor, t_line *list);
 
-int			ft_match(char *c, char search);
 
-void		prompt(void);
+
 
 char		*create_line(t_line *list);
 

@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:05:59 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/17 12:24:54 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/17 12:47:33 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,8 @@ static void		add_first(t_line *list, t_line *tmp, char c, int *cursor)
 
 void			modif_list(t_line *list, char *c, int *cursor)
 {
-	if (cmp_key(c))
-	{
-		exec_key(c, cursor, list);
+	if (cmp_key(c, cursor, list))
 		return ;
-	}
 	if (list->data)
 		add_list(list, c, 0, cursor);
 	else
