@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 17:11:08 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/13 19:09:04 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/17 12:32:24 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		cmp_key(char *key)
 {
-	static int		tbl[6] = {UP, LEFT, RIGHT, DOWN, DEL, 0};
+	static int		tbl[7] = {UP, LEFT, RIGHT, DOWN, DEL, SUPR, 0};
 	int				i;
 	i = 0;
 	while (tbl[i])

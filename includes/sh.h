@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/16 15:24:14 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/17 12:25:10 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ void		exec_key(char *key, int *cursor, t_line *list);
 **	list_termcap.c
 */
 void		modif_list(t_line *list, char *c, int *cursor);
+void		print_rest(int cursor, t_line *list);
 
 /*
 **	tools_term.c

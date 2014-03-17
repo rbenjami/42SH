@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:05:59 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/16 14:55:21 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/17 12:24:54 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,31 @@
 #include "sh.h"
 
 static void		add_first(t_line *list, t_line *tmp, char c, int *cursor);
+
+void			print_rest(int cursor, t_line *list)
+{
+	struct winsize		ws;
+	int					i;
+
+	ioctl(0, TIOCGWINSZ, &ws);
+	i = 0;
+	list = obtain_list(cursor, list);
+	cursor += len_prompt();
+	while (list)
+	{
+		ft_putchar(list->data);
+		list = list->next;
+		i++;
+	}
+	if ((cursor % ws.ws_col) != 0)
+	{
+		if ((cursor % ws.ws_col) > ws.ws_col - i)
+			tputs(tgetstr("up", NULL), 1, tputs_putchar);
+		tputs(tgoto(tgetstr("ch", NULL), 0, (cursor % ws.ws_col)), 1, tputs_putchar);
+	}
+	else
+		tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, tputs_putchar);
+}
 
 static void		add_list(t_line *list, char *c, int rank, int *cursor)
 {
@@ -91,31 +116,6 @@ static void		add_first(t_line *list, t_line *tmp, char c, int *cursor)
 	tputs(tgetstr("ei", NULL), 1, tputs_putchar);
 }
 
-void			print_rest(int cursor, t_line *list)
-{
-	struct winsize		ws;
-	int					i;
-
-	ioctl(0, TIOCGWINSZ, &ws);
-	i = 0;
-	list = obtain_list(cursor, list);
-	cursor += len_prompt();
-	while (list)
-	{
-		ft_putchar(list->data);
-		list = list->next;
-		i++;
-	}
-	if ((cursor % ws.ws_col) != 0)
-	{
-		if ((cursor % ws.ws_col) > ws.ws_col - i)
-			tputs(tgetstr("up", NULL), 1, tputs_putchar);
-		tputs(tgoto(tgetstr("ch", NULL), 0, (cursor % ws.ws_col)), 1, tputs_putchar);
-	}
-	else
-		tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, tputs_putchar);
-}
-
 void			modif_list(t_line *list, char *c, int *cursor)
 {
 	if (cmp_key(c))
@@ -128,5 +128,5 @@ void			modif_list(t_line *list, char *c, int *cursor)
 	else
 		create_list(list, c, cursor);
 	if (*cursor != list_len(list))
-			print_rest(*cursor, list);
+		print_rest(*cursor, list);
 }
