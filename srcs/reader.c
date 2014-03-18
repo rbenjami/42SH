@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 16:15:22 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/18 17:49:01 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/18 18:06:18 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 #include <termios.h>
 #include <unistd.h>
 #include "sh.h"
-
-void			free_list(t_line **list)
-{
-	if (*list)
-	{
-		free_list((&(*list)->next));
-		free(*list);
-	}
-}
 
 char			*create_line(t_line *list)
 {
@@ -47,7 +38,6 @@ char			*create_line(t_line *list)
 		list = list->next;
 	}
 	line[len] = '\0';
-	free_list(&tmp);
 	return (line);
 }
 
