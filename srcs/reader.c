@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 16:15:22 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/17 14:51:08 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/18 17:49:01 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,22 @@
 #include <unistd.h>
 #include "sh.h"
 
+void			free_list(t_line **list)
+{
+	if (*list)
+	{
+		free_list((&(*list)->next));
+		free(*list);
+	}
+}
+
 char			*create_line(t_line *list)
 {
 	int			len;
 	char		*line;
+	t_line		*tmp;
 
+	tmp = list;
 	if (!list->data)
 	{
 		line = ft_memalloc(sizeof(char *));
@@ -36,6 +47,7 @@ char			*create_line(t_line *list)
 		list = list->next;
 	}
 	line[len] = '\0';
+	free_list(&tmp);
 	return (line);
 }
 

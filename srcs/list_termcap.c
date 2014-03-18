@@ -3,20 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   list_termcap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:05:59 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/17 14:58:21 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/18 17:46:29 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <termcap.h>
 #include "sh.h"
 
-static void		add_first(t_line *list, t_line *tmp, char c, int *cursor);
+static void		add_first(t_line *list, char c, int *cursor);
 
-static void		add_process(t_line *list, t_line *tmp, char *c, int rank)
+static void		add_process(t_line *list, char *c, int rank)
 {
+	t_line				*tmp;
+
+	if (!(tmp = (t_line *)ft_memalloc(sizeof(t_line))))
+		return ;
 	tmp->data = c[rank];
 	tmp->prev = list;
 	tmp->next = 0;
@@ -32,9 +36,7 @@ static void		add_process(t_line *list, t_line *tmp, char *c, int rank)
 
 static void		add_list(t_line *list, char *c, int rank, int *cursor)
 {
-	t_line				*tmp;
-
-	if (c[rank] == '\n' || (tmp = ft_memalloc(sizeof(t_line))) == NULL)
+	if (c[rank] == '\n')
 	{
 		write(1, "\n", 1);
 		return ;
@@ -43,10 +45,10 @@ static void		add_list(t_line *list, char *c, int rank, int *cursor)
 		list = obtain_list(*cursor - 1, list);
 	else
 	{
-		add_first(list, tmp, c[rank], cursor);
+		add_first(list, c[rank], cursor);
 		return ;
 	}
-	add_process(list, tmp, c, rank);
+	add_process(list, c, rank);
 	*cursor = *(cursor) + 1;
 	tputs(tgetstr("im", NULL), 1, tputs_putchar);
 	if (c[rank] == '\t')
@@ -75,8 +77,12 @@ static void		create_list(t_line *list, char *c, int *cursor)
 		add_list(list, c, 1, cursor);
 }
 
-static void		add_first(t_line *list, t_line *tmp, char c, int *cursor)
+static void		add_first(t_line *list, char c, int *cursor)
 {
+	t_line				*tmp;
+
+	if (!(tmp = (t_line *)ft_memalloc(sizeof(t_line))))
+		return ;
 	tmp->data = list->data;
 	tmp->next = list->next;
 	tmp->prev = list;

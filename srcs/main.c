@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/16 15:42:50 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/18 17:50:24 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int		main(void)
 		handler.cmd = 0;
 		lexer(&token, line);
 		parse_string(&token);
-		free(line);
+		ft_strdel(&line);
 		ft_redir(&token);
 		if (token)
 			fill_tree(token, &tree);
