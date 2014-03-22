@@ -6,25 +6,69 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 16:26:15 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/11 12:20:20 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/17 19:05:41 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "sh.h"
 
-int		error(const char *s1, char *s2)
+/*
+**	Error:
+**	%c -> char
+**	%s -> char*
+**	%d -> int
+**	%p -> perror
+*/
+
+int		ft_putcolored_char(char c, int color)
 {
-	ft_putstr_fd("42sh: \033[31m", ERR);
-	if (!s2)
+	if (color == BLACK)
+		ft_putstr("\033[30m");
+	if (color == RED)
+		ft_putstr("\033[31m");
+	if (color == GREEN)
+		ft_putstr("\033[32m");
+	if (color == YELLOW)
+		ft_putstr("\033[33m");
+	if (color == BLUE)
+		ft_putstr("\033[34m");
+	if (color == MAGENTA)
+		ft_putstr("\033[35m");
+	if (color == CYAN)
+		ft_putstr("\033[36m");
+	if (color == WITHE)
+		ft_putstr("\033[37m");
+	ft_putchar(c);
+	ft_putstr("\033[m");
+	return (1);
+}
+
+int		error(const char *msg, ...)
+{
+	va_list		ap;
+
+	va_start(ap, msg);
+	while (*msg)
 	{
-		ft_putendl_fd(s1, ERR);
-		ft_putstr_fd("\033[m", ERR);
+		if (*msg == '%')
+		{
+			msg++;
+			if (*msg == '%')
+				ft_putchar_fd('%', 2);
+			else if (*msg == 'c')
+				ft_putchar_fd(va_arg(ap, int), 2);
+			else if (*msg == 's')
+				ft_putstr_fd(va_arg(ap, char*), 2);
+			else if (*msg == 'd')
+				ft_putnbr_fd(va_arg(ap, int), 2);
+			else if (*msg == 'p')
+				perror(va_arg(ap, const char*));
+		}
+		else
+			ft_putcolored_char(*msg, 1);
+		msg++;
 	}
-	else
-	{
-		ft_putstr_fd(s1, ERR);
-		ft_putstr_fd("\033[m", ERR);
-		ft_putendl_fd(s2, ERR);
-	}
+	va_end(ap);
 	return (-42);
 }

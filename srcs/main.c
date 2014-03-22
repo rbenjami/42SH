@@ -6,70 +6,13 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/13 14:23:51 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/18 17:50:24 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <termios.h>
+#include <termcap.h>
 #include "sh.h"
-
-///////////////////	DEBUG !
-
-char* tab_type[2] =
-{
-	"STRING",
-	"OPERATOR"
-};
-
-void	DEBUG(t_token *token)
-{
-	while (token)
-	{
-		ft_putstr("\033[32mTYPE: \033[33m");
-		ft_putstr(tab_type[token->type]);
-		ft_putstr("\033[m : \033[31m");
-		ft_putnbr(token->type);
-		ft_putstr("\n\033[32mVALUE: \033[33m");
-		ft_putendl(token->value);
-		ft_putstr("\033[32mPRIORITY: \033[33m");
-		ft_putnbr(token->prio);
-		ft_putstr("\n\n\033[0m");
-		token = token->next;
-	}
-}
-
-void	DEBUG2(t_ast *tree)
-{
-	if (tree)
-	{
-		ft_putstr("\033[32mTYPE: \033[33m");
-		ft_putstr(tab_type[tree->tk->type]);
-		ft_putstr("\033[m : \033[31m");
-		ft_putnbr(tree->tk->type);
-		ft_putstr("\n\033[32mVALUE: \033[33m");
-		ft_putendl(tree->tk->value);
-		ft_putstr("\033[32mPRIORITY: \033[33m");
-		ft_putnbr(tree->tk->prio);
-		ft_putstr("\n\n\033[0m");
-		DEBUG2(tree->left);
-		DEBUG2(tree->right);
-	}
-}
-///////////////////	DEBUG !
-
-void	free_token(t_token **token)
-{
-	t_token		*tmp;
-
-	while (*token)
-	{
-		tmp = *token;
-		*token = (*token)->next;
-		free(tmp->value);
-		tmp->value = NULL;
-		free(tmp);
-		tmp = NULL;
-	}
-}
 
 void	free_ast(t_ast **tree)
 {
@@ -77,8 +20,6 @@ void	free_ast(t_ast **tree)
 	{
 		free_ast(&(*tree)->left);
 		free_ast(&(*tree)->right);
-		// ft_putstr("delete : ");
-		// ft_putendl((*tree)->tk->value);
 		free((*tree)->tk->value);
 		(*tree)->tk->value = NULL;
 		free((*tree)->tk);
@@ -88,7 +29,7 @@ void	free_ast(t_ast **tree)
 	}
 }
 
-void	prompt()
+void	prompt(void)
 {
 	int		i;
 	char	*pwd;
@@ -116,27 +57,69 @@ void	prompt()
 	ft_putstr(" ~> \033[m");
 }
 
+void	init_env(char **env)
+{
+	char	**add;
+	char	*lvl;
+
+	if (ft_tablen(env) == 0)
+		handler.env = default_env();
+	else
+	{
+		handler.env = ft_cpytab(env, ft_tablen(env));
+		lvl = ft_getenv("SHLVL");
+		add = ft_memalloc(sizeof(char *) * 4);
+		add[1] = ft_strdup("SHLVL");
+		add[2] = ft_itoa(ft_atoi(lvl) + 1);
+		add[3] = ft_strdup("1");
+		builtin_setenv(add);
+		ft_strdel(&add[1]);
+		ft_strdel(&add[2]);
+		ft_strdel(&add[3]);
+		ft_free_tab(&add);
+	}
+	handler.cmd = 0;
+}
+
+void		turn_on(struct termios *term)
+{
+	char	buffer[2048];
+
+	if (tgetent(buffer, getenv("TERM")) < 1)
+	{
+		write(2, "TERM: not found\n", 16);
+		exit(0);
+	}
+	tcgetattr(0, term);
+	term->c_lflag &= ~(ICANON);
+	term->c_lflag &= ~(ECHO);
+	tputs(tgetstr("ve", NULL), 1, tputs_putchar);
+	tcsetattr(0, 0, term);
+}
+
 int		main(void)
 {
 	char		*line;
 	t_token		*token;
 	t_ast		*tree;
 	extern char	**environ;
+	struct termios		term;
 
+	turn_on(&term);
+	init_env(environ);
 	init_op(&handler.tab_op);
-	handler.environ = ft_cpytab(environ, ft_tablen(environ));
-	handler.cmd = 0;
 	while (1)
 	{
 		tree = NULL;
 		token = NULL;
 		prompt();
+		if (!(line = reader(0)))
+			exit(-1);
 		handler.cmd = 0;
-		if (get_next_line(0, &line) <= 0)
-			exit(0);
 		lexer(&token, line);
 		parse_string(&token);
-		free(line);
+		ft_strdel(&line);
+		ft_redir(&token);
 		if (token)
 			fill_tree(token, &tree);
 		resolve_tree(tree, NULL);

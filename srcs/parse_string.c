@@ -6,15 +6,55 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 13:48:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/12 14:53:49 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 18:42:12 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-void	parse(t_token *token)
+void	sup_quote(char **token)
+{
+	int		i[5] = {0, 0, 0, 0, 0};
+
+	while ((*token)[i[0]] != '\0')
+	{
+		if ((*token)[i[0]] == BACK_SLASH || i[1])
+		{
+			if ((*token)[i[0]] == BACK_SLASH)
+				i[0]++;
+			i[1] = !i[1];
+		}
+		if ((*token)[i[0]] == DOUBLE_QUOTE)
+			i[2] = (i[3]) ? i[2] : !i[2];
+		if ((*token)[i[0]] == QUOTE)
+			i[3] = (i[2]) ? i[3] : !i[3];
+		if (!is_quote((*token)[i[0]])
+		|| ((*token)[i[0]] == DOUBLE_QUOTE && i[3])
+		|| ((*token)[i[0]] == QUOTE && i[2]) || i[1])
+			(*token)[i[4]++] = (*token)[i[0]];
+		i[0]++;
+	}
+	while ((*token)[i[4]] != '\0')
+		(*token)[i[4]++] = '\0';
+}
+
+void	missign_quote(int dquote, t_token *token)
 {
 	char	*line;
+
+	if (dquote)
+		ft_putstr("\033[31mdquote>\033[m ");
+	else
+		ft_putstr("\033[31mquote>\033[m ");
+	get_next_line(IN, &line);
+	ft_strjoin2(&token->value, "\n");
+	ft_strjoin2(&token->value, line);
+	free(line);
+	parse_string(&token);
+}
+
+void	parse(t_token *token)
+{
 	int		i;
 	int		dquote;
 	int		quote;
@@ -36,52 +76,29 @@ void	parse(t_token *token)
 		i++;
 	}
 	if (dquote || quote)
-	{
-		if (dquote)
-			ft_putstr("\033[31mdquote>\033[m ");
-		else
-			ft_putstr("\033[31mquote>\033[m ");
-		get_next_line(IN, &line);
-		ft_strjoin2(&token->value, "\n");
-		ft_strjoin2(&token->value, line);
-		free(line);
-		parse_string(&token);
-	}
+		missign_quote(dquote, token);
+	else
+		sup_quote(&token->value);
 }
 
-void	sup_quote(char **token)
+int		ft_strchr_redir(char *str)
 {
 	int		i;
-	int		cpy;
-	int		dquote;
-	int		quote;
-	int		back;
+	int		j;
 
 	i = 0;
-	cpy = 0;
-	dquote = 0;
-	quote = 0;
-	back = 0;
-	while ((*token)[cpy] != '\0')
+	j = 0;
+	while (str[i] != '\0')
 	{
-		if ((*token)[cpy] == BACK_SLASH || back)
-		{
-			if ((*token)[cpy] == BACK_SLASH)
-				cpy++;
-			back = !back;
-		}
-		if ((*token)[cpy] == DOUBLE_QUOTE)
-			dquote = (quote) ? dquote : !dquote;
-		if ((*token)[cpy] == QUOTE)
-			quote = (dquote) ? quote : !quote;
-		if (!is_quote((*token)[cpy])
-		|| ((*token)[cpy] == DOUBLE_QUOTE && quote)
-		|| ((*token)[cpy] == QUOTE && dquote) || back)
-			(*token)[i++] = (*token)[cpy];
-		cpy++;
+		if (str[i] == '>' || str[i] == '<')
+			j++;
+		else if (j == 1 || j == 2)
+			break ;
+		i++;
 	}
-	while ((*token)[i] != '\0')
-		(*token)[i++] = '\0';
+	if (j == 1 || j == 2)
+		return (1);
+	return (0);
 }
 
 void	parse_string(t_token **token)
@@ -92,10 +109,7 @@ void	parse_string(t_token **token)
 	while (tmp)
 	{
 		if (tmp->type == STRING)
-		{
 			parse(tmp);
-			sup_quote(&tmp->value);
-		}
 		tmp = tmp->next;
 	}
 }

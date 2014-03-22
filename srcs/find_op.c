@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 16:12:54 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/07 18:55:45 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 20:31:59 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	init_op(op_func **tab_op)
 {
 	*tab_op = (op_func *)ft_memalloc(sizeof(op_func) * 9);
 	(*tab_op)[0] = &op_redir_right;
-	(*tab_op)[1] = &op_redir_left;
-	(*tab_op)[2] = &op_double_redir_right;
+	(*tab_op)[1] = &op_redir_right;
+	(*tab_op)[2] = &op_redir_right;
 	(*tab_op)[3] = &op_double_redir_left;
 	(*tab_op)[4] = &op_pipe;
 	(*tab_op)[5] = &op_and;

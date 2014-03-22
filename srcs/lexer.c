@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 13:45:05 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/11 12:40:05 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/14 18:41:56 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int			collect_string(t_token **token, char *line)
 		}
 		i++;
 	}
-	str = ft_strsub(line, 0, i);
-	if (str[0])
+	if ((str = ft_strsub(line, 0, i)) != NULL)
 	{
 		add_token(token, str, STRING);
 		ft_strdel(&str);

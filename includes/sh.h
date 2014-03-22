@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/11 15:34:37 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/17 13:48:26 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 # define SH_H
 # include <libft.h>
 # include <fcntl.h>
+# include <stdarg.h>
+# include <string.h>
+
+# define OPEN_REDIR_R O_WRONLY | O_CREAT | O_TRUNC
+# define OPEN_2REDIR_R O_WRONLY | O_CREAT | O_APPEND
+# define UP 4283163
+# define LEFT 4479771
+# define RIGHT 4414235
+# define DOWN 4348699
+# define SUPR 2117294875
+# define DEL 127
 
 enum				e_token
 {
@@ -34,11 +45,20 @@ enum				e_operator
 	OP_BIN_AND
 };
 
+typedef struct		s_redir
+{
+	char			*name;
+	int				flag;
+	struct s_redir	*next;
+}					t_redir;
+
 typedef struct		s_token
 {
 	char			*value;
 	int				type;
 	int				prio;
+	t_redir			*redir;
+	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;
 
@@ -51,8 +71,8 @@ typedef struct		s_ast
 
 typedef struct		s_find
 {
-	char			*cmd;;
-	int				(*f)(char **);
+	char			*cmd;
+	int (*f)(char **);
 }					t_find;
 
 typedef pid_t (*op_func)(t_ast *tree, int pfd_old[2]);
@@ -60,16 +80,40 @@ typedef pid_t (*op_func)(t_ast *tree, int pfd_old[2]);
 typedef struct		s_handler
 {
 	op_func			*tab_op;
-	char			**environ;
+	char			**env;
 	int				cmd;
 }					t_handler;
+
+typedef struct		s_exe
+{
+	char			**args;
+	char			*path;
+	pid_t			pid;
+	int				ret;
+	int				(*builtin)(char **);
+}					t_exe;
+
+typedef struct			s_line
+{
+	char				data;
+	struct s_line		*next;
+	struct s_line		*prev;
+	int					nb;
+}						t_line;
+
+typedef struct			s_key
+{
+	int					key;
+	void				(*f)(char *, int *, t_line *);
+}						t_key;
 
 /*
 **	GLOBAL !
 */
 t_handler			handler;
 
-int		error(const char *s1, char *s2);
+int		error(const char *msg, ...)
+						__attribute__((format(printf, 1, 2)));
 
 int		is_operator(char c);
 int		is_space(char c);
@@ -77,6 +121,8 @@ int		is_quote(char c);
 int		is_alpha(char c);
 
 void	add_token(t_token **token, char *value, enum e_token);
+void	free_token(t_token **token);
+t_token	*append_token(t_token **token, t_token **add);
 
 void	fill_tree(t_token *tk, t_ast **tree);
 int		init_tree(t_token *tk, t_ast **tree);
@@ -85,6 +131,9 @@ void	lexer(t_token **token, char *line);
 
 void	init_op(op_func *tab_op[]);
 int		ft_ind_op(char *v);
+
+pid_t	op_redir(t_ast *tree, int pfd_old[2]);
+
 pid_t	op_redir_right(t_ast *tree, int pfd_old[2]);
 pid_t	op_redir_left(t_ast *tree, int pfd_old[2]);
 pid_t	op_double_redir_right(t_ast *tree, int pfd_old[2]);
@@ -104,6 +153,16 @@ void	parse_string(t_token **token);
 char	*ft_getenv(const char *name);
 
 int		(*find_builtin(char *cmd))(char **);
+void	ft_redir(t_token **token);
+void	prompt(void);
+
+/*
+**	utils.c
+*/
+void	close_pfd(int pfd[2]);
+void	dup_close(int *pfd, int *pfd_old, int b);
+int		ft_isfuncfork(char *name);
+char	**default_env(void);
 
 /*
 **	BUILTIN
@@ -114,5 +173,46 @@ int		builtin_exit(char **av);
 int		builtin_env(char **av);
 int		builtin_setenv(char **av);
 int		builtin_unsetenv(char **av);
+
+/*
+**	reader.c
+*/
+char		*reader(int fd);
+char		*create_line(t_line *list);
+
+/*
+**	cmp_key.c
+*/
+int			cmp_key(char *key, int *cursor, t_line *list);
+void		delete_first(t_line *list);
+void		print_rest(int cursor, t_line *list);
+
+/*
+**	tputs_putchar.c
+*/
+int			tputs_putchar(int c);
+
+
+/*
+**	list_termcap.c
+*/
+void		modif_list(t_line *list, char *c, int *cursor);
+
+/*
+**	tools_term.c
+*/
+int			ft_match(char *c, char search);
+t_line		*obtain_list(int cursor, t_line *list);
+void		verif_nb(t_line *list);
+int			list_len(t_line *list);
+int			len_prompt(void);
+
+/*
+**	exec_key.c
+*/
+void		ft_left(char *key, int *cursor, t_line *list);
+void		ft_right(char *key, int *cursor, t_line *list);
+void		ft_del(char *key, int *cursor, t_line *list);
+void		ft_supr(char *key, int *cursor, t_line *list);
 
 #endif /* !SH_H */

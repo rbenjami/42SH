@@ -6,19 +6,19 @@
 #    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/10 18:44:46 by dsousa           ###   ########.fr        #
+#    Updated: 2014/03/16 15:27:14 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 include		libft/Makefile.sources
-
-export	CFLAGS	=	-Wall -Wextra -Werror -g
 
 export	CC		=	cc
 
 export	INC		=	-I $(PWD)/libft
 
 NAME		=	42SH
+
+CFLAGS	=	-Wall -Wextra -Werror -g
 
 INC			+=	-I includes
 
@@ -34,11 +34,20 @@ FILES		=	main.c			\
 				token.c			\
 				execute.c		\
 				error.c			\
-				op_func.c		\
 				find_op.c		\
 				lexer.c			\
 				parse_string.c	\
-				ft_getenv.c
+				ft_getenv.c		\
+				redir.c			\
+				utils.c			\
+				pipe.c			\
+				operator.c		\
+				reader.c		\
+				cmp_key.c		\
+				exec_key.c		\
+				list_termcap.c	\
+				tputs_putchar.c	\
+				tools_term.c
 
 BUI_FILES	=	builtin.c		\
 				cd.c			\
@@ -65,7 +74,7 @@ libft.a:		libft/$(OBJ_LIB) $(HEAD_LIB)
 	@make -C libft
 
 $(NAME):		$(OBJ)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIB)
+	@$(CC) $(CFLAGS) -ltermcap -o $(NAME) $(OBJ) $(LIB)
 	@echo ""
 	@echo "\033[33m"compilation of $(NAME) : "\033[32m"Success"\033[0m"
 
