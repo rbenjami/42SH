@@ -6,11 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 16:15:22 by dsousa            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2014/03/21 15:50:25 by mgarcin          ###   ########.fr       */
-=======
-/*   Updated: 2014/03/18 18:06:18 by mgarcin          ###   ########.fr       */
->>>>>>> FETCH_HEAD
+/*   Updated: 2014/03/22 15:01:41 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +15,7 @@
 #include <unistd.h>
 #include "sh.h"
 
-<<<<<<< HEAD
+
 void			freelist(t_line *list)
 {
 	t_line *tmp;
@@ -34,8 +30,6 @@ void			freelist(t_line *list)
 	}
 }
 
-=======
->>>>>>> FETCH_HEAD
 char			*create_line(t_line *list)
 {
 	int			len;
@@ -59,10 +53,7 @@ char			*create_line(t_line *list)
 		list = list->next;
 	}
 	line[len] = '\0';
-<<<<<<< HEAD
 	freelist(tmp);
-=======
->>>>>>> FETCH_HEAD
 	return (line);
 }
 
