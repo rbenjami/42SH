@@ -6,7 +6,7 @@
 /*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:46:39 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/22 18:35:52 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/24 16:12:58 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		builtin_setenv(char **av)
 	int		ov;
 
 	i = 0;
-	if (!av[2])
+	if (!av[1] || !av[2])
 		return (-1);
 	ov = (av[3]) ? ft_atoi(av[3]) : 0;
 	while (handler.env[i])
