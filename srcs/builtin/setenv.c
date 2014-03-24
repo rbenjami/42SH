@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:46:39 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/14 22:05:55 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/22 18:35:52 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_add(char *name, char *value)
 	tab = ft_cpytab(handler.env, length + 1);
 	ft_strjoin2(&name, "=");
 	tab[length] = ft_strjoin(name, value);
+	tab[length + 1] = NULL;
 	ft_free_tab(&handler.env);
 	handler.env = tab;
 }

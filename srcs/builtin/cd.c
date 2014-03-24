@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:45:13 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/14 23:05:32 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/21 16:03:49 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void			ft_setenv(char *name, char *value)
 {
 	char			*av[5];
 
-	av[0] = "setenv";
-	av[1] = name;
-	av[2] = value;
-	av[3] = "1";
+	av[0] = ft_strdup("setenv");
+	av[1] = ft_strdup(name);
+	av[2] = ft_strdup(value);
+	av[3] = ft_strdup("1");
 	av[4] = NULL;
 	builtin_setenv(av);
 }
@@ -44,28 +44,17 @@ static void		ft_cd2(char *path, int cmp)
 {
 	char	buf[256];
 
-	if (!path)
-	{
-		if (!(path = ft_getenv("HOME")))
-		{
-			error("42sh: cd: HOME not set");
-			return ;
-		}
-	}
-	else if (cmp == 0)
-	{
-		path = ft_getenv("OLDPWD");
-		if (!path)
-			error("42sh: cd: OLDPWD not set");
-	}
+	if (!path && !(path = ft_getenv("HOME")))
+		error("42sh: cd: HOME not set\n");
+	else if (cmp == 0 && !(path = ft_getenv("OLDPWD")))
+		error("42sh: cd: OLDPWD not set\n");
 	if (path && access(path, X_OK) == -1)
-		error("42sh: %s: Permission denied", path);
-	else
+		error("42sh: %s: Permission denied\n", path);
+	else if (path)
 	{
-		if (path)
-			ft_setenv("OLDPWD", getcwd(buf, 256) + 13);
+		ft_setenv("OLDPWD", getcwd(buf, 256));
 		chdir(path);
-		ft_setenv("PWD", getcwd(buf, 256) + 13);
+		ft_setenv("PWD", getcwd(buf, 256));
 	}
 }
 
@@ -75,11 +64,14 @@ int				builtin_cd(char **argv)
 	char	*path;
 
 	cmp = -1;
-	path = argv[1];
+	if (!argv[1] || ft_strcmp(argv[1], "~") == 0)
+		path = NULL;
+	else
+		path = argv[1];
 	if (ft_isdir(path) || !path || (cmp = ft_strcmp(path, "-")) == 0)
 	{
 		ft_cd2(path, cmp);
 		return (0);
 	}
-	return (error("%s: No such file or directory", path));
+	return (error("%s: No such file or directory\n", path));
 }

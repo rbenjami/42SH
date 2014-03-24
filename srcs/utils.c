@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 12:25:29 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 23:10:28 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/21 16:47:18 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,5 @@ char		**default_env(void)
 	environ[4] = ft_strdup("HOME=/");
 	environ[5] = ft_strdup("LOGNAME=roger");
 	environ[6] = NULL;
-	ft_putendl("pok");
 	return (environ);
 }

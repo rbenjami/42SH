@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/17 13:48:26 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/22 18:25:30 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <fcntl.h>
 # include <stdarg.h>
 # include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 # define OPEN_REDIR_R O_WRONLY | O_CREAT | O_TRUNC
 # define OPEN_2REDIR_R O_WRONLY | O_CREAT | O_APPEND
@@ -134,10 +136,7 @@ int		ft_ind_op(char *v);
 
 pid_t	op_redir(t_ast *tree, int pfd_old[2]);
 
-pid_t	op_redir_right(t_ast *tree, int pfd_old[2]);
-pid_t	op_redir_left(t_ast *tree, int pfd_old[2]);
-pid_t	op_double_redir_right(t_ast *tree, int pfd_old[2]);
-pid_t	op_double_redir_left(t_ast *tree, int pfd_old[2]);
+pid_t	op_redir(t_ast *tree, int pfd_old[2]);
 pid_t	op_pipe(t_ast *tree, int pfd_old[2]);
 pid_t	op_and(t_ast *tree, int pfd_old[2]);
 pid_t	op_or(t_ast *tree, int pfd_old[2]);
@@ -153,7 +152,7 @@ void	parse_string(t_token **token);
 char	*ft_getenv(const char *name);
 
 int		(*find_builtin(char *cmd))(char **);
-void	ft_redir(t_token **token);
+void	ft_modify_token_for_redir(t_token **token);
 void	prompt(void);
 
 /*

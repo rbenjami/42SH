@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:13:04 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/14 19:44:13 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/22 16:57:22 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,9 @@ static int		smart_print(char *str, int nxt_arg)
 int				builtin_echo(char **argv)
 {
 	int		i;
-	int		dollar;
 	int		wr;
 	int		nxt_arg;
 
-	dollar = 0;
 	wr = 0;
 	if (argv[1])
 	{

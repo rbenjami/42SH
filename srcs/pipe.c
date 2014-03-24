@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:46:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 23:09:50 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/22 17:21:08 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ pid_t		op_pipe(t_ast *tree, int pfd_old[2])
 	{
 		if (tree->left)
 		{
-			execute(tree->left->tk->value, pfd_old, pfd, 1);
+			if (tree->left->tk->prio != 1)
+				execute(tree->left->tk->value, pfd_old, pfd, 1);
 			if (pfd_old)
 				close_pfd(pfd_old);
 			if (tree->right && tree->right->tk->prio > 0)
@@ -47,7 +48,7 @@ pid_t		op_pipe(t_ast *tree, int pfd_old[2])
 				op_pipe2(tree, pfd, &pid);
 		}
 		else
-			error("42sh: parse error near `|'\n", NULL);
+			error("42sh: parse error near `|'\n");
 	}
 	return (pid);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
+#    By: killer <killer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/16 15:27:14 by dsousa           ###   ########.fr        #
+#    Updated: 2014/03/22 16:54:18 by killer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ export	INC		=	-I $(PWD)/libft
 
 NAME		=	42SH
 
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror -g
 
 INC			+=	-I includes
 
@@ -62,7 +62,7 @@ SRC			=	$(addprefix $(SRC_DIR), $(FILES))\
 
 OBJ			=	$(SRC:.c=.o)
 
-LIB			=	-L./ -lft
+LIB			=	-L./ -lft -ltermcap
 
 OBJ_LIB		=	$(libft/SRC_LIB:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tablen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/01 13:55:23 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/01 13:55:33 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/21 16:51:27 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t		ft_tablen(char **tab)
 {
-	int		i;
+	size_t		i;
 
 	i = 0;
 	while (tab && tab[i])

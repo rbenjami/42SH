@@ -3,103 +3,115 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:33:23 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 23:10:20 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/24 15:12:57 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-pid_t		op_redir_right(t_ast *tree, int pfd_old[2])
+int		redir_read(t_ast *tree, int *fd, int pfd_new[2])
+{
+	char	*line;
+
+	if (tree->tk->redir->flag == OP_2REDIR_L)
+		*fd = 0;
+	else
+		*fd =  open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
+	if (*fd == -1)
+		return (-1);
+	if (*fd == 0)
+		ft_putstr("\033[31mheredoc> \033[m");
+	while (get_next_line(*fd, &line) > 0)
+	{
+		if (*fd == 0)
+		{
+			if (ft_strcmp(line, tree->tk->redir->name) == 0)
+			{
+				ft_strdel(&line);
+				break ;
+			}
+			ft_putstr("\033[31mheredoc> \033[m");
+		}
+		ft_putendl_fd(line, pfd_new[1]);
+		ft_strdel(&line);
+	}
+	return (1);
+}
+
+int		ft_fill_redir(t_ast *tree, int *fd, int pfd_new[2], int pfd[2])
+{
+	int	b;
+
+	b = 0;
+	while (tree->tk->redir)
+	{
+		if (tree->tk->redir->flag == O_RDONLY 
+			|| tree->tk->redir->flag == OP_2REDIR_L)
+		{
+			if (*fd > 2)
+				close(*fd);
+			if (redir_read(tree, fd, pfd_new) == -1)
+				return (-1);
+		}
+		else
+		{
+			b = 1;
+			if (pfd[1] > 2)
+				close(pfd[1]);
+			pfd[1] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
+		}
+		tree->tk->redir = tree->tk->redir->next;
+	}
+	return (b);
+}
+
+pid_t		ft_redir(t_ast *tree, int pfd_old[2], int pfd_new[2], int pfd[2])
+{
+	int		fd;
+	int		b;
+	
+	fd = -1;
+	b = ft_fill_redir(tree, &fd, pfd_new, pfd);
+	if (b == -1)
+		return (-1);
+	if (b && fd > -1)
+	{
+		if (!pfd_old) 
+		 	pfd_old = pfd_new;
+		pfd_old[0] = pfd_new[0];
+	}
+	else if (fd > -1)
+	{
+		pfd[0] = pfd_new[0];
+		pfd[1] = pfd_new[1];
+	}
+	if (tree->left)
+		return (execute(tree->left->tk->value, pfd_old, pfd, b));
+	return (execute(ft_strdup("cat"), pfd_old, pfd, b));
+}
+
+pid_t		op_redir(t_ast *tree, int pfd_old[2])
 {
 	int		pfd[2];
 	int		pfd_new[2];
 	int		pid;
 
-	pid = 0;
 	pfd[0] = -1;
-	pfd_new[0] = -1;
-	pfd_new[1] = -1;
 	pfd[1] = -1;
-	while (tree->tk->redir)
-	{
-		if (tree->tk->redir->flag == O_RDONLY)
-		{
-			pfd_new[0] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
-			if (pfd_new[0] == -1)
-				return (error("42sh: no such file or directory : %s\n", tree->tk->redir->name));
-		}
-		else
-			pfd[1] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
-		if (tree->tk->redir->next)
-			close(pfd[1]);
-		tree->tk->redir = tree->tk->redir->next;
-	}
-	if (tree->left)
-		pid = execute(tree->left->tk->value, pfd_new, pfd, 1);
-	else
-		pid = execute(ft_strdup("cat"), pfd_new, pfd, 1);
+	if (!tree->tk->redir)
+		return (error("42sh: parse error near `\\n'\n"));
+	if (pipe(pfd_new) == -1)
+		return (-42);
+	pid = ft_redir(tree, pfd_old, pfd_new, pfd);
+	if (pid == -1)
+		return (error("42sh: no such file or directory : %s\n", tree->tk->redir->name));
 	if (pfd_old)
 		close_pfd(pfd_old);
-	close(pfd[1]);
-	return (pid);
-}
-
-pid_t		op_redir_left(t_ast *tree, int pfd_old[2])
-{
-	int		pfd[2];
-	int		pid;
-
-	pid = 0;
-	pfd[1] = -1;
-	while (tree->tk->redir)
-	{
-		pfd[0] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
-		if (pfd[0] == -1)
-			return (error("42sh: no such file or directory : %s\n", tree->tk->redir->name));
-		if (tree->tk->redir->next)
-			close(pfd[0]);
-		tree->tk->redir = tree->tk->redir->next;
-	}
-	if (tree->left)
-		pid = execute(tree->left->tk->value, pfd_old, pfd, 0);
-	else
-		pid = execute(ft_strdup("cat"), pfd_old, pfd, 0);
-	if (pfd_old)
-		close_pfd(pfd_old);
-	close(pfd[1]);
-	return (pid);
-}
-
-pid_t		op_double_redir_left(t_ast *tree, int pfd_old[2])
-{
-	int		pfd[2];
-	int		pid;
-	char	*line;
-
-	if (pipe(pfd) != -1)
-	{
-		while (tree->tk->redir)
-		{
-			ft_putstr("\033[31mheredoc> \033[m");
-			while (get_next_line(0, &line) > 0 && ft_strcmp(line, tree->tk->redir->name))
-			{
-				ft_putstr("\033[31mheredoc> \033[m");
-				ft_putendl_fd(line, pfd[1]);
-				ft_strdel(&line);
-			}
-			tree->tk->redir = tree->tk->redir->next;
-		}
-	}
-	if (tree->left)
-		pid = execute(tree->left->tk->value, pfd_old, pfd, 0);
-	else
-		pid = execute(ft_strdup("cat"), pfd_old, pfd, 0);
-	if (pfd_old)
-		close_pfd(pfd_old);
-	close(pfd[1]);
+	close_pfd(pfd);
+	close_pfd(pfd_new);
 	return (pid);
 }
 
@@ -153,10 +165,12 @@ int		flag_op(int ind)
 		return (OPEN_REDIR_R);
 	if (ind == OP_2REDIR_R)
 		return (OPEN_2REDIR_R);
-	return (O_RDONLY);
+	if (ind == OP_REDIR_L)
+		return (O_RDONLY);
+	return (OP_2REDIR_L);
 }
 
-void	ft_redir(t_token **token)
+void	ft_modify_token_for_redir(t_token **token)
 {
 	t_token	*tmp;
 	t_token	*cmd;
@@ -180,6 +194,7 @@ void	ft_redir(t_token **token)
 		}
 		else if (tmp->prev && ft_ind_op(tmp->prev->value) >= 0 && ft_ind_op(tmp->prev->value) <= 3)
 		{
+//			ft_modify_cmd(token, tmp, redir, cmd);
 			while (tmp)
 			{
 				tab = ft_strsplit_space(tmp->value);

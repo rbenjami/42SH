@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/18 17:50:24 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/22 18:25:50 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ void	prompt(void)
 	ft_putstr("\033[40m");
 	ft_putstr(ft_getenv("LOGNAME"));
 	ft_putstr("\033[m\033[44m\033[30m");
-	if (!ft_strncmp(pwd, home, ft_strlen(home)))
+	if (pwd && home && !ft_strncmp(pwd, home, ft_strlen(home)))
 	{
 		ft_putstr("~");
 		i = ft_strlen(home);
 	}
-	ft_putstr(pwd + i);
+	if (pwd)
+		ft_putstr(pwd + i);
 	if (handler.cmd == 0)
 		ft_putstr("\033[m\033[32m");
 	else
@@ -103,9 +104,9 @@ int		main(void)
 	t_token		*token;
 	t_ast		*tree;
 	extern char	**environ;
-	struct termios		term;
+//	struct termios		term;
 
-	turn_on(&term);
+	//turn_on(&term);
 	init_env(environ);
 	init_op(&handler.tab_op);
 	while (1)
@@ -113,13 +114,15 @@ int		main(void)
 		tree = NULL;
 		token = NULL;
 		prompt();
-		if (!(line = reader(0)))
-			exit(-1);
+		if (get_next_line(0, &line) <= 0)
+			exit(0);
+		//if (!(line = reader(0)))
+		//	exit(-1);
 		handler.cmd = 0;
 		lexer(&token, line);
 		parse_string(&token);
 		ft_strdel(&line);
-		ft_redir(&token);
+		ft_modify_token_for_redir(&token);
 		if (token)
 			fill_tree(token, &tree);
 		resolve_tree(tree, NULL);

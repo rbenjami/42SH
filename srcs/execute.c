@@ -120,7 +120,7 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 			exit(1);
 	}
 	ft_free_tab(&exe.args);
-	if (exe.path[0])
+	if (exe.path && exe.path[0])
 		free(exe.path);
 	return (exe.pid);
 }

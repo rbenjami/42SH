@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:25:47 by mgarcin           #+#    #+#             */
-/*   Updated: 2014/03/14 19:07:50 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/16 13:43:53 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 int			ft_check_prio(char *v)
 {
-	if (!ft_strcmp(v, "|") || !ft_strcmp(v, "<")
-		|| !ft_strcmp(v, ">") || !ft_strcmp(v, ">>") || !ft_strcmp(v, "<<"))
+	if ( !ft_strcmp(v, "<") || !ft_strcmp(v, ">") 
+		|| !ft_strcmp(v, ">>") || !ft_strcmp(v, "<<"))
 		return (1);
-	if (!ft_strcmp(v, "&&") || !ft_strcmp(v, "||"))
+	if (!ft_strcmp(v, "|"))
 		return (2);
-	if (!ft_strcmp(v, ";") || !ft_strcmp(v, "&"))
+	if (!ft_strcmp(v, "&&") || !ft_strcmp(v, "||"))
 		return (3);
+	if (!ft_strcmp(v, ";") || !ft_strcmp(v, "&"))
+		return (4);
 	return (-1);
 }
 
