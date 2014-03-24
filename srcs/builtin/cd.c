@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:45:13 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/21 16:03:49 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/24 19:21:27 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 
 void			ft_setenv(char *name, char *value)
 {
-	char			*av[5];
+	char	**av;
 
+	av = (char **)ft_memalloc(sizeof(char *) * 5);
 	av[0] = ft_strdup("setenv");
 	av[1] = ft_strdup(name);
 	av[2] = ft_strdup(value);
 	av[3] = ft_strdup("1");
 	av[4] = NULL;
 	builtin_setenv(av);
+	ft_free_tab(&av);
 }
 
 static int		ft_isdir(char *file)
@@ -56,6 +58,7 @@ static void		ft_cd2(char *path, int cmp)
 		chdir(path);
 		ft_setenv("PWD", getcwd(buf, 256));
 	}
+	ft_strdel(&path);
 }
 
 int				builtin_cd(char **argv)
@@ -67,7 +70,7 @@ int				builtin_cd(char **argv)
 	if (!argv[1] || ft_strcmp(argv[1], "~") == 0)
 		path = NULL;
 	else
-		path = argv[1];
+		path = ft_strdup(argv[1]);
 	if (ft_isdir(path) || !path || (cmp = ft_strcmp(path, "-")) == 0)
 	{
 		ft_cd2(path, cmp);

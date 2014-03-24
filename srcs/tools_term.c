@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:11:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/24 18:53:29 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/24 19:10:55 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int			len_prompt(void)
 	int		i;
 	char	*pwd;
 	char	*home;
+	char	*ln;
 	int		len;
 
 	i = 0;
@@ -31,12 +32,13 @@ int			len_prompt(void)
 		len++;
 		i = ft_strlen(home);
 	}
-	len += ft_strlen(ft_getenv("LOGNAME"));
+	len += ft_strlen(ln = ft_getenv("LOGNAME"));
 	len += ft_strlen(pwd + i);
 	if (handler.cmd != 0)
 		len += ft_strlen(ft_itoa(handler.cmd)) + 1;
 	ft_strdel(&pwd);
 	ft_strdel(&home);
+	ft_strdel(&ln);
 	return (len);
 }
 
