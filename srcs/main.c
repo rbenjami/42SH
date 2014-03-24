@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/24 17:46:20 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/24 18:53:52 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	init_env(char **env)
 	handler.cmd = 0;
 }
 
-void		turn_on(struct termios *term)
+void	turn_on(struct termios *term)
 {
 	char	buffer[2048];
 
@@ -103,9 +103,9 @@ int		main(void)
 	t_token		*token;
 	t_ast		*tree;
 	extern char	**environ;
-//	struct termios		term;
+	struct termios		term;
 
-	//turn_on(&term);
+	turn_on(&term);
 	init_env(environ);
 	init_op(&handler.tab_op);
 	while (1)
@@ -113,10 +113,8 @@ int		main(void)
 		tree = NULL;
 		token = NULL;
 		prompt(0, "", "", "");
-		if (get_next_line(0, &line) <= 0)
-			exit(0);
-		//if (!(line = reader(0)))
-		//	exit(-1);
+		if (!(line = reader(0)))
+			exit(-1);
 		handler.cmd = 0;
 		lexer(&token, line);
 		parse_string(&token);

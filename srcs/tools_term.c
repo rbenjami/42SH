@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_term.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:11:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/17 13:45:47 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/24 18:53:29 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int			len_prompt(void)
 	len += ft_strlen(pwd + i);
 	if (handler.cmd != 0)
 		len += ft_strlen(ft_itoa(handler.cmd)) + 1;
+	ft_strdel(&pwd);
+	ft_strdel(&home);
 	return (len);
 }
 
