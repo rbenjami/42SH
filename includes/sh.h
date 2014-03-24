@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/22 18:25:30 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/24 17:45:13 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ char	*ft_getenv(const char *name);
 
 int		(*find_builtin(char *cmd))(char **);
 void	ft_modify_token_for_redir(t_token **token);
-void	prompt(void);
+void	prompt(int i, char *logname, char *pwd, char *home);
 
 /*
 **	utils.c

@@ -26,7 +26,7 @@ $(NAME):	$(OBJ_LIB)
 	@ar -rc $(NAME) $(OBJ_LIB)
 	@ranlib $(NAME)
 	@echo ""
-	@echo "\033[33m"Compilation of libft.a : "\033[32m"Succes"\033[0m"
+	@echo "\033[33m"Compilation of libft.a : "\033[32m"Success"\033[0m"
 
 $(OBJ_LIB):		$(HEAD)
 

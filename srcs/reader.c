@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 16:15:22 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/22 15:01:41 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/24 17:45:51 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <termios.h>
 #include <unistd.h>
 #include "sh.h"
-
 
 void			freelist(t_line *list)
 {
