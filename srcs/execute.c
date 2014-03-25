@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/25 16:54:57 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/25 17:45:35 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int			execute2(t_exe *exe, char *cmd)
 		return (error("42sh: command not found: %s\n", cmd));
 	exe->builtin = find_builtin(exe->args[0]);
 	exe->path = find_path(exe->args[0], handler.env, find_arg_path());
-	if (!exe->path || !exe->builtin)
+	if (!exe->path && !exe->builtin)
 	{
 		ft_free_tab(&exe->args);
 		return (error("42sh: command not found: %s\n", cmd));

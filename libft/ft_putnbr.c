@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/20 11:50:44 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/03 17:18:58 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/25 17:51:21 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,18 @@
 
 void	ft_putnbr(int n)
 {
-	char	*nbr;
-
-	nbr = ft_itoa(n);
-	ft_putstr(nbr);
-	free(nbr);
+	if (n < 0)
+	{
+		ft_putchar('-');
+		n = -n;
+	}
+	if (n < 10)
+	{
+		ft_putchar('0' + n);
+	}
+	else
+	{
+		ft_putnbr(n / 10);
+		ft_putnbr(n % 10);
+	}
 }
