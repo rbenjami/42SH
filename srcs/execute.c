@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/25 16:28:36 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/25 17:45:35 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,12 @@ int			execute2(t_exe *exe, char *cmd)
 	if (exe->builtin && (exe->ret = ft_isfuncfork(exe->args[0])) == 0)
 	{
 		if (exe->builtin(exe->args) < 0)
+		{
+			if (exe->path && exe->path[0])
+				free(exe->path);
+			ft_free_tab(&exe->args);
 			return (-1);
+		}
 	}
 	return (1);
 }

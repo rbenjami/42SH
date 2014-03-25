@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/20 11:50:44 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/01/14 17:59:14 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/25 16:58:01 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ char			*ft_itoa(int n)
 		i = i / 10;
 		n++;
 	}
-	nb = ft_strnew(n + neg);
+	nb = ft_strnew(n + neg + 1);
 	return (ft_saveitoa(size, n2, nb, neg));
 }
