@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/24 17:45:13 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/24 20:00:05 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,9 @@ void	add_token(t_token **token, char *value, enum e_token);
 void	free_token(t_token **token);
 t_token	*append_token(t_token **token, t_token **add);
 
+void	ft_lstadd_redir(t_token *token, char *name, int flag);
+void	ft_lstremove_redir(t_token **token, t_token **remove);
+
 void	fill_tree(t_token *tk, t_ast **tree);
 int		init_tree(t_token *tk, t_ast **tree);
 
@@ -135,7 +138,6 @@ void	init_op(op_func *tab_op[]);
 int		ft_ind_op(char *v);
 
 pid_t	op_redir(t_ast *tree, int pfd_old[2]);
-
 pid_t	op_redir(t_ast *tree, int pfd_old[2]);
 pid_t	op_pipe(t_ast *tree, int pfd_old[2]);
 pid_t	op_and(t_ast *tree, int pfd_old[2]);
@@ -152,8 +154,7 @@ void	parse_string(t_token **token);
 char	*ft_getenv(const char *name);
 
 int		(*find_builtin(char *cmd))(char **);
-void	ft_modify_token_for_redir(t_token **token);
-void	prompt(int i, char *logname, char *pwd, char *home);
+int		ft_modify_token_for_redir(t_token **token);
 
 /*
 **	utils.c

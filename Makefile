@@ -6,7 +6,7 @@
 #    By: killer <killer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/22 16:54:18 by killer           ###   ########.fr        #
+#    Updated: 2014/03/24 19:50:49 by killer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,9 @@ FILES		=	main.c			\
 				exec_key.c		\
 				list_termcap.c	\
 				tputs_putchar.c	\
-				tools_term.c
+				tools_term.c	\
+				modif_token.c	\
+				lst_redir.c
 
 BUI_FILES	=	builtin.c		\
 				cd.c			\
