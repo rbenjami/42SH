@@ -14,7 +14,7 @@ include		Makefile.sources
 
 NAME		=	../libft.a
 
-CFLAGS	=	-Wall -Wextra -Werror -g
+CFLAGS	=	-Wall -Wextra -Werror -g3 -pedantic
 
 OBJ_LIB		=	$(SRC_LIB:.c=.o)
 
