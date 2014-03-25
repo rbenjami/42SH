@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/25 17:45:35 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/25 19:18:37 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 		return (-42);
 	if ((exe.pid = fork()) < 0)
 		return (error("42sh: fork error !\n"));
+	turn_off(handler.term);
 	if (exe.pid == 0)
 	{
 		if (pfd || pfd_old)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:45:41 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/12 15:05:40 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/25 19:20:47 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		builtin_exit(char **av)
 {
+	turn_off(handler.term);
 	if (av[1])
 		exit(ft_atoi(av[1]));
 	else

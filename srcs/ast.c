@@ -6,7 +6,7 @@
 /*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/25 16:29:34 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/25 19:17:13 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void		resolve_tree(t_ast *tree, int pfd_old[2])
 		else
 			pid = execute(tree->tk->value, NULL, NULL, 0);
 		waitpid(pid, &status, 0);
+		turn_on(handler.term);
 		handler.cmd = (pid == -42) ? pid : WEXITSTATUS(status);
 	}
 }

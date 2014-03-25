@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/25 17:00:49 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/25 19:08:08 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,13 @@ void	turn_on(struct termios *term)
 	tcsetattr(0, 0, term);
 }
 
+void	turn_off(struct termios *term)
+{
+	term->c_lflag |= ICANON;
+	term->c_lflag |= ECHO;
+	tcsetattr(0, 0, term);
+}
+
 int		main(void)
 {
 	char		*line;
@@ -106,6 +113,7 @@ int		main(void)
 	struct termios		term;
 
 	turn_on(&term);
+	handler.term = &term;
 	init_env(environ);
 	init_op(&handler.tab_op);
 	while (1)

@@ -6,7 +6,7 @@
 /*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/24 20:00:05 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/25 19:12:59 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 # include <fcntl.h>
 # include <stdarg.h>
 # include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <termios.h>
+# include <termcap.h>
 
 # define OPEN_REDIR_R O_WRONLY | O_CREAT | O_TRUNC
 # define OPEN_2REDIR_R O_WRONLY | O_CREAT | O_APPEND
@@ -81,9 +83,10 @@ typedef pid_t (*op_func)(t_ast *tree, int pfd_old[2]);
 
 typedef struct		s_handler
 {
-	op_func			*tab_op;
-	char			**env;
 	int				cmd;
+	char			**env;
+	op_func			*tab_op;
+	struct termios	*term;
 }					t_handler;
 
 typedef struct		s_exe
@@ -155,7 +158,8 @@ char	*ft_getenv(const char *name);
 
 int		(*find_builtin(char *cmd))(char **);
 int		ft_modify_token_for_redir(t_token **token);
-
+void	turn_off(struct termios *term);
+void	turn_on(struct termios *term);
 /*
 **	utils.c
 */
