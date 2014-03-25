@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_string.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 13:48:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/24 17:45:50 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/25 18:56:43 by killer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	missign_quote(int dquote, t_token *token)
 		ft_putstr("\033[31mdquote>\033[m ");
 	else
 		ft_putstr("\033[31mquote>\033[m ");
-	get_next_line(IN, &line);
+	line = reader(IN);
 	ft_strjoin2(&token->value, "\n");
 	ft_strjoin2(&token->value, line);
 	free(line);
