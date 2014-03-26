@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_key.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:06:44 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 17:28:46 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 18:47:09 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void			ft_del(char *key, int *cursor, t_line *list, t_ctrl_h *h)
 	tputs(tgetstr("ei", NULL), 1, tputs_putchar);
 }
 
-void					ft_supr(char *key, int *cursor, t_line *l, t_ctrl_h *h)
+void			ft_supr(char *key, int *cursor, t_line *l, t_ctrl_h *h)
 {
 	struct winsize		ws;
 
