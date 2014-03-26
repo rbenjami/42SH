@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: killer <killer@student.42.fr>              +#+  +:+       +#+         #
+#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/24 19:50:49 by killer           ###   ########.fr        #
+#    Updated: 2014/03/26 14:02:47 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ FILES		=	main.c			\
 				list_termcap.c	\
 				tputs_putchar.c	\
 				tools_term.c	\
+				histfile.c		\
 				modif_token.c	\
 				lst_redir.c
 

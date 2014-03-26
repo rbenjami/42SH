@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_key.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:06:44 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/24 18:53:53 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/25 15:23:48 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <sys/ioctl.h>
 #include "sh.h"
 
-static int				delete_elem(t_line *list, int *cursor)
+static int		delete_elem(t_line *list, int *cursor)
 {
 	t_line		*tmp;
 
@@ -39,11 +39,12 @@ static int				delete_elem(t_line *list, int *cursor)
 	return (*cursor);
 }
 
-void					ft_left(char *key, int *cursor, t_line *list)
+void			ft_left(char *key, int *cursor, t_line *list, t_ctrl_h *h)
 {
-	struct winsize		ws;
-	int					tmp_cursor;
+	t_ws		ws;
+	int			tmp_cursor;
 
+	h->unused += *cursor % 1;
 	tputs(tgetstr("im", NULL), 1, tputs_putchar);
 	ioctl(0, TIOCGWINSZ, &ws);
 	if (*(unsigned int *)key == LEFT && *cursor > 0 && list)
@@ -61,10 +62,11 @@ void					ft_left(char *key, int *cursor, t_line *list)
 	tputs(tgetstr("ei", NULL), 1, tputs_putchar);
 }
 
-void					ft_right(char *key, int *cursor, t_line *list)
+void			ft_right(char *key, int *cursor, t_line *list, t_ctrl_h *h)
 {
-	struct winsize		ws;
+	t_ws		ws;
 
+	h->unused += *cursor % 1;
 	tputs(tgetstr("im", NULL), 1, tputs_putchar);
 	if (*(unsigned int *)key == RIGHT && *cursor < list_len(list))
 	{
@@ -77,11 +79,12 @@ void					ft_right(char *key, int *cursor, t_line *list)
 	tputs(tgetstr("ei", NULL), 1, tputs_putchar);
 }
 
-void					ft_del(char *key, int *cursor, t_line *list)
+void			ft_del(char *key, int *cursor, t_line *list, t_ctrl_h *h)
 {
-	struct winsize		ws;
-	int					tmp_cursor;
+	t_ws		ws;
+	int			tmp_cursor;
 
+	h->unused += *cursor % 1;
 	tputs(tgetstr("im", NULL), 1, tputs_putchar);
 	ioctl(0, TIOCGWINSZ, &ws);
 	if (*(unsigned int *)key == DEL && *cursor > 0)
@@ -104,10 +107,11 @@ void					ft_del(char *key, int *cursor, t_line *list)
 	tputs(tgetstr("ei", NULL), 1, tputs_putchar);
 }
 
-void					ft_supr(char *key, int *cursor, t_line *list)
+void					ft_supr(char *key, int *cursor, t_line *list, t_ctrl_h *h)
 {
 	struct winsize		ws;
 
+	h->unused += *cursor % 1;
 	tputs(tgetstr("im", NULL), 1, tputs_putchar);
 	ioctl(0, TIOCGWINSZ, &ws);
 	if (*(unsigned int *)key == SUPR && *cursor < list_len(list))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 16:15:22 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/24 18:53:55 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 10:13:53 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void			freelist(t_line *list)
 {
-	t_line *tmp;
+	t_line		*tmp;
 
 	tmp = NULL;
 	if (list)
@@ -56,18 +56,20 @@ char			*create_line(t_line *list)
 	return (line);
 }
 
-char			*reader(int fd)
+char			*reader(int fd, t_ctrl_h *hist)
 {
 	char		c[5];
 	t_line		list;
 	int			cursor;
 
 	cursor = 0;
+	hist->nb = -1;
+	hist->unused = 0;
 	ft_bzero(c, 5);
 	list.data = 0;
 	if (read(fd, c, 4) < 0)
 		return (NULL);
-	modif_list(&list, c, &cursor);
+	modif_list(&list, c, &cursor, hist);
 	if (ft_match(c, '\n'))
 		cursor = -42;
 	ft_bzero(c, 5);
@@ -78,7 +80,7 @@ char			*reader(int fd)
 			write(1, "\n", 1);
 			break ;
 		}
-		modif_list(&list, c, &cursor);
+		modif_list(&list, c, &cursor, hist);
 		ft_bzero(c, 5);
 	}
 	return (create_line(&list));

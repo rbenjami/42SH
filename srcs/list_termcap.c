@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_termcap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:05:59 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/24 17:45:46 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 11:21:13 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		add_process(t_line *list, char *c, int rank)
 	verif_nb(list);
 }
 
-static void		add_list(t_line *list, char *c, int rank, int *cursor)
+void		add_list(t_line *list, char *c, int rank, int *cursor)
 {
 	if (c[rank] == '\n')
 	{
@@ -60,7 +60,7 @@ static void		add_list(t_line *list, char *c, int rank, int *cursor)
 		add_list(list, c, rank + 1, cursor);
 }
 
-static void		create_list(t_line *list, char *c, int *cursor)
+void		create_list(t_line *list, char *c, int *cursor)
 {
 	list->data = c[0];
 	list->prev = 0;
@@ -92,16 +92,17 @@ static void		add_first(t_line *list, char c, int *cursor)
 	list->data = c;
 	list->nb = 0;
 	verif_nb(list);
-	*cursor = *(cursor) + 1;
+	*cursor = *cursor + 1;
 	tputs(tgetstr("im", NULL), 1, tputs_putchar);
 	ft_putchar(c);
 	tputs(tgetstr("ei", NULL), 1, tputs_putchar);
 }
 
-void			modif_list(t_line *list, char *c, int *cursor)
+void			modif_list(t_line *list, char *c, int *cursor, t_ctrl_h *h)
 {
-	if (cmp_key(c, cursor, list))
+	if (cmp_key(c, cursor, list, h))
 		return ;
+	h->nb = 0;
 	if (list->data)
 		add_list(list, c, 0, cursor);
 	else

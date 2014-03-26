@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/25 19:08:08 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/26 14:15:46 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,23 +106,27 @@ void	turn_off(struct termios *term)
 
 int		main(void)
 {
-	char		*line;
-	t_token		*token;
-	t_ast		*tree;
-	extern char	**environ;
+	char				*line;
+	t_token				*token;
+	t_ast				*tree;
+	extern char			**environ;
 	struct termios		term;
+	t_ctrl_h			hist;
 
 	turn_on(&term);
-	handler.term = &term;
 	init_env(environ);
+	handler.term = &term;
 	init_op(&handler.tab_op);
+	create_hist(&hist);
 	while (1)
 	{
 		tree = NULL;
 		token = NULL;
 		prompt(0, "", "", "");
-		if (!(line = reader(0)))
+		if (!(line = reader(0, &hist)))
 			exit(-1);
+		if (line && line[0] != '\n')
+			save_hist(hist.start, line, 1, &hist);
 		handler.cmd = 0;
 		lexer(&token, line);
 		parse_string(&token);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:33:23 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/25 11:10:37 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/26 12:30:27 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		redir_read(t_ast *tree, int *fd, int pfd_new[2])
 		return (-1);
 	if (*fd == 0)
 		ft_putstr("\033[31mheredoc> \033[m");
-	while ((line = reader(*fd)))
+	while ((line = reader(*fd, &hist)))
 	{
 		if (*fd == 0)
 		{
@@ -48,7 +48,7 @@ int		ft_fill_redir(t_ast *tree, int *fd, int pfd_new[2], int pfd[2])
 	b = 0;
 	while (tree->tk->redir)
 	{
-		if (tree->tk->redir->flag == O_RDONLY 
+		if (tree->tk->redir->flag == O_RDONLY
 			|| tree->tk->redir->flag == OP_2REDIR_L)
 		{
 			if (*fd > 2)
@@ -72,14 +72,14 @@ pid_t		ft_redir(t_ast *tree, int pfd_old[2], int pfd_new[2], int pfd[2])
 {
 	int		fd;
 	int		b;
-	
+
 	fd = -1;
 	b = ft_fill_redir(tree, &fd, pfd_new, pfd);
 	if (b == -1)
 		return (-1);
 	if (b && fd > -1)
 	{
-		if (!pfd_old) 
+		if (!pfd_old)
 		 	pfd_old = pfd_new;
 		pfd_old[0] = pfd_new[0];
 	}
