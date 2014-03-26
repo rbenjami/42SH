@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/01 13:46:34 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/14 22:01:51 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/26 18:32:27 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static size_t	ft_words(char const *str)
 
 	i = 0;
 	size = 0;
-	while (str[i] && ft_isspace(str[i]))
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
 	while (str[i])
 	{
-		while (str[i] && ft_isspace(str[i]))
+		while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 			i++;
 		if (str[i])
 		{
-			while (str[i] && !ft_isspace(str[i]))
+			while (str[i] && !(str[i] == ' ' || str[i] == '\t'))
 				i++;
 			size++;
 		}
@@ -50,12 +50,12 @@ char			**ft_strsplit_space(char *str)
 	size = 0;
 	while (str[i])
 	{
-		if (ft_isspace(str[i]))
+		if ((str[i] == ' ' || str[i] == '\t'))
 			i++;
 		else
 		{
 			start = i;
-			while (str[i] && !ft_isspace(str[i]))
+			while (str[i] && !(str[i] == ' ' || str[i] == '\t'))
 				i++;
 			tab[size++] = ft_strsub(str, start, i - start);
 		}
