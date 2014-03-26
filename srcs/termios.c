@@ -6,11 +6,10 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 19:03:38 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 19:04:28 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:46:03 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <termios.h>
 #include <termcap.h>
 #include "sh.h"
 

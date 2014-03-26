@@ -6,11 +6,10 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 16:26:15 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 17:53:37 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:44:08 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "sh.h"
 
 /*
@@ -18,7 +17,6 @@
 **	%c -> char
 **	%s -> char*
 **	%d -> int
-**	%p -> perror
 */
 
 int		ft_putcolored_char(char c, int color)
@@ -62,8 +60,6 @@ int		error(const char *msg, ...)
 				ft_putstr_fd(va_arg(ap, char*), 2);
 			else if (*msg == 'd')
 				ft_putnbr_fd(va_arg(ap, int), 2);
-			else if (*msg == 'p')
-				perror(va_arg(ap, const char*));
 		}
 		else
 			ft_putcolored_char(*msg, 1);

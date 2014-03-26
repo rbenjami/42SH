@@ -6,12 +6,10 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/25 10:09:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 19:19:33 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:48:09 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <libft.h>
 #include <sys/stat.h>
 #include "sh.h"
 
