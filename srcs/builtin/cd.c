@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:45:13 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/24 19:21:27 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 15:58:23 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,19 @@ static void		ft_cd2(char *path, int cmp)
 
 	if (!path && !(path = ft_getenv("HOME")))
 		error("42sh: cd: HOME not set\n");
-	else if (cmp == 0 && !(path = ft_getenv("OLDPWD")))
-		error("42sh: cd: OLDPWD not set\n");
+	else if (cmp == 0)
+	{
+		ft_strdel(&path);
+		if (!(path = ft_getenv("OLDPWD")))
+			error("42sh: cd: OLDPWD not set\n");
+	}
 	if (path && access(path, X_OK) == -1)
 		error("42sh: %s: Permission denied\n", path);
 	else if (path)
 	{
-		ft_setenv("OLDPWD", getcwd(buf, 256));
+		ft_setenv("OLDPWD", getcwd(buf, 256) + 13);
 		chdir(path);
-		ft_setenv("PWD", getcwd(buf, 256));
+		ft_setenv("PWD", getcwd(buf, 256) + 13);
 	}
 	ft_strdel(&path);
 }
