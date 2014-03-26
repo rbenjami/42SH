@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:06:44 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 17:13:31 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 17:28:46 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void					ft_supr(char *key, int *cursor, t_line *l, t_ctrl_h *h)
 	if (*(unsigned int *)key == SUPR && *cursor < list_len(l))
 	{
 		tputs(tgetstr("dc", NULL), 1, tputs_putchar);
-		if (!delete_elem(list, cursor))
+		if (!delete_elem(l, cursor))
 			return ;
 		if (*cursor < list_len(l))
 			print_rest(*cursor, l);
