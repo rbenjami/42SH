@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:33:23 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 17:32:43 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/26 17:46:53 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		redir_read(t_ast *tree, int *fd, int pfd_new[2])
 	if (tree->tk->redir->flag == OP_2REDIR_L)
 		*fd = 0;
 	else
-		*fd =  open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
+		*fd = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
 	if (*fd == -1)
 		return (-1);
 	if (*fd == 0)
@@ -75,7 +75,7 @@ int		ft_fill_redir(t_ast *tree, int *fd, int pfd_new[2], int pfd[2])
 	return (b);
 }
 
-pid_t		ft_redir(t_ast *tree, int pfd_old[2], int pfd_new[2], int pfd[2])
+pid_t	ft_redir(t_ast *tree, int pfd_old[2], int pfd_new[2], int pfd[2])
 {
 	int		fd;
 	int		b;
@@ -87,7 +87,7 @@ pid_t		ft_redir(t_ast *tree, int pfd_old[2], int pfd_new[2], int pfd[2])
 	if (b && fd > -1)
 	{
 		if (!pfd_old)
-		 	pfd_old = pfd_new;
+			pfd_old = pfd_new;
 		pfd_old[0] = pfd_new[0];
 	}
 	else if (fd > -1)
@@ -100,7 +100,7 @@ pid_t		ft_redir(t_ast *tree, int pfd_old[2], int pfd_new[2], int pfd[2])
 	return (execute(ft_strdup("cat"), pfd_old, pfd, b));
 }
 
-pid_t		op_redir(t_ast *tree, int pfd_old[2])
+pid_t	op_redir(t_ast *t, int pfd_old[2])
 {
 	int		pfd[2];
 	int		pfd_new[2];
@@ -108,13 +108,13 @@ pid_t		op_redir(t_ast *tree, int pfd_old[2])
 
 	pfd[0] = -1;
 	pfd[1] = -1;
-	if (!tree->tk->redir)
-		return (error("42sh: parse error near `\\n'\n"));
+	if (!t->tk->redir)
+		return (error("Parse error near `\\n'\n"));
 	if (pipe(pfd_new) == -1)
 		return (-42);
-	pid = ft_redir(tree, pfd_old, pfd_new, pfd);
+	pid = ft_redir(t, pfd_old, pfd_new, pfd);
 	if (pid == -1)
-		return (error("42sh: no such file or directory : %s\n", tree->tk->redir->name));
+		return (error("No such file or directory : %s\n", t->tk->redir->name));
 	if (pfd_old)
 		close_pfd(pfd_old);
 	close_pfd(pfd);

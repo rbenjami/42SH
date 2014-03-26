@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:25:47 by mgarcin           #+#    #+#             */
-/*   Updated: 2014/03/26 17:32:25 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 17:46:19 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		add_token(t_token **token, char *value, enum e_token type)
 	}
 }
 
-t_token		*ft_new_token()
+t_token		*ft_new_token(void)
 {
 	t_token	*new_token;
 
