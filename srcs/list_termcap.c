@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   list_termcap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:05:59 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 15:15:15 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 17:35:58 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <termcap.h>
 #include "sh.h"
-
-static void		add_first(t_line *list, char c, int *cursor);
 
 static void		add_process(t_line *list, char *c, int rank)
 {
@@ -77,7 +75,7 @@ void		create_list(t_line *list, char *c, int *cursor)
 		add_list(list, c, 1, cursor);
 }
 
-static void		add_first(t_line *list, char c, int *cursor)
+void		add_first(t_line *list, char c, int *cursor)
 {
 	t_line				*tmp;
 

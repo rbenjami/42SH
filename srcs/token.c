@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:25:47 by mgarcin           #+#    #+#             */
-/*   Updated: 2014/03/16 13:43:53 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/26 17:32:25 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			ft_check_prio(char *v)
 {
-	if ( !ft_strcmp(v, "<") || !ft_strcmp(v, ">") 
+	if (!ft_strcmp(v, "<") || !ft_strcmp(v, ">")
 		|| !ft_strcmp(v, ">>") || !ft_strcmp(v, "<<"))
 		return (1);
 	if (!ft_strcmp(v, "|"))

@@ -6,7 +6,7 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/26 17:13:11 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 17:35:42 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,7 @@ int			tputs_putchar(int c);
 void		modif_list(t_line *list, char *c, int *cursor, t_ctrl_h *h);
 void		add_list(t_line *list, char *c, int rank, int *cursor);
 void		create_list(t_line *list, char *c, int *cursor);
+void		add_first(t_line *list, char c, int *cursor);
 
 /*
 **	tools_term.c
