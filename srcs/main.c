@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 16:24:53 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 17:15:45 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	prompt(int i, char *logname, char *pwd, char *home)
 	if ((logname = ft_getenv("LOGNAME")))
 		ft_putstr(logname);
 	ft_putstr("\033[m\033[44m\033[30m");
-	if ((pwd = ft_getenv("PWD")) && (home = ft_getenv("HOME"))
+	if ((pwd = ft_getenv("PWD"))
+		&& (home = ft_getenv("HOME"))
 		&& !ft_strncmp(pwd, home, ft_strlen(home)))
 	{
 		ft_putstr("~");

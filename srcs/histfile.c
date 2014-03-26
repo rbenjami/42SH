@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   histfile.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/25 10:09:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 15:09:39 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 17:15:07 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void			save_hist(t_hist *hist, char *line, int new, t_ctrl_h *ctrl)
 {
 	t_hist		*new_elem;
 
-	new_elem = malloc(sizeof *new_elem);
+	new_elem = malloc(sizeof(*new_elem));
 	while (hist->next != NULL)
 		hist = hist->next;
 	new_elem->prev = hist;

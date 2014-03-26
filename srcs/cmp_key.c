@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmp_key.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 17:11:08 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 14:46:24 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 17:07:24 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,16 +163,16 @@ int					cmp_key(char *key, int *cursor, t_line *list, t_ctrl_h *h)
 {
 	int				i;
 	static t_key	tbl[7] =
-	{
-		{UP, &ft_up},
-		{LEFT, &ft_left},
-		{RIGHT, &ft_right},
-		{DOWN, &ft_down},
-		{DEL, &ft_del},
-		{SUPR, &ft_supr},
-		{0, 0}
-	};
 
+	{
+	{UP, &ft_up},
+	{LEFT, &ft_left},
+	{RIGHT, &ft_right},
+	{DOWN, &ft_down},
+	{DEL, &ft_del},
+	{SUPR, &ft_supr},
+	{0, 0}
+	};
 	i = 0;
 	while (tbl[i].key)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/26 16:26:44 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 17:13:11 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ int			len_prompt(void);
 void		ft_left(char *key, int *cursor, t_line *list, t_ctrl_h *h);
 void		ft_right(char *key, int *cursor, t_line *list, t_ctrl_h *h);
 void		ft_del(char *key, int *cursor, t_line *list, t_ctrl_h *h);
-void		ft_supr(char *key, int *cursor, t_line *list, t_ctrl_h *h);
+void		ft_supr(char *key, int *cursor, t_line *l, t_ctrl_h *h);
 
 /*
 **	histfile.c

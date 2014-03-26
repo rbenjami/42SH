@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/25 19:18:37 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/26 17:11:28 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 			dup_close(pfd, pfd_old, b);
 		if (exe.builtin)
 		{
-			if  (exe.ret && exe.builtin(exe.args) < 0)
+			if (exe.ret && exe.builtin(exe.args) < 0)
 				exit(1);
 			exit(0);
 		}

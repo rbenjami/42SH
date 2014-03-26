@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   modif_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 19:43:57 by killer            #+#    #+#             */
-/*   Updated: 2014/03/24 19:45:39 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/26 17:16:25 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		flag_op(int ind)
 int		ft_modify_cmd2(t_token **token, t_token **tmp, int *flag)
 {
 	int		ind;
-	
+
 	if (!*tmp)
 		return (1);
 	ind = ft_ind_op((*tmp)->value);
