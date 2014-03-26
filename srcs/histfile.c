@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   histfile.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/25 10:09:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 17:38:08 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 19:19:33 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,18 @@ void			save_hist(t_hist *hist, char *line, int new, t_ctrl_h *ctrl)
 	hist->next = new_elem;
 	ctrl->last = new_elem;
 }
-/*
-** add HISTFILE with setenv
-** write history in .42sh_history with the builtin exit
-*/
+
+t_ctrl_h		*new_hist(t_ctrl_h **ctrl)
+{
+	if (!((*ctrl)->start = ft_memalloc(sizeof(t_hist))))
+		return (NULL);
+	(*ctrl)->start->next = NULL;
+	(*ctrl)->start->prev = NULL;
+	(*ctrl)->start->new = 0;
+	(*ctrl)->last = (*ctrl)->start;
+	(*ctrl)->nb = 0;
+	return ((*ctrl));
+}
 
 void			create_hist(t_ctrl_h *ctrl)
 {
@@ -42,12 +50,7 @@ void			create_hist(t_ctrl_h *ctrl)
 	int			fd;
 
 	tmp = ft_getenv("HOME");
-	ctrl->start = ft_memalloc(sizeof(t_hist));
-	ctrl->start->next = NULL;
-	ctrl->start->prev = NULL;
-	ctrl->start->new = 0;
-	ctrl->last = ctrl->start;
-	ctrl->nb = 0;
+	ctrl = new_hist(&ctrl);
 	src = ft_strjoin(tmp, "/.42sh_history");
 	fd = open(src, O_CREAT | O_RDONLY, 0777);
 	free(tmp);

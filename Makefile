@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
+#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/26 18:38:18 by dsousa           ###   ########.fr        #
+#    Updated: 2014/03/26 19:38:10 by rbenjami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CFLAGS	= -Wall -Wextra -Werror -g
 
 INC			+=	-I includes
 
-HEAD		=	includes/sh.h
+HEAD		=	includes/sh.h includes/struct_sh.h
 
 SRC_DIR		=	srcs/
 
@@ -51,7 +51,8 @@ FILES		=	main.c			\
 				histfile.c		\
 				modif_token.c	\
 				lst_redir.c		\
-				exec_hist.c
+				exec_hist.c		\
+				termios.c
 
 BUI_FILES	=	builtin.c		\
 				cd.c			\

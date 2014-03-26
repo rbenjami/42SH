@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unsetenv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:46:56 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 17:56:15 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 19:19:46 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int			find_env(char *s)
 	}
 	return (-1);
 }
+
 int			builtin_unsetenv(char **av)
 {
 	int		i;

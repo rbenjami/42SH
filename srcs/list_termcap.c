@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_termcap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:05:59 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 17:35:58 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 19:12:39 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void		add_process(t_line *list, char *c, int rank)
 	verif_nb(list);
 }
 
-void		add_list(t_line *list, char *c, int rank, int *cursor)
+void			add_list(t_line *list, char *c, int rank, int *cursor)
 {
 	if (c[rank] == '\n')
 	{
@@ -58,7 +58,7 @@ void		add_list(t_line *list, char *c, int rank, int *cursor)
 		add_list(list, c, rank + 1, cursor);
 }
 
-void		create_list(t_line *list, char *c, int *cursor)
+void			create_list(t_line *list, char *c, int *cursor)
 {
 	list->data = c[0];
 	list->prev = 0;
@@ -75,7 +75,7 @@ void		create_list(t_line *list, char *c, int *cursor)
 		add_list(list, c, 1, cursor);
 }
 
-void		add_first(t_line *list, char c, int *cursor)
+void			add_first(t_line *list, char c, int *cursor)
 {
 	t_line				*tmp;
 

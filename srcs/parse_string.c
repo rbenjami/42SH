@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_string.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 13:48:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 18:00:53 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/26 18:56:36 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	sup_quote(char **token)
 {
-	int		i[5] = {0, 0, 0, 0, 0};
+	static int		i[5] = {0, 0, 0, 0, 0};
 
 	while ((*token)[i[0]] != '\0')
 	{

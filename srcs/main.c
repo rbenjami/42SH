@@ -3,15 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 17:47:06 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:10:26 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <termios.h>
-#include <termcap.h>
 #include "sh.h"
 
 void	free_ast(t_ast **tree)
@@ -83,38 +81,39 @@ void	init_env(char **env)
 	handler.len = 0;
 }
 
-void	turn_on(struct termios *term)
+void	loop(t_token *token, t_ast *tree, t_ctrl_h *hist)
 {
-	char	buffer[2048];
+	char				*line;
 
-	if (tgetent(buffer, getenv("TERM")) < 1)
-	{
-		write(2, "TERM: not found\n", 16);
-		exit(0);
-	}
-	tcgetattr(0, term);
-	term->c_lflag &= ~(ICANON);
-	term->c_lflag &= ~(ECHO);
-	tputs(tgetstr("ve", NULL), 1, tputs_putchar);
-	tcsetattr(0, 0, term);
-}
-
-void	turn_off(struct termios *term)
-{
-	term->c_lflag |= ICANON;
-	term->c_lflag |= ECHO;
-	tcsetattr(0, 0, term);
+	tree = NULL;
+	token = NULL;
+	prompt(0, "", "", "");
+	if (!(line = reader(0, hist)))
+		exit(-1);
+	if (line && line[0] != '\n')
+		save_hist(hist->start, line, 1, hist);
+	handler.cmd = 0;
+	lexer(&token, line);
+	parse_string(&token);
+	ft_strdel(&line);
+	ft_modify_token_for_redir(&token);
+	if (token)
+		fill_tree(token, &tree);
+	resolve_tree(tree, NULL);
+	free_ast(&tree);
+	free(line);
 }
 
 int		main(void)
 {
-	char				*line;
-	t_token				*token;
-	t_ast				*tree;
 	extern char			**environ;
 	struct termios		term;
+	t_token				*token;
+	t_ast				*tree;
 	t_ctrl_h			hist;
 
+	tree = NULL;
+	token = NULL;
 	turn_on(&term);
 	init_env(environ);
 	handler.term = &term;
@@ -122,24 +121,6 @@ int		main(void)
 	create_hist(&hist);
 	handler.hist = &hist;
 	while (1)
-	{
-		tree = NULL;
-		token = NULL;
-		prompt(0, "", "", "");
-		if (!(line = reader(0, &hist)))
-			exit(-1);
-		if (line && line[0] != '\n')
-			save_hist(hist.start, line, 1, &hist);
-		handler.cmd = 0;
-		lexer(&token, line);
-		parse_string(&token);
-		ft_strdel(&line);
-		ft_modify_token_for_redir(&token);
-		if (token)
-			fill_tree(token, &tree);
-		resolve_tree(tree, NULL);
-		free_ast(&tree);
-		free(line);
-	}
+		loop(token, tree, &hist);
 	return (0);
 }

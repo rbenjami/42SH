@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/26 18:39:59 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 19:38:22 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 # include <fcntl.h>
 # include <stdarg.h>
 # include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <termios.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <termios.h>
+# include "struct_sh.h"
 
 # define OPEN_REDIR_R O_WRONLY | O_CREAT | O_TRUNC
 # define OPEN_2REDIR_R O_WRONLY | O_CREAT | O_APPEND
@@ -28,7 +29,6 @@
 # define DOWN 4348699
 # define SUPR 2117294875
 # define DEL 127
-
 
 enum				e_token
 {
@@ -48,90 +48,6 @@ enum				e_operator
 	OP_SEMI_COL,
 	OP_BIN_AND
 };
-
-typedef struct winsize t_ws;
-
-typedef struct			s_redir
-{
-	char				*name;
-	int					flag;
-	struct s_redir		*next;
-}						t_redir;
-
-typedef struct			s_token
-{
-	char				*value;
-	int					type;
-	int					prio;
-	t_redir				*redir;
-	struct s_token		*prev;
-	struct s_token		*next;
-}						t_token;
-
-typedef struct			s_ast
-{
-	t_token				*tk;
-	struct s_ast		*left;
-	struct s_ast		*right;
-}						t_ast;
-
-typedef struct			s_find
-{
-	char				*cmd;
-	int (*f)(char **);
-}						t_find;
-
-typedef pid_t (*op_func)(t_ast *tree, int pfd_old[2]);
-
-typedef struct			s_hist
-{
-	char				*data;
-	struct s_hist		*next;
-	struct s_hist		*prev;
-	int					new;
-}						t_hist;
-
-typedef struct			s_ctrl_h
-{
-	struct s_hist		*start;
-	struct s_hist		*last;
-	int					nb;
-	int					unused;
-}						t_ctrl_h;
-
-typedef struct			s_handler
-{
-	op_func				*tab_op;
-	char				**env;
-	int					cmd;
-	int					len;
-	struct termios		*term;
-	t_ctrl_h			*hist;
-}						t_handler;
-
-typedef struct			s_exe
-{
-	char				**args;
-	char				*path;
-	pid_t				pid;
-	int					ret;
-	int					(*builtin)(char **);
-}						t_exe;
-
-typedef struct			s_line
-{
-	char				data;
-	struct s_line		*next;
-	struct s_line		*prev;
-	int					nb;
-}						t_line;
-
-
-typedef struct			s_key
-{
-	int					key;
-	void				(*f)(char *, int *, t_line *, t_ctrl_h *);
-}						t_key;
 
 /*
 **	GLOBAL !
@@ -207,61 +123,61 @@ int		builtin_history(char **av);
 /*
 **	reader.c
 */
-char		*reader(int fd, t_ctrl_h *hist);
-char		*create_line(t_line *list);
-void		freelist(t_line *list);
+char	*reader(int fd, t_ctrl_h *hist);
+char	*create_line(t_line *list);
+void	freelist(t_line *list);
 
 /*
 **	cmp_key.c
 */
-int			cmp_key(char *key, int *cursor, t_line *list, t_ctrl_h *h);
-void		delete_first(t_line *list);
-void		print_rest(int cursor, t_line *list);
+int		cmp_key(char *key, int *cursor, t_line *list, t_ctrl_h *h);
+void	delete_first(t_line *list);
+void	print_rest(int cursor, t_line *list);
 
 /*
 **	tputs_putchar.c
 */
-int			tputs_putchar(int c);
+int		tputs_putchar(int c);
 
 
 /*
 **	list_termcap.c
 */
-void		modif_list(t_line *list, char *c, int *cursor, t_ctrl_h *h);
-void		add_list(t_line *list, char *c, int rank, int *cursor);
-void		create_list(t_line *list, char *c, int *cursor);
-void		add_first(t_line *list, char c, int *cursor);
+void	modif_list(t_line *list, char *c, int *cursor, t_ctrl_h *h);
+void	add_list(t_line *list, char *c, int rank, int *cursor);
+void	create_list(t_line *list, char *c, int *cursor);
+void	add_first(t_line *list, char c, int *cursor);
 
 /*
 **	tools_term.c
 */
-int			ft_match(char *c, char search);
-t_line		*obtain_list(int cursor, t_line *list);
-void		verif_nb(t_line *list);
-int			list_len(t_line *list);
-int			len_prompt(void);
+int		ft_match(char *c, char search);
+t_line	*obtain_list(int cursor, t_line *list);
+void	verif_nb(t_line *list);
+int		list_len(t_line *list);
+int		len_prompt(void);
 
 /*
 **	exec_key.c
 */
-void		ft_left(char *key, int *cursor, t_line *list, t_ctrl_h *h);
-void		ft_right(char *key, int *cursor, t_line *list, t_ctrl_h *h);
-void		ft_del(char *key, int *cursor, t_line *list, t_ctrl_h *h);
-void		ft_supr(char *key, int *cursor, t_line *l, t_ctrl_h *h);
+void	ft_left(char *key, int *cursor, t_line *list, t_ctrl_h *h);
+void	ft_right(char *key, int *cursor, t_line *list, t_ctrl_h *h);
+void	ft_del(char *key, int *cursor, t_line *list, t_ctrl_h *h);
+void	ft_supr(char *key, int *cursor, t_line *l, t_ctrl_h *h);
 
 /*
 **	histfile.c
 */
-void		save_hist(t_hist *hist, char *line, int new, t_ctrl_h *ctrl);
-void		create_hist(t_ctrl_h *ctrl);
+void	save_hist(t_hist *hist, char *line, int new, t_ctrl_h *ctrl);
+void	create_hist(t_ctrl_h *ctrl);
 
 /*
 **	exec_hist.c
 */
-void		ft_up(char *key, int *cursor, t_line *list, t_ctrl_h *h);
-void		ft_down(char *key, int *cursor, t_line *list, t_ctrl_h *h);
+void	ft_up(char *key, int *cursor, t_line *list, t_ctrl_h *h);
+void	ft_down(char *key, int *cursor, t_line *list, t_ctrl_h *h);
 
-void		turn_on(struct termios *term);
-void		turn_off(struct termios *term);
+void	turn_on(struct termios *term);
+void	turn_off(struct termios *term);
 
 #endif /* !SH_H */

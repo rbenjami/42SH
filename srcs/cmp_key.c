@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmp_key.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 17:11:08 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 18:49:41 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 19:33:22 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <sys/ioctl.h>
 #include "sh.h"
 
-void				print_rest(int cursor, t_line *list)
+void		print_rest(int cursor, t_line *list)
 {
 	t_ws			ws;
 	int				i;
@@ -41,7 +41,7 @@ void				print_rest(int cursor, t_line *list)
 		tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, tputs_putchar);
 }
 
-void				delete_first(t_line *list)
+void		delete_first(t_line *list)
 {
 	if (list->next)
 	{
@@ -54,7 +54,7 @@ void				delete_first(t_line *list)
 		list->data = 0;
 }
 
-int					cmp_key(char *key, int *cursor, t_line *list, t_ctrl_h *h)
+int			cmp_key(char *key, int *cursor, t_line *list, t_ctrl_h *h)
 {
 	int				i;
 	static t_key	tbl[7] =

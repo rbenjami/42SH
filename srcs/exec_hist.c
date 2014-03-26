@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_hist.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 18:37:14 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 18:40:21 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 19:33:38 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <sys/ioctl.h>
 #include "sh.h"
 
-static void			save_str(char *str, t_line *list, int *cursor)
+static void		save_str(char *str, t_line *list, int *cursor)
 {
 	int				i;
 
@@ -40,7 +40,7 @@ static void			save_str(char *str, t_line *list, int *cursor)
 		freelist(list);
 }
 
-static void			print_hist(int *cursor, char *str, t_ctrl_h *h, t_line *l)
+static void		print_hist(int *cursor, char *str, t_ctrl_h *h, t_line *l)
 {
 	int				nb;
 	t_ws			ws;
@@ -69,7 +69,7 @@ static void			print_hist(int *cursor, char *str, t_ctrl_h *h, t_line *l)
 	}
 }
 
-void				ft_down(char *key, int *cursor, t_line *list, t_ctrl_h *h)
+void			ft_down(char *key, int *cursor, t_line *list, t_ctrl_h *h)
 {
 	t_hist			*elem;
 	int				nb;
@@ -95,7 +95,7 @@ void				ft_down(char *key, int *cursor, t_line *list, t_ctrl_h *h)
 	h->unused = 0;
 }
 
-void				ft_up(char *key, int *cursor, t_line *list, t_ctrl_h *h)
+void			ft_up(char *key, int *cursor, t_line *list, t_ctrl_h *h)
 {
 	t_hist			*elem;
 	int				nb;

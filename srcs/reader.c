@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 16:15:22 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 17:45:11 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:02:10 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,23 @@ char			*create_line(t_line *list)
 	return (line);
 }
 
+void			init_reader(int *cursor, t_line *list, t_ctrl_h *hist)
+{
+	*cursor = 0;
+	list->data = 0;
+	list->next = 0;
+	hist->nb = -1;
+	hist->unused = 0;
+}
+
 char			*reader(int fd, t_ctrl_h *hist)
 {
 	char		c[5];
 	t_line		list;
 	int			cursor;
 
-	cursor = 0;
-	hist->nb = -1;
-	hist->unused = 0;
+	init_reader(&cursor, &list, hist);
 	ft_bzero(c, 5);
-	list.data = 0;
-	list.next = 0;
 	if (read(fd, c, 4) < 0)
 		return (NULL);
 	modif_list(&list, c, &cursor, hist);
