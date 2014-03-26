@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:05:59 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 19:12:39 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/26 19:27:33 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void			add_first(t_line *list, char c, int *cursor)
 
 void			modif_list(t_line *list, char *c, int *cursor, t_ctrl_h *h)
 {
+	if (*(unsigned int *)c == 4)
+		builtin_exit(NULL);
 	if (cmp_key(c, cursor, list, h))
 		return ;
 	h->nb = 0;

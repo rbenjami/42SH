@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:45:41 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 17:18:04 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 19:28:15 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		builtin_exit(char **av)
 	free(src);
 	if (fd > -1)
 		close(fd);
-	if (av[1])
+	if (av && av[1])
 		exit(ft_atoi(av[1]));
 	else
 		exit(0);
