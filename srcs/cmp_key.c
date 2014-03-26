@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 17:11:08 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 18:36:57 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 18:49:41 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int					cmp_key(char *key, int *cursor, t_line *list, t_ctrl_h *h)
 		}
 		i++;
 	}
-	i = ft_isprint(key[0]) ? 0 : 1;
+	i = ft_isprint(key[0]) || key[0] == '\n' ? 0 : 1;
 	return (i);
 }
