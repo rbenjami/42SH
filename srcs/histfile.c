@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   histfile.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/25 10:09:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 17:15:07 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 17:38:08 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <libft.h>
+#include <sys/stat.h>
 #include "sh.h"
 
 void			save_hist(t_hist *hist, char *line, int new, t_ctrl_h *ctrl)
@@ -36,9 +37,9 @@ void			save_hist(t_hist *hist, char *line, int new, t_ctrl_h *ctrl)
 void			create_hist(t_ctrl_h *ctrl)
 {
 	char		*src;
-	int			fd;
 	char		*line;
 	char		*tmp;
+	int			fd;
 
 	tmp = ft_getenv("HOME");
 	ctrl->start = ft_memalloc(sizeof(t_hist));
@@ -48,7 +49,7 @@ void			create_hist(t_ctrl_h *ctrl)
 	ctrl->last = ctrl->start;
 	ctrl->nb = 0;
 	src = ft_strjoin(tmp, "/.42sh_history");
-	fd = open(src, O_CREAT | O_RDWR);
+	fd = open(src, O_CREAT | O_RDONLY, 0777);
 	free(tmp);
 	free(src);
 	if (get_next_line(fd, &line) > 0)
@@ -56,6 +57,7 @@ void			create_hist(t_ctrl_h *ctrl)
 	else
 	{
 		ctrl->start->data = ft_strdup("./42SH");
+		close(fd);
 		return ;
 	}
 	while (get_next_line(fd, &line) > 0)
@@ -63,4 +65,5 @@ void			create_hist(t_ctrl_h *ctrl)
 		save_hist(ctrl->start, line, 0, ctrl);
 		free(line);
 	}
+	close(fd);
 }

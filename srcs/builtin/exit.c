@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:45:41 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/25 19:20:47 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/26 17:18:04 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,24 @@
 
 int		builtin_exit(char **av)
 {
-	turn_off(handler.term);
+	t_hist		*h;
+	int			fd;
+	char		*tmp;
+	char		*src;
+
+	tmp = ft_getenv("HOME");
+	src = ft_strjoin(tmp, "/.42sh_history");
+	h = handler.hist->start;
+	fd = open(src, O_WRONLY | O_APPEND);
+	while (h && fd > -1)
+	{
+		ft_putendl_fd(h->data, fd);
+		h = h->next;
+	}
+	free(tmp);
+	free(src);
+	if (fd > -1)
+		close(fd);
 	if (av[1])
 		exit(ft_atoi(av[1]));
 	else
