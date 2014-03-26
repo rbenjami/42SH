@@ -6,7 +6,7 @@
 /*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:45:13 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 16:02:25 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/26 16:23:50 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,7 @@ int				builtin_cd(char **argv)
 		ft_cd2(path, cmp);
 		return (0);
 	}
-	return (error("%s: No such file or directory\n", path));
+	error("%s: No such file or directory\n", path);
+	ft_strdel(&path);
+	return (-42);
 }
