@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/25 18:49:38 by akazian           #+#    #+#             */
-/*   Updated: 2013/12/25 15:01:47 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/26 16:56:12 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list		*ft_lstnew(void const *content, size_t content_size)
 		newlst->next = NULL;
 		return (newlst);
 	}
-	newlst->content = (void *) content;
+	newlst->content = (void *)content;
 	newlst->content_size = content_size;
 	newlst->next = NULL;
 	return (newlst);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akazian <akazian@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/28 11:37:28 by akazian           #+#    #+#             */
-/*   Updated: 2013/11/28 14:28:15 by akazian          ###   ########.fr       */
+/*   Updated: 2014/03/26 16:52:46 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstmap(t_list *lst, t_list * (*f)(t_list *elem))
+t_list	*ft_lstmap(t_list *lst, t_list	*(*f)(t_list *elem))
 {
 	t_list	*newlist;
 	t_list	*tmp;

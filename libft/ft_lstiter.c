@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akazian <akazian@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/28 11:17:21 by akazian           #+#    #+#             */
-/*   Updated: 2013/11/28 11:35:00 by akazian          ###   ########.fr       */
+/*   Updated: 2014/03/26 16:57:37 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,3 @@ void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 		tmp = next;
 	}
 }
-
