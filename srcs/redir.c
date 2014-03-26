@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:33:23 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 17:07:26 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 17:32:43 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
+
+int		redir_read2(t_ast *tree, int *fd, char **line)
+{
+	if (*fd == 0)
+	{
+		*line = reader(*fd, handler.hist);
+		if (*line && ft_strcmp(*line, tree->tk->redir->name) == 0)
+		{
+			ft_strdel(line);
+			return (0);
+		}
+		ft_putstr("\033[31mheredoc> \033[m");
+		return (1);
+	}
+	return (get_next_line(*fd, line));
+}
 
 int		redir_read(t_ast *tree, int *fd, int pfd_new[2])
 {
@@ -24,17 +40,8 @@ int		redir_read(t_ast *tree, int *fd, int pfd_new[2])
 		return (-1);
 	if (*fd == 0)
 		ft_putstr("\033[31mheredoc> \033[m");
-	while ((line = reader(*fd, handler.hist)))
+	while (redir_read2(tree, fd, &line) > 0)
 	{
-		if (*fd == 0)
-		{
-			if (ft_strcmp(line, tree->tk->redir->name) == 0)
-			{
-				ft_strdel(&line);
-				break ;
-			}
-			ft_putstr("\033[31mheredoc> \033[m");
-		}
 		ft_putendl_fd(line, pfd_new[1]);
 		ft_strdel(&line);
 	}
