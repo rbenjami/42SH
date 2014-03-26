@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 16:15:22 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 10:13:53 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 14:45:02 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char			*reader(int fd, t_ctrl_h *hist)
 	hist->unused = 0;
 	ft_bzero(c, 5);
 	list.data = 0;
+	list.next = 0;
 	if (read(fd, c, 4) < 0)
 		return (NULL);
 	modif_list(&list, c, &cursor, hist);

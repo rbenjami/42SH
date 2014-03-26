@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 17:11:08 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 14:30:56 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 14:46:24 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ static void			print_hist(int *cursor, char *str, t_ctrl_h *h, t_line *l)
 		*cursor = 0;
 		l->data = 0;
 		if (l->next)
+		{
 			freelist(l);
+			l->next = 0;
+		}
 	}
 }
 
