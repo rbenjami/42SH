@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/03 10:40:17 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/02/15 15:57:09 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/26 17:51:42 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,4 @@ typedef struct		s_read
 	struct s_read	*next;
 }					t_read;
 
-#endif /* !GET_NEXT_LINE_H */
+#endif
