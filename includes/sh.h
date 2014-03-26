@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/26 18:02:02 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/26 18:39:59 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,12 @@ void		ft_supr(char *key, int *cursor, t_line *l, t_ctrl_h *h);
 */
 void		save_hist(t_hist *hist, char *line, int new, t_ctrl_h *ctrl);
 void		create_hist(t_ctrl_h *ctrl);
+
+/*
+**	exec_hist.c
+*/
+void		ft_up(char *key, int *cursor, t_line *list, t_ctrl_h *h);
+void		ft_down(char *key, int *cursor, t_line *list, t_ctrl_h *h);
 
 void		turn_on(struct termios *term);
 void		turn_off(struct termios *term);

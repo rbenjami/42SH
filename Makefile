@@ -6,7 +6,7 @@
 #    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/26 16:26:57 by dsousa           ###   ########.fr        #
+#    Updated: 2014/03/26 18:38:18 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ FILES		=	main.c			\
 				tools_term.c	\
 				histfile.c		\
 				modif_token.c	\
-				lst_redir.c
+				lst_redir.c		\
+				exec_hist.c
 
 BUI_FILES	=	builtin.c		\
 				cd.c			\
