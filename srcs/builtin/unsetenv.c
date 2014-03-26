@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   unsetenv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:46:56 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/22 16:46:24 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/26 17:56:15 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int		find_env(char *s)
+int			find_env(char *s)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (handler.env[i])
@@ -25,7 +25,7 @@ int		find_env(char *s)
 	}
 	return (-1);
 }
-int		builtin_unsetenv(char **av)
+int			builtin_unsetenv(char **av)
 {
 	int		i;
 	int		j;

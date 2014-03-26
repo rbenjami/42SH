@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 15:32:10 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 16:22:58 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 17:50:43 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int		ft_len_list(t_hist *hist)
 	return (i);
 }
 
-int			builtin_history(char **av)
+int				builtin_history(char **av)
 {
 	int		nb;
 	int		nb_elem;
