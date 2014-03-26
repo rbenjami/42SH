@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:33:23 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 17:46:53 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 18:01:24 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int		redir_read(t_ast *tree, int *fd, int pfd_new[2])
 	char	*line;
 
 	if (tree->tk->redir->flag == OP_2REDIR_L)
+	{
 		*fd = 0;
+		handler.len = 9;
+	}
 	else
 		*fd = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
 	if (*fd == -1)
@@ -45,6 +48,7 @@ int		redir_read(t_ast *tree, int *fd, int pfd_new[2])
 		ft_putendl_fd(line, pfd_new[1]);
 		ft_strdel(&line);
 	}
+	handler.len = 0;
 	return (1);
 }
 

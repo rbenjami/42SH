@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_string.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 13:48:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 17:33:49 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 18:00:53 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,21 @@ void	missing_quote(int dquote, t_token *token)
 	char	*line;
 
 	if (dquote)
+	{
+		handler.len = 8;
 		ft_putstr("\033[31mdquote>\033[m ");
+	}
 	else
+	{
+		handler.len = 7;
 		ft_putstr("\033[31mquote>\033[m ");
+	}
 	line = reader(IN, handler.hist);
 	ft_strjoin2(&token->value, "\n");
 	ft_strjoin2(&token->value, line);
 	free(line);
 	parse_string(&token);
+	handler.len = 0;
 }
 
 void	parse(t_token *token)
