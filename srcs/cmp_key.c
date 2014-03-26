@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmp_key.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/12 17:11:08 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 17:07:24 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/26 18:35:17 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,5 +183,6 @@ int					cmp_key(char *key, int *cursor, t_line *list, t_ctrl_h *h)
 		}
 		i++;
 	}
-	return (0);
+	i = ft_isprint(key[0]) ? 0 : 1;
+	return (i);
 }
