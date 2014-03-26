@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/26 13:57:49 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 16:26:44 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,29 @@ typedef struct			s_find
 
 typedef pid_t (*op_func)(t_ast *tree, int pfd_old[2]);
 
+typedef struct			s_hist
+{
+	char				*data;
+	struct s_hist		*next;
+	struct s_hist		*prev;
+	int					new;
+}						t_hist;
+
+typedef struct			s_ctrl_h
+{
+	struct s_hist		*start;
+	struct s_hist		*last;
+	int					nb;
+	int					unused;
+}						t_ctrl_h;
+
 typedef struct			s_handler
 {
 	op_func				*tab_op;
 	char				**env;
 	int					cmd;
 	struct termios		*term;
+	t_ctrl_h			*hist;
 }						t_handler;
 
 typedef struct			s_exe
@@ -108,21 +125,6 @@ typedef struct			s_line
 	int					nb;
 }						t_line;
 
-typedef struct			s_hist
-{
-	char				*data;
-	struct s_hist		*next;
-	struct s_hist		*prev;
-	int					new;
-}						t_hist;
-
-typedef struct			s_ctrl_h
-{
-	struct s_hist		*start;
-	struct s_hist		*last;
-	int					nb;
-	int					unused;
-}						t_ctrl_h;
 
 typedef struct			s_key
 {
@@ -134,7 +136,6 @@ typedef struct			s_key
 **	GLOBAL !
 */
 t_handler			handler;
-t_ctrl_h			hist;
 
 int		error(const char *msg, ...)
 						__attribute__((format(printf, 1, 2)));
@@ -200,6 +201,7 @@ int		builtin_exit(char **av);
 int		builtin_env(char **av);
 int		builtin_setenv(char **av);
 int		builtin_unsetenv(char **av);
+int		builtin_history(char **av);
 
 /*
 **	reader.c

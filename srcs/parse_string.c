@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 13:48:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 12:30:00 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 16:25:36 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	missing_quote(int dquote, t_token *token)
 		ft_putstr("\033[31mdquote>\033[m ");
 	else
 		ft_putstr("\033[31mquote>\033[m ");
-	line = reader(IN, &hist);
+	line = reader(IN, handler.hist);
 	ft_strjoin2(&token->value, "\n");
 	ft_strjoin2(&token->value, line);
 	free(line);

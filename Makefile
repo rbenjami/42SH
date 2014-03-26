@@ -6,7 +6,7 @@
 #    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/26 14:02:47 by dsousa           ###   ########.fr        #
+#    Updated: 2014/03/26 16:26:57 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,8 @@ BUI_FILES	=	builtin.c		\
 				setenv.c		\
 				unsetenv.c		\
 				env.c			\
-				echo.c
+				echo.c			\
+				history.c
 
 SRC			=	$(addprefix $(SRC_DIR), $(FILES))\
 				$(addprefix $(BUI_DIR), $(BUI_FILES))

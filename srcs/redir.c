@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:33:23 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 12:30:27 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 16:25:50 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		redir_read(t_ast *tree, int *fd, int pfd_new[2])
 		return (-1);
 	if (*fd == 0)
 		ft_putstr("\033[31mheredoc> \033[m");
-	while ((line = reader(*fd, &hist)))
+	while ((line = reader(*fd, handler.hist)))
 	{
 		if (*fd == 0)
 		{
