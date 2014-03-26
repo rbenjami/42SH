@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/25 10:09:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/25 12:12:20 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 15:09:39 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,19 @@ void			create_hist(t_ctrl_h *ctrl)
 	char		*src;
 	int			fd;
 	char		*line;
+	char		*tmp;
 
+	tmp = ft_getenv("HOME");
 	ctrl->start = ft_memalloc(sizeof(t_hist));
-	ctrl->last = ft_memalloc(sizeof(t_hist));
 	ctrl->start->next = NULL;
 	ctrl->start->prev = NULL;
 	ctrl->start->new = 0;
 	ctrl->last = ctrl->start;
 	ctrl->nb = 0;
-	src = ft_strjoin(ft_getenv("HOME"), "/.42sh_history");
+	src = ft_strjoin(tmp, "/.42sh_history");
 	fd = open(src, O_CREAT | O_RDWR);
+	free(tmp);
+	free(src);
 	if (get_next_line(fd, &line) > 0)
 		ctrl->start->data = ft_strdup(line);
 	else

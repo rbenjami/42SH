@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 14:15:46 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/26 15:16:04 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int		main(void)
 			fill_tree(token, &tree);
 		resolve_tree(tree, NULL);
 		free_ast(&tree);
+		free(line);
 	}
 	return (0);
 }
