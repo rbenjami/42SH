@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/27 16:01:26 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:22:27 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@
 # define DEL 127
 # define NSF_ERROR "No such file or directory : %s\n"
 
-enum				e_token
+enum		e_token
 {
 	STRING,
 	OPERATOR
 };
 
-enum				e_operator
+enum		e_operator
 {
 	OP_REDIR_R,
 	OP_REDIR_L,

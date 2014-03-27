@@ -6,10 +6,11 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 19:36:30 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 16:16:58 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:22:46 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// lignes 48, ligne 51, ligne 86
 #ifndef STRUCT_SH_H
 # define STRUCT_SH_H
 
@@ -99,4 +100,4 @@ typedef struct			s_key
 	void				(*f)(char *, int *, t_line *, t_ctrl_h *);
 }						t_key;
 
-#endif
+#endif /* !STRUCT_SH_H */
