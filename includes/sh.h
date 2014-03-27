@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/27 16:22:27 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:43:28 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int		ft_ind_op(char *v);
 pid_t	op_redir(t_ast *tree, int pfd_old[2]);
 
 int		redir_read(t_ast *tree, int *fd, int pfd_new[2]);
+void	op_pipe2(t_ast *tree, int pfd[2], int *pid);
 pid_t	op_redir2(t_ast *t, int pfd_old[2], int pfd[2]);
 pid_t	op_redir(t_ast *tree, int pfd_old[2]);
 pid_t	op_pipe(t_ast *tree, int pfd_old[2]);

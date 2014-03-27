@@ -6,13 +6,11 @@
 /*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:46:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 16:34:59 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:42:53 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-void		op_pipe2(t_ast *tree, int pfd[2], int *pid);
 
 void		op_pipe3(t_ast *tree, t_token *token, int pfd[2], int *pid)
 {
