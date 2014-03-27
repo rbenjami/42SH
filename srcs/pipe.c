@@ -6,7 +6,7 @@
 /*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:46:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 01:46:22 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 11:17:42 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		ft_redir_pipe(t_ast *tree, int pfd_old[2], int pfd[2])
 	waitpid(pid, &status, 0);
 	handler.cmd = WEXITSTATUS(status);
 }
+
 pid_t		op_pipe(t_ast *tree, int pfd_old[2])
 {
 	int			pfd[2];
