@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   struct_sh.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 19:36:30 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 11:55:18 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 15:45:37 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_SH_H
 # define STRUCT_SH_H
 
-typedef struct winsize t_ws;
+typedef struct 			winsize t_ws;
 
 typedef struct			s_redir
 {
@@ -39,7 +39,7 @@ typedef struct			s_ast
 	struct s_ast		*right;
 }						t_ast;
 
-typedef int (*find)(char **);
+typedef int 			(*find)(char **);
 
 typedef struct			s_find
 {
@@ -47,8 +47,8 @@ typedef struct			s_find
 	find				find;
 }						t_find;
 
-typedef pid_t (*op_func)(t_ast *tree, int pfd_old[2]);
-typedef int (*builtin)(char **);
+typedef pid_t			(*op_func)(t_ast *tree, int pfd_old[2]);
+typedef int 			(*builtin)(char **);
 
 typedef struct			s_hist
 {
@@ -100,4 +100,4 @@ typedef struct			s_key
 	void				(*f)(char *, int *, t_line *, t_ctrl_h *);
 }						t_key;
 
-#endif
+#endif /* !STRUCT_SH_H */
