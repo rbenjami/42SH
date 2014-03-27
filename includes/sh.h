@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/27 12:38:09 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 12:47:36 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # define SUPR 2117294875
 # define DEL 127
 # define NSF_ERROR "No such file or directory : %s\n"
+# define TMP 0
+# define CMD 1
+# define REDIR 2
 
 enum				e_token
 {
