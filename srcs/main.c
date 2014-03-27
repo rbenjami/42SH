@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 11:15:15 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 11:38:14 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <termcap.h>
+#include <termios.h>
 #include "sh.h"
 
 void	free_ast(t_ast **tree)
@@ -29,6 +31,7 @@ void	free_ast(t_ast **tree)
 
 void	prompt(int i, char *logname, char *pwd, char *home)
 {
+	tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, tputs_putchar);
 	ft_putstr("\033[40m");
 	if ((logname = ft_getenv("LOGNAME")))
 		ft_putstr(logname);
