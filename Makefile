@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+         #
+#    By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/26 21:49:09 by smakroum         ###   ########.fr        #
+#    Updated: 2014/03/27 12:07:55 by dsousa           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,8 @@ FILES		=	main.c			\
 				modif_token.c	\
 				lst_redir.c		\
 				exec_hist.c		\
-				termios.c
+				termios.c		\
+				prompt.c
 
 BUI_FILES	=	builtin.c		\
 				cd.c			\

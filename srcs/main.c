@@ -3,15 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 12:05:30 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/27 12:07:35 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <termcap.h>
-#include <termios.h>
 #include "sh.h"
 
 void	free_ast(t_ast **tree)
@@ -27,35 +25,6 @@ void	free_ast(t_ast **tree)
 		free(*tree);
 		*tree = NULL;
 	}
-}
-
-void	prompt(int i, char *logname, char *pwd, char *home)
-{
-	tputs(tgoto(tgetstr("ch", NULL), 0, 0), 1, tputs_putchar);
-	ft_putstr("\033[40m");
-	if ((logname = ft_getenv("LOGNAME")))
-		ft_putstr(logname);
-	ft_putstr("\033[m\033[44m\033[30m");
-	if ((pwd = ft_getenv("PWD"))
-		&& (home = ft_getenv("HOME"))
-		&& !ft_strncmp(pwd, home, ft_strlen(home)))
-	{
-		ft_putstr("~");
-		i = ft_strlen(home);
-	}
-	if (pwd)
-		ft_putstr(pwd + i);
-	if (handler.cmd == 0)
-		ft_putstr("\033[m\033[32m");
-	else
-	{
-		ft_putstr("\033[m\033[31m ");
-		ft_putnbr(handler.cmd);
-	}
-	ft_putstr(" ~> \033[m");
-	ft_strdel(&home);
-	ft_strdel(&logname);
-	ft_strdel(&pwd);
 }
 
 void	init_env(char **env)
