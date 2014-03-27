@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 19:36:30 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 19:37:10 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 11:55:18 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct			s_find
 }						t_find;
 
 typedef pid_t (*op_func)(t_ast *tree, int pfd_old[2]);
+typedef int (*builtin)(char **);
 
 typedef struct			s_hist
 {
@@ -81,7 +82,7 @@ typedef struct			s_exe
 	char				*path;
 	pid_t				pid;
 	int					ret;
-	int					(*builtin)(char **);
+	builtin				builtin;
 }						t_exe;
 
 typedef struct			s_line

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/27 01:43:34 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 11:57:48 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	parse_string(t_token **token);
 
 char	*ft_getenv(const char *name);
 
-int		(*find_builtin(char *cmd))(char **);
+builtin	find_builtin(char *cmd);
 int		ft_modify_token_for_redir(t_token **token);
 void	prompt(int i, char *logname, char *pwd, char *home);
 
