@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 13:48:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 15:37:44 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 19:33:14 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,27 +88,7 @@ void	parse(t_token *token)
 		sup_quote(&token->value);
 }
 
-int		ft_strchr_redir(char *str)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '>' || str[i] == '<')
-			j++;
-		else if (j == 1 || j == 2)
-			break ;
-		i++;
-	}
-	if (j == 1 || j == 2)
-		return (1);
-	return (0);
-}
-
-void	parse_string(t_token **token)
+int		parse_string(t_token **token)
 {
 	t_token		*tmp;
 
@@ -117,6 +97,9 @@ void	parse_string(t_token **token)
 	{
 		if (tmp->type == STRING)
 			parse(tmp);
+		else if (tmp->prio == -1)
+			return (error("42sh: parse error: %s\n", tmp->value));
 		tmp = tmp->next;
 	}
+	return (0);
 }

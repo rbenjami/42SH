@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   histfile.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/25 10:09:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/27 14:18:25 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 18:52:00 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			create_hist(t_ctrl_h *ctrl)
 	tmp = ft_getenv("HOME");
 	ctrl = new_hist(&ctrl);
 	src = ft_strjoin(tmp, "/.42sh_history");
-	fd = open(src, O_CREAT | O_RDONLY, 0777);
+	fd = open(src, O_CREAT | O_RDONLY, 00644);
 	free(tmp);
 	free(src);
 	if (get_next_line(fd, &line) > 0)

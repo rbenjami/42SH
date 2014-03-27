@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 17:07:24 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 18:36:46 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	sig_g_handler(int sig)
 void	loop(t_token *token, t_ast *tree)
 {
 	char				*line;
+	int					b;
 
 	tree = NULL;
 	token = NULL;
@@ -83,16 +84,16 @@ void	loop(t_token *token, t_ast *tree)
 		save_hist(g_handler.hist->start, line, 1, g_handler.hist);
 	g_handler.cmd = 0;
 	lexer(&token, line);
-	parse_string(&token);
 	ft_strdel(&line);
-	if (token && ft_modify_token_for_redir(&token) != -42)
+	b = parse_string(&token);
+	if (token && b != -42 && ft_modify_token_for_redir(&token) != -42)
 	{
 		fill_tree(token, &tree);
 		resolve_tree(tree, NULL);
+		free_ast(&tree);
 	}
-	else
+	if (b == -42)
 		g_handler.cmd = -42;
-	free_ast(&tree);
 	free(line);
 }
 

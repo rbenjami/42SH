@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/27 16:43:28 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 17:34:29 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ pid_t	execute(char *cmd, int	pfd_old[2], int	pfd[2], int b);
 
 void	resolve_tree(t_ast *tree, int pfd_old[2]);
 
-void	parse_string(t_token **token);
+int		parse_string(t_token **token);
 
 char	*ft_getenv(const char *name);
 

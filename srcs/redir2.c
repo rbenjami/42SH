@@ -6,51 +6,11 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 21:36:46 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/27 15:37:38 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 18:50:32 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-int		redir_read222(t_ast *tree, int *fd, char **line)
-{
-	if (*fd == 0)
-	{
-		*line = reader(*fd, g_handler.hist);
-		if (*line && ft_strcmp(*line, tree->tk->redir->name) == 0)
-		{
-			ft_strdel(line);
-			return (0);
-		}
-		ft_putstr("\033[31mheredoc> \033[m");
-		return (1);
-	}
-	return (get_next_line(*fd, line));
-}
-
-int		redir_read22(t_ast *tree, int *fd, int pfd_new[2])
-{
-	char	*line;
-
-	if (tree->tk->redir->flag == OP_2REDIR_L)
-	{
-		*fd = 0;
-		g_handler.len = 9;
-	}
-	else
-		*fd = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
-	if (*fd == -1)
-		return (-1);
-	if (*fd == 0)
-		ft_putstr("\033[31mheredoc> \033[m");
-	while (redir_read222(tree, fd, &line) > 0)
-	{
-		ft_putendl_fd(line, pfd_new[1]);
-		ft_strdel(&line);
-	}
-	g_handler.len = 0;
-	return (1);
-}
 
 int		ft_fill_redir2(t_ast *tree, int *fd, int pfd_new[2], int pfd[2])
 {
@@ -61,13 +21,12 @@ int		ft_fill_redir2(t_ast *tree, int *fd, int pfd_new[2], int pfd[2])
 	tmp = tree->tk->redir;
 	while (tmp)
 	{
-		if (tmp->flag == O_RDONLY
-			|| tmp->flag == OP_2REDIR_L)
+		if (tmp->flag == O_RDONLY || tmp->flag == OP_2REDIR_L)
 		{
 			b = 1;
 			if (*fd > 2)
 				close(*fd);
-			if (redir_read22(tree, fd, pfd_new) == -1)
+			if (redir_read(tree, fd, pfd_new) == -1)
 				return (-1);
 		}
 		else
@@ -105,7 +64,7 @@ pid_t	op_redir2(t_ast *tree, int pfd_old[2], int pfd[2])
 	if (pipe(pfd_new) == -1)
 		return (-42);
 	if (!tree->tk->redir)
-		return (error("Parse error near `\\n'\n"));
+		return (error("parse error near `\\n'\n"));
 	pid = ft_redir2(tree, pfd_old, pfd_new, pfd);
 	if (pid == -1)
 		return (error(NSF_ERROR, tree->tk->redir->name));

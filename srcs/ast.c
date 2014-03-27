@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/27 16:41:09 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 19:38:10 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
+
+void		print_error_pid(char *str)
+{
+	if (g_handler.cmd == 1)
+		error("42sh: no such file or directory: %s\n", str);
+}
 
 void		resolve_tree(t_ast *tree, int pfd_old[2])
 {
@@ -29,6 +35,7 @@ void		resolve_tree(t_ast *tree, int pfd_old[2])
 		turn_on(g_handler.term);
 		if (tree->tk->prio == 0)
 			g_handler.cmd = WEXITSTATUS(status);
+		print_error_pid(tree->tk->value);
 	}
 }
 
