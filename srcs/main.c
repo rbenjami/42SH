@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 12:07:35 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 12:16:01 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	sig_handler(int sig)
 {
 	(void)sig;
 	ft_putchar('\n');
-	prompt(0, "", "", "");
+	prompt();
 }
 
 void	loop(t_token *token, t_ast *tree, t_ctrl_h *hist)
@@ -67,7 +67,7 @@ void	loop(t_token *token, t_ast *tree, t_ctrl_h *hist)
 	tree = NULL;
 	token = NULL;
 	signal(SIGINT, &sig_handler);
-	prompt(0, "", "", "");
+	prompt();
 	if (!(line = reader(0, hist)))
 		exit(-1);
 	if (line && line[0] != '\n')

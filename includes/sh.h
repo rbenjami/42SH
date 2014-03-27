@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/27 11:57:48 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:15:36 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*ft_getenv(const char *name);
 
 builtin	find_builtin(char *cmd);
 int		ft_modify_token_for_redir(t_token **token);
-void	prompt(int i, char *logname, char *pwd, char *home);
+void	prompt(void);
 
 /*
 **	utils.c

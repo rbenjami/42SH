@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:46:56 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 19:19:46 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:13:07 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int			builtin_unsetenv(char **av)
 		return (-1);
 	if ((index = find_env(av[1])) == -1)
 		return (0);
-	tab = (char **)ft_memalloc(sizeof(char *) * ft_tablen(handler.env));
+	if (!(tab = (char **)ft_memalloc(sizeof(char *) * ft_tablen(handler.env))))
+		return (-42);
 	while (handler.env[i])
 	{
 		if (index != i)
