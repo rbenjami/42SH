@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   histfile.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/25 10:09:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 19:48:09 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 13:02:44 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ t_ctrl_h		*new_hist(t_ctrl_h **ctrl)
 	(*ctrl)->nb = 0;
 	return ((*ctrl));
 }
+void			create_hist_else(t_ctrl_h *ctrl, int fd)
+{
+	ctrl->start->data = ft_strdup("./42SH");
+	close(fd);
+}
 
 void			create_hist(t_ctrl_h *ctrl)
 {
@@ -56,15 +61,15 @@ void			create_hist(t_ctrl_h *ctrl)
 	if (get_next_line(fd, &line) > 0)
 		ctrl->start->data = ft_strdup(line);
 	else
-	{
-		ctrl->start->data = ft_strdup("./42SH");
-		close(fd);
-		return ;
-	}
+		return (create_hist_else(ctrl, fd));
+	if (line)
+		free(line);
 	while (get_next_line(fd, &line) > 0)
 	{
 		save_hist(ctrl->start, line, 0, ctrl);
 		free(line);
 	}
+	if (line)
+		free(line);
 	close(fd);
 }
