@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 13:17:13 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 15:10:45 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,21 @@
 
 void	free_ast(t_ast **tree)
 {
+	t_redir	*tmp;
+
 	if (*tree)
 	{
 		free_ast(&(*tree)->left);
 		free_ast(&(*tree)->right);
 		free((*tree)->tk->value);
 		(*tree)->tk->value = NULL;
+		while ((*tree)->tk->redir)
+		{
+			tmp = (*tree)->tk->redir;
+			(*tree)->tk->redir = (*tree)->tk->redir->next;
+			free(tmp->name);
+			free(tmp);
+		}
 		free((*tree)->tk);
 		(*tree)->tk = NULL;
 		free(*tree);

@@ -6,7 +6,7 @@
 /*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:33:23 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 23:14:25 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 14:42:14 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,14 @@ int		redir_read(t_ast *tree, int *fd, int pfd_new[2])
 
 int		ft_fill_redir(t_ast *tree, int *fd, int pfd_new[2], int pfd[2])
 {
-	int	b;
+	int		b;
+	t_redir	*tmp;
 
 	b = 0;
-	while (tree->tk->redir)
+	tmp = tree->tk->redir;
+	while (tmp)
 	{
-		if (tree->tk->redir->flag == O_RDONLY
-			|| tree->tk->redir->flag == OP_2REDIR_L)
+		if (tmp->flag == O_RDONLY || tmp->flag == OP_2REDIR_L)
 		{
 			if (*fd > 2)
 				close(*fd);
@@ -72,9 +73,9 @@ int		ft_fill_redir(t_ast *tree, int *fd, int pfd_new[2], int pfd[2])
 			b = 1;
 			if (pfd[1] > 2)
 				close(pfd[1]);
-			pfd[1] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
+			pfd[1] = open(tmp->name, tmp->flag, 00644);
 		}
-		tree->tk->redir = tree->tk->redir->next;
+		tmp = tmp->next;
 	}
 	return (b);
 }

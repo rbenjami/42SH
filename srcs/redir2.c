@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 21:36:46 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/27 12:38:14 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 15:07:30 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,15 @@ int		redir_read22(t_ast *tree, int *fd, int pfd_new[2])
 
 int		ft_fill_redir2(t_ast *tree, int *fd, int pfd_new[2], int pfd[2])
 {
-	int	b;
+	int		b;
+	t_redir	*tmp;
 
 	b = 0;
-	while (tree->tk->redir)
+	tmp = tree->tk->redir;
+	while (tmp)
 	{
-		if (tree->tk->redir->flag == O_RDONLY
-			|| tree->tk->redir->flag == OP_2REDIR_L)
+		if (tmp->flag == O_RDONLY
+			|| tmp->flag == OP_2REDIR_L)
 		{
 			b = 1;
 			if (*fd > 2)
@@ -72,9 +74,9 @@ int		ft_fill_redir2(t_ast *tree, int *fd, int pfd_new[2], int pfd[2])
 		{
 			if (pfd[1] > 2)
 				close(pfd[1]);
-			pfd[1] = open(tree->tk->redir->name, tree->tk->redir->flag, 00644);
+			pfd[1] = open(tmp->name, tmp->flag, 00644);
 		}
-		tree->tk->redir = tree->tk->redir->next;
+		tmp = tmp->next;
 	}
 	return (b);
 }
