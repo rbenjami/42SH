@@ -6,14 +6,15 @@
 /*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 19:36:30 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 15:45:37 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/27 16:00:04 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// lignes 48, ligne 51, ligne 86
 #ifndef STRUCT_SH_H
 # define STRUCT_SH_H
 
-typedef struct 			winsize t_ws;
+typedef struct winsize	t_ws;
 
 typedef struct			s_redir
 {
@@ -39,7 +40,7 @@ typedef struct			s_ast
 	struct s_ast		*right;
 }						t_ast;
 
-typedef int 			(*find)(char **);
+typedef int				(*find)(char **);
 
 typedef struct			s_find
 {
@@ -92,7 +93,6 @@ typedef struct			s_line
 	struct s_line		*prev;
 	int					nb;
 }						t_line;
-
 
 typedef struct			s_key
 {
