@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/25 10:09:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/27 13:02:44 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 13:27:48 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void			save_hist(t_hist *hist, char *line, int new, t_ctrl_h *ctrl)
 	new_elem->prev = hist;
 	new_elem->next = NULL;
 	new_elem->data = ft_strdup(line);
-	new_elem->new = new;
 	hist->next = new_elem;
+	hist->next->new = new;
 	ctrl->last = new_elem;
 }
 
@@ -34,7 +34,7 @@ t_ctrl_h		*new_hist(t_ctrl_h **ctrl)
 		return (NULL);
 	(*ctrl)->start->next = NULL;
 	(*ctrl)->start->prev = NULL;
-	(*ctrl)->start->new = 0;
+	(*ctrl)->start->new = -1;
 	(*ctrl)->last = (*ctrl)->start;
 	(*ctrl)->nb = 0;
 	return ((*ctrl));
@@ -66,7 +66,7 @@ void			create_hist(t_ctrl_h *ctrl)
 		free(line);
 	while (get_next_line(fd, &line) > 0)
 	{
-		save_hist(ctrl->start, line, 0, ctrl);
+		save_hist(ctrl->start, line, -1, ctrl);
 		free(line);
 	}
 	if (line)

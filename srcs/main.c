@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 12:16:01 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 13:17:13 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	sig_handler(int sig)
 	prompt();
 }
 
-void	loop(t_token *token, t_ast *tree, t_ctrl_h *hist)
+void	loop(t_token *token, t_ast *tree)
 {
 	char				*line;
 
@@ -68,10 +68,10 @@ void	loop(t_token *token, t_ast *tree, t_ctrl_h *hist)
 	token = NULL;
 	signal(SIGINT, &sig_handler);
 	prompt();
-	if (!(line = reader(0, hist)))
+	if (!(line = reader(0, handler.hist)))
 		exit(-1);
 	if (line && line[0] != '\n')
-		save_hist(hist->start, line, 1, hist);
+		save_hist(handler.hist->start, line, 1, handler.hist);
 	handler.cmd = 0;
 	lexer(&token, line);
 	parse_string(&token);
@@ -90,7 +90,6 @@ int		main(void)
 	struct termios		term;
 	t_token				*token;
 	t_ast				*tree;
-	t_ctrl_h			hist;
 
 	tree = NULL;
 	token = NULL;
@@ -98,9 +97,9 @@ int		main(void)
 	init_env(environ);
 	handler.term = &term;
 	init_op(&handler.tab_op);
-	create_hist(&hist);
-	handler.hist = &hist;
+	handler.hist = ft_memalloc(sizeof(t_ctrl_h));
+	create_hist(handler.hist);
 	while (1)
-		loop(token, tree, &hist);
+		loop(token, tree);
 	return (0);
 }

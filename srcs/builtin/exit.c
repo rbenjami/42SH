@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:45:41 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 19:28:15 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 13:30:04 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int		builtin_exit(char **av)
 	fd = open(src, O_WRONLY | O_APPEND);
 	while (h && fd > -1)
 	{
-		ft_putendl_fd(h->data, fd);
+		if (h->new != -1)
+			ft_putendl_fd(h->data, fd);
 		h = h->next;
 	}
 	free(tmp);
