@@ -3,32 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:46:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 15:37:44 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:34:59 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
+void		op_pipe2(t_ast *tree, int pfd[2], int *pid);
+
+void		op_pipe3(t_ast *tree, t_token *token, int pfd[2], int *pid)
+{
+	if (token)
+		fill_tree(token, &tree->right);
+	if (tree->right->tk->prio > 0)
+		resolve_tree(tree->right, pfd);
+	else
+		op_pipe2(tree, pfd, pid);
+}
+
 void		op_pipe2(t_ast *tree, int pfd[2], int *pid)
 {
 	int			status;
 	char		*line;
+	t_token		*token;
 
+	token = NULL;
 	if (tree->right)
 		*pid = execute(tree->right->tk->value, NULL, pfd, 0);
 	else
 	{
 		waitpid(*pid, &status, 0);
+		g_handler.cmd = WEXITSTATUS(status);
 		g_handler.len = 6;
 		turn_on(g_handler.term);
 		ft_putstr("\033[31mpipe> \033[m");
 		line = reader(0, g_handler.hist);
-		*pid = execute(line, NULL, pfd, 0);
+		lexer(&token, line);
+		parse_string(&token);
 		ft_strdel(&line);
 		g_handler.len = 0;
+		ft_modify_token_for_redir(&token);
+		op_pipe3(tree, token, pfd, pid);
 	}
 	close_pfd(pfd);
 }

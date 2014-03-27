@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/27 15:37:26 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:41:09 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void		resolve_tree(t_ast *tree, int pfd_old[2])
 			pid = execute(tree->tk->value, NULL, NULL, 0);
 		waitpid(pid, &status, 0);
 		turn_on(g_handler.term);
-		g_handler.cmd = WEXITSTATUS(status);
+		if (tree->tk->prio == 0)
+			g_handler.cmd = WEXITSTATUS(status);
 	}
 }
 
