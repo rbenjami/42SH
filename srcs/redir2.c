@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 21:36:46 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/27 11:21:51 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:38:14 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ pid_t	op_redir2(t_ast *tree, int pfd_old[2], int pfd[2])
 		return (error("Parse error near `\\n'\n"));
 	pid = ft_redir2(tree, pfd_old, pfd_new, pfd);
 	if (pid == -1)
-		return (error("No such file or directory : %s\n", tree->tk->redir->name));
+		return (error(NSF_ERROR, tree->tk->redir->name));
 	close_pfd(pfd_new);
 	return (pid);
 }
