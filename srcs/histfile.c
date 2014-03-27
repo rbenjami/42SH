@@ -6,7 +6,7 @@
 /*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/25 10:09:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/27 13:27:48 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 14:18:25 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_ctrl_h		*new_hist(t_ctrl_h **ctrl)
 	(*ctrl)->nb = 0;
 	return ((*ctrl));
 }
+
 void			create_hist_else(t_ctrl_h *ctrl, int fd)
 {
 	ctrl->start->data = ft_strdup("./42SH");
