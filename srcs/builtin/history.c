@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 15:32:10 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/27 13:33:23 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 15:37:33 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ int				builtin_history(char **av)
 	t_hist	*h;
 
 	nb = 0;
-	h = handler.hist->last;
+	h = g_handler.hist->last;
 	if (av[1] && !ft_strcmp(av[1], "-c"))
 	{
-		builtin_history_c(handler.hist->last);
+		builtin_history_c(g_handler.hist->last);
 		return (0);
 	}
-	nb_elem = ft_len_list(handler.hist->start);
+	nb_elem = ft_len_list(g_handler.hist->start);
 	ft_putendl("\033[32mLast shell commands history:\033[0m");
 	while (h && nb <= 15)
 	{

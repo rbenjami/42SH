@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:46:21 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/14 23:07:43 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 15:37:30 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int		builtin_env(char **av)
 	i = 0;
 	if (!av[1])
 	{
-		while (handler.env[i])
+		while (g_handler.env[i])
 		{
-			ft_putendl(handler.env[i]);
+			ft_putendl(g_handler.env[i]);
 			i++;
 		}
 	}

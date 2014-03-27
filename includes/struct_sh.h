@@ -6,14 +6,14 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/26 19:36:30 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 11:55:18 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:16:58 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_SH_H
 # define STRUCT_SH_H
 
-typedef struct winsize t_ws;
+typedef struct winsize	t_ws;
 
 typedef struct			s_redir
 {
@@ -39,16 +39,16 @@ typedef struct			s_ast
 	struct s_ast		*right;
 }						t_ast;
 
-typedef int (*find)(char **);
+typedef int				(*t_f)(char **);
 
 typedef struct			s_find
 {
 	char				*cmd;
-	find				find;
+	t_f					find;
 }						t_find;
 
-typedef pid_t (*op_func)(t_ast *tree, int pfd_old[2]);
-typedef int (*builtin)(char **);
+typedef pid_t			(*t_op_func)(t_ast *tree, int pfd_old[2]);
+typedef int				(*t_buil)(char **);
 
 typedef struct			s_hist
 {
@@ -68,7 +68,7 @@ typedef struct			s_ctrl_h
 
 typedef struct			s_handler
 {
-	op_func				*tab_op;
+	t_op_func			*tab_op;
 	char				**env;
 	int					cmd;
 	int					len;
@@ -82,7 +82,7 @@ typedef struct			s_exe
 	char				*path;
 	pid_t				pid;
 	int					ret;
-	builtin				builtin;
+	t_buil				builtin;
 }						t_exe;
 
 typedef struct			s_line
@@ -92,7 +92,6 @@ typedef struct			s_line
 	struct s_line		*prev;
 	int					nb;
 }						t_line;
-
 
 typedef struct			s_key
 {

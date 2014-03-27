@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 17:12:44 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/27 13:18:25 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 16:01:26 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ enum				e_operator
 	OP_BIN_AND
 };
 
-t_handler			handler;
+t_handler			g_handler;
 
-int		error(const char *msg, ...)
-						__attribute__((format(printf, 1, 2)));
+int		error(const char *msg, ...);
 
 void	ft_lstremove_redir(t_token **token, t_token **remove);
 void	ft_lstadd_redir(t_token *token, char *name, int flag);
@@ -66,7 +65,7 @@ int		is_space(char c);
 int		is_quote(char c);
 int		is_alpha(char c);
 
-void	add_token(t_token **token, char *value, enum e_token);
+void	add_token(t_token **token, char *value, enum e_token t);
 void	free_token(t_token **token);
 t_token	*append_token(t_token **token, t_token **add);
 
@@ -75,7 +74,7 @@ int		init_tree(t_token *tk, t_ast **tree);
 
 void	lexer(t_token **token, char *line);
 
-void	init_op(op_func *tab_op[]);
+void	init_op(t_op_func *tab_op[]);
 int		ft_ind_op(char *v);
 
 pid_t	op_redir(t_ast *tree, int pfd_old[2]);
@@ -97,7 +96,7 @@ void	parse_string(t_token **token);
 
 char	*ft_getenv(const char *name);
 
-builtin	find_builtin(char *cmd);
+t_buil	find_builtin(char *cmd);
 int		ft_modify_token_for_redir(t_token **token);
 void	prompt(void);
 
@@ -108,6 +107,7 @@ void	close_pfd(int pfd[2]);
 void	dup_close(int *pfd, int *pfd_old, int b);
 int		ft_isfuncfork(char *name);
 char	**default_env(void);
+void	del_3_str(char **str1, char **str2, char **str3);
 
 /*
 **	BUILTIN
@@ -138,7 +138,6 @@ void	print_rest(int cursor, t_line *list);
 **	tputs_putchar.c
 */
 int		tputs_putchar(int c);
-
 
 /*
 **	list_termcap.c
@@ -180,4 +179,4 @@ void	ft_down(char *key, int *cursor, t_line *list, t_ctrl_h *h);
 void	turn_on(struct termios *term);
 void	turn_off(struct termios *term);
 
-#endif /* !SH_H */
+#endif

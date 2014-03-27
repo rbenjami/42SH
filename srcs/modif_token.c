@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   modif_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 19:43:57 by killer            #+#    #+#             */
-/*   Updated: 2014/03/27 12:58:23 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 15:32:30 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,25 @@ int		ft_modify_cmd2(t_token **token, t_token **tmp, int *flag)
 	return (0);
 }
 
-int		ft_mod_cmd(t_token **tk, t_token **tmp, t_token **cmd, t_token **redir)
+int		ft_mod_cmd(t_token **tk, t_token **tmp, t_token **cmd, t_token **rd)
 {
 	char	**tab;
 	int		flag;
 	int		i;
 
-	flag = flag_op(ft_ind_op((*redir)->value));
+	flag = flag_op(ft_ind_op((*rd)->value));
 	while (*tmp && (*tmp)->prio == 0)
 	{
 		i = 1;
 		tab = ft_strsplit_space((*tmp)->value);
 		if (!*cmd && tab[1])
-			*cmd = append_token(tk, redir);
+			*cmd = append_token(tk, rd);
 		while (tab[i])
 		{
 			ft_strjoin2(&(*cmd)->value, " ");
 			ft_strjoin2(&(*cmd)->value, tab[i++]);
 		}
-		ft_lstadd_redir(*redir, tab[0], flag);
+		ft_lstadd_redir(*rd, tab[0], flag);
 		ft_free_tab(&tab);
 		ft_lstremove_redir(tk, tmp);
 		if (ft_modify_cmd2(tk, tmp, &flag) == 1)

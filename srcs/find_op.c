@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_op.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 16:12:54 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/24 18:53:54 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/27 16:03:24 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int		ft_ind_op(char *v)
 	return (-1);
 }
 
-void	init_op(op_func **tab_op)
+void	init_op(t_op_func **tab_op)
 {
-	*tab_op = (op_func *)ft_memalloc(sizeof(op_func) * 9);
+	*tab_op = (t_op_func *)ft_memalloc(sizeof(t_op_func) * 9);
 	(*tab_op)[0] = &op_redir;
 	(*tab_op)[1] = &op_redir;
 	(*tab_op)[2] = &op_redir;

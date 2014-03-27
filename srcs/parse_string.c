@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 13:48:37 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 18:56:36 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 15:37:44 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,20 @@ void	missing_quote(int dquote, t_token *token)
 
 	if (dquote)
 	{
-		handler.len = 8;
+		g_handler.len = 8;
 		ft_putstr("\033[31mdquote>\033[m ");
 	}
 	else
 	{
-		handler.len = 7;
+		g_handler.len = 7;
 		ft_putstr("\033[31mquote>\033[m ");
 	}
-	line = reader(IN, handler.hist);
+	line = reader(IN, g_handler.hist);
 	ft_strjoin2(&token->value, "\n");
 	ft_strjoin2(&token->value, line);
 	free(line);
 	parse_string(&token);
-	handler.len = 0;
+	g_handler.len = 0;
 }
 
 void	parse(t_token *token)

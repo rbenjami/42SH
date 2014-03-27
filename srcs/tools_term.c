@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_term.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:11:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/27 12:34:40 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 15:37:45 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,28 @@
 int			len_prompt(void)
 {
 	int		i;
-	char	*pwd;
-	char	*home;
-	char	*ln;
 	int		len;
+	char	*str[4];
 
-	if (handler.len)
-		return (handler.len);
+	if (g_handler.len)
+		return (g_handler.len);
 	i = 0;
 	len = 4;
-	home = ft_getenv("HOME");
-	pwd = ft_getenv("PWD");
-	if (pwd && home && !ft_strncmp(pwd, home, ft_strlen(home)))
+	str[1] = ft_getenv("HOME");
+	str[0] = ft_getenv("PWD");
+	if (str[0] && str[1] && !ft_strncmp(str[0], str[1], ft_strlen(str[1])))
 	{
 		len++;
-		i = ft_strlen(home);
+		i = ft_strlen(str[1]);
 	}
-	len += ft_strlen(ln = ft_getenv("LOGNAME"));
-	len = pwd ? len + ft_strlen(pwd + i) : len;
-	if (handler.cmd != 0)
-		len += ft_strlen(ft_itoa(handler.cmd)) + 1;
-	ft_strdel(&pwd);
-	ft_strdel(&home);
-	ft_strdel(&ln);
+	len += ft_strlen(str[2] = ft_getenv("LOGNAME"));
+	len = str[0] ? len + ft_strlen(str[0] + i) : len;
+	if (g_handler.cmd != 0)
+	{
+		len += ft_strlen(str[3] = ft_itoa(g_handler.cmd)) + 1;
+		ft_strdel(&str[3]);
+	}
+	del_3_str(&str[0], &str[1], &str[2]);
 	return (len);
 }
 

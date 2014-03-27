@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 15:56:25 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 22:53:21 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 15:37:35 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int			find_arg_path(void)
 	int				i;
 
 	i = 0;
-	while (handler.env[i])
+	while (g_handler.env[i])
 	{
-		if (!(ft_strncmp(handler.env[i], "PATH", 4)))
+		if (!(ft_strncmp(g_handler.env[i], "PATH", 4)))
 			return (i);
 		i++;
 	}
@@ -84,7 +84,7 @@ int			execute2(t_exe *exe, char *cmd)
 	if ((exe->args = ft_strsplit_space(cmd)) == NULL)
 		return (error("42sh: command not found: %s\n", cmd));
 	exe->builtin = find_builtin(exe->args[0]);
-	exe->path = find_path(exe->args[0], handler.env, find_arg_path());
+	exe->path = find_path(exe->args[0], g_handler.env, find_arg_path());
 	if (!exe->path && !exe->builtin)
 	{
 		ft_free_tab(&exe->args);
@@ -111,7 +111,7 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 		return (-42);
 	if ((exe.pid = fork()) < 0)
 		return (error("42sh: fork error !\n"));
-	turn_off(handler.term);
+	turn_off(g_handler.term);
 	if (exe.pid == 0)
 	{
 		if (pfd || pfd_old)
@@ -122,7 +122,7 @@ pid_t		execute(char *cmd, int	pfd_old[2], int	pfd[2], int b)
 				exit(1);
 			exit(0);
 		}
-		else if (execve(exe.path, exe.args, handler.env) == -1)
+		else if (execve(exe.path, exe.args, g_handler.env) == -1)
 			exit(1);
 	}
 	ft_free_tab(&exe.args);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:53:29 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/24 17:45:49 by mgarcin          ###   ########.fr       */
+/*   Updated: 2014/03/27 15:37:43 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 pid_t		op_and(t_ast *tree, int pfd_old[2])
 {
 	resolve_tree(tree->left, pfd_old);
-	if (handler.cmd == 0)
+	if (g_handler.cmd == 0)
 		resolve_tree(tree->right, pfd_old);
 	return (0);
 }
@@ -23,7 +23,7 @@ pid_t		op_and(t_ast *tree, int pfd_old[2])
 pid_t		op_or(t_ast *tree, int pfd_old[2])
 {
 	resolve_tree(tree->left, pfd_old);
-	if (handler.cmd != 0)
+	if (g_handler.cmd != 0)
 		resolve_tree(tree->right, pfd_old);
 	return (0);
 }

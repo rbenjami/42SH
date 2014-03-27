@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/27 12:07:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/27 12:25:10 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 15:37:45 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 
 void	print_error(char *logname, char	*pwd, char *home)
 {
-	if (handler.cmd == 0)
+	if (g_handler.cmd == 0)
 		ft_putstr("\033[m\033[32m");
 	else
 	{
 		ft_putstr("\033[m\033[31m ");
-		ft_putnbr(handler.cmd);
+		ft_putnbr(g_handler.cmd);
 	}
 	ft_putstr(" ~> \033[m");
 	ft_strdel(&home);

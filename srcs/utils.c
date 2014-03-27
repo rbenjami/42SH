@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 12:25:29 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/21 16:47:18 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/27 15:31:48 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ void		dup_close(int *pfd, int *pfd_old, int b)
 	close(pfd[!b]);
 	close(b);
 	dup2(pfd[b], b);
+}
+
+void		del_3_str(char **str1, char **str2, char **str3)
+{
+	ft_strdel(str1);
+	ft_strdel(str2);
+	ft_strdel(str3);
 }
 
 int			ft_isfuncfork(char *name)

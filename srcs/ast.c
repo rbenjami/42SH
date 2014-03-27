@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/04 13:44:39 by smakroum          #+#    #+#             */
-/*   Updated: 2014/03/26 16:07:56 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 15:37:26 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void		resolve_tree(t_ast *tree, int pfd_old[2])
 	if (tree && tree->tk->value)
 	{
 		if ((ind = ft_ind_op(tree->tk->value)) != -1)
-			pid = handler.tab_op[ind](tree, pfd_old);
+			pid = g_handler.tab_op[ind](tree, pfd_old);
 		else
 			pid = execute(tree->tk->value, NULL, NULL, 0);
 		waitpid(pid, &status, 0);
-		turn_on(handler.term);
-		handler.cmd = WEXITSTATUS(status);
+		turn_on(g_handler.term);
+		g_handler.cmd = WEXITSTATUS(status);
 	}
 }
 

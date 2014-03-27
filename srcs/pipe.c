@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:46:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 11:43:18 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 15:37:44 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void		op_pipe2(t_ast *tree, int pfd[2], int *pid)
 	else
 	{
 		waitpid(*pid, &status, 0);
-		handler.len = 6;
-		turn_on(handler.term);
+		g_handler.len = 6;
+		turn_on(g_handler.term);
 		ft_putstr("\033[31mpipe> \033[m");
-		line = reader(0, handler.hist);
+		line = reader(0, g_handler.hist);
 		*pid = execute(line, NULL, pfd, 0);
 		ft_strdel(&line);
-		handler.len = 0;
+		g_handler.len = 0;
 	}
 	close_pfd(pfd);
 }
@@ -40,7 +40,7 @@ void		ft_redir_pipe(t_ast *tree, int pfd_old[2], int pfd[2])
 
 	pid = op_redir2(tree->left, pfd_old, pfd);
 	waitpid(pid, &status, 0);
-	handler.cmd = WEXITSTATUS(status);
+	g_handler.cmd = WEXITSTATUS(status);
 }
 
 pid_t		op_pipe(t_ast *tree, int pfd_old[2])

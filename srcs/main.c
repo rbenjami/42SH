@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 15:10:45 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 15:37:39 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	init_env(char **env)
 	char	*lvl;
 
 	if (ft_tablen(env) == 0)
-		handler.env = default_env();
+		g_handler.env = default_env();
 	else
 	{
-		handler.env = ft_cpytab(env, ft_tablen(env));
+		g_handler.env = ft_cpytab(env, ft_tablen(env));
 		lvl = ft_getenv("SHLVL");
 		add = ft_memalloc(sizeof(char *) * 4);
 		add[1] = ft_strdup("SHLVL");
@@ -58,11 +58,11 @@ void	init_env(char **env)
 		ft_strdel(&add[3]);
 		ft_free_tab(&add);
 	}
-	handler.cmd = 0;
-	handler.len = 0;
+	g_handler.cmd = 0;
+	g_handler.len = 0;
 }
 
-void	sig_handler(int sig)
+void	sig_g_handler(int sig)
 {
 	(void)sig;
 	ft_putchar('\n');
@@ -75,13 +75,13 @@ void	loop(t_token *token, t_ast *tree)
 
 	tree = NULL;
 	token = NULL;
-	signal(SIGINT, &sig_handler);
+	signal(SIGINT, &sig_g_handler);
 	prompt();
-	if (!(line = reader(0, handler.hist)))
+	if (!(line = reader(0, g_handler.hist)))
 		exit(-1);
 	if (line && line[0] != '\n')
-		save_hist(handler.hist->start, line, 1, handler.hist);
-	handler.cmd = 0;
+		save_hist(g_handler.hist->start, line, 1, g_handler.hist);
+	g_handler.cmd = 0;
 	lexer(&token, line);
 	parse_string(&token);
 	ft_strdel(&line);
@@ -104,10 +104,10 @@ int		main(void)
 	token = NULL;
 	turn_on(&term);
 	init_env(environ);
-	handler.term = &term;
-	init_op(&handler.tab_op);
-	handler.hist = ft_memalloc(sizeof(t_ctrl_h));
-	create_hist(handler.hist);
+	g_handler.term = &term;
+	init_op(&g_handler.tab_op);
+	g_handler.hist = ft_memalloc(sizeof(t_ctrl_h));
+	create_hist(g_handler.hist);
 	while (1)
 		loop(token, tree);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:46:56 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/27 12:13:07 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 16:19:38 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int			find_env(char *s)
 	int		i;
 
 	i = 0;
-	while (handler.env[i])
+	while (g_handler.env[i])
 	{
-		if (ft_strncmp(handler.env[i], s, ft_strlen(s)) == 0)
+		if (ft_strncmp(g_handler.env[i], s, ft_strlen(s)) == 0)
 			return (i);
 		i++;
 	}
@@ -39,15 +39,16 @@ int			builtin_unsetenv(char **av)
 		return (-1);
 	if ((index = find_env(av[1])) == -1)
 		return (0);
-	if (!(tab = (char **)ft_memalloc(sizeof(char *) * ft_tablen(handler.env))))
+	tab = (char **)ft_memalloc(sizeof(char *) * ft_tablen(g_handler.env));
+	if (!tab)
 		return (-42);
-	while (handler.env[i])
+	while (g_handler.env[i])
 	{
 		if (index != i)
-			tab[j++] = ft_strdup(handler.env[i]);
+			tab[j++] = ft_strdup(g_handler.env[i]);
 		i++;
 	}
-	ft_free_tab(&handler.env);
-	handler.env = tab;
+	ft_free_tab(&g_handler.env);
+	g_handler.env = tab;
 	return (0);
 }

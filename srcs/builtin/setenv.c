@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: killer <killer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:46:39 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/24 16:12:58 by killer           ###   ########.fr       */
+/*   Updated: 2014/03/27 15:37:34 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	ft_add(char *name, char *value)
 	char	**tab;
 	int		length;
 
-	length = ft_tablen(handler.env);
-	tab = ft_cpytab(handler.env, length + 1);
+	length = ft_tablen(g_handler.env);
+	tab = ft_cpytab(g_handler.env, length + 1);
 	ft_strjoin2(&name, "=");
 	tab[length] = ft_strjoin(name, value);
 	tab[length + 1] = NULL;
-	ft_free_tab(&handler.env);
-	handler.env = tab;
+	ft_free_tab(&g_handler.env);
+	g_handler.env = tab;
 }
 
 int		builtin_setenv(char **av)
@@ -36,15 +36,15 @@ int		builtin_setenv(char **av)
 	if (!av[1] || !av[2])
 		return (-1);
 	ov = (av[3]) ? ft_atoi(av[3]) : 0;
-	while (handler.env[i])
+	while (g_handler.env[i])
 	{
-		if (ft_strncmp(handler.env[i], av[1], ft_strlen(av[1])) == 0)
+		if (ft_strncmp(g_handler.env[i], av[1], ft_strlen(av[1])) == 0)
 		{
 			if (ov)
 			{
-				ft_strdel(handler.env + i);
+				ft_strdel(g_handler.env + i);
 				tmp = ft_strjoin(av[1], "=");
-				handler.env[i] = ft_strjoin(tmp, av[2]);
+				g_handler.env[i] = ft_strjoin(tmp, av[2]);
 				ft_strdel(&tmp);
 			}
 			return (0);

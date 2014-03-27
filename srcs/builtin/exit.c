@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/10 18:45:41 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/27 13:30:04 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 15:37:31 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		builtin_exit(char **av)
 
 	tmp = ft_getenv("HOME");
 	src = ft_strjoin(tmp, "/.42sh_history");
-	h = handler.hist->start;
+	h = g_handler.hist->start;
 	fd = open(src, O_WRONLY | O_APPEND);
 	while (h && fd > -1)
 	{
