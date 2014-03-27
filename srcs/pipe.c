@@ -6,7 +6,7 @@
 /*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:46:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 16:42:53 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 17:09:11 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		op_pipe3(t_ast *tree, t_token *token, int pfd[2], int *pid)
 {
 	if (token)
 		fill_tree(token, &tree->right);
-	if (tree->right->tk->prio > 0)
+	if (tree->right && tree->right->tk->prio > 0)
 		resolve_tree(tree->right, pfd);
 	else
 		op_pipe2(tree, pfd, pid);
@@ -43,8 +43,8 @@ void		op_pipe2(t_ast *tree, int pfd[2], int *pid)
 		parse_string(&token);
 		ft_strdel(&line);
 		g_handler.len = 0;
-		ft_modify_token_for_redir(&token);
-		op_pipe3(tree, token, pfd, pid);
+		if (ft_modify_token_for_redir(&token) != -42)
+			op_pipe3(tree, token, pfd, pid);
 	}
 	close_pfd(pfd);
 }

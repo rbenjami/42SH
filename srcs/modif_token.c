@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   modif_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 19:43:57 by killer            #+#    #+#             */
-/*   Updated: 2014/03/27 15:32:30 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 17:12:40 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int		ft_modify_token_for_redir(t_token **token)
 		{
 			if (ft_mod_cmd(token, t + 0, t + 1, t + 2) == 1)
 				return (0);
-			if (!t[0])
-				return (error("42sh: parse error near `\\n'\n"));
+			if (!t[0] || !t[2]->redir)
+				return (error("42sh: parse error"));
 			t[2] = NULL;
 			t[1] = NULL;
 		}

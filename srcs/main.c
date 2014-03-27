@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 15:37:39 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 17:07:24 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,13 @@ void	loop(t_token *token, t_ast *tree)
 	lexer(&token, line);
 	parse_string(&token);
 	ft_strdel(&line);
-	ft_modify_token_for_redir(&token);
-	if (token)
+	if (token && ft_modify_token_for_redir(&token) != -42)
+	{
 		fill_tree(token, &tree);
-	resolve_tree(tree, NULL);
+		resolve_tree(tree, NULL);
+	}
+	else
+		g_handler.cmd = -42;
 	free_ast(&tree);
 	free(line);
 }
