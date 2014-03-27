@@ -6,7 +6,7 @@
 /*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/14 18:46:49 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 11:17:42 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 11:43:18 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 void		op_pipe2(t_ast *tree, int pfd[2], int *pid)
 {
+	int			status;
 	char		*line;
 
 	if (tree->right)
 		*pid = execute(tree->right->tk->value, NULL, pfd, 0);
 	else
 	{
+		waitpid(*pid, &status, 0);
 		handler.len = 6;
+		turn_on(handler.term);
 		ft_putstr("\033[31mpipe> \033[m");
 		line = reader(0, handler.hist);
 		*pid = execute(line, NULL, pfd, 0);
