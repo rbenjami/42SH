@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   modif_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 19:43:57 by killer            #+#    #+#             */
-/*   Updated: 2014/03/26 19:33:54 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/26 21:16:13 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int	flag_op(int ind)
+int		flag_op(int ind)
 {
 	if (ind == OP_REDIR_R)
 		return (OPEN_REDIR_R);
@@ -23,7 +23,7 @@ int	flag_op(int ind)
 	return (OP_2REDIR_L);
 }
 
-int	ft_modify_cmd2(t_token **token, t_token **tmp, int *flag)
+int		ft_modify_cmd2(t_token **token, t_token **tmp, int *flag)
 {
 	int		ind;
 
@@ -38,7 +38,7 @@ int	ft_modify_cmd2(t_token **token, t_token **tmp, int *flag)
 	return (0);
 }
 
-int	ft_mod_cmd(t_token **tk, t_token **tmp, t_token **cmd, t_token **redir)
+int		ft_mod_cmd(t_token **tk, t_token **tmp, t_token **cmd, t_token **redir)
 {
 	char	**tab;
 	int		flag;
@@ -65,7 +65,7 @@ int	ft_mod_cmd(t_token **tk, t_token **tmp, t_token **cmd, t_token **redir)
 	return (0);
 }
 
-int	ft_modify_token_for_redir(t_token **token)
+int		ft_modify_token_for_redir(t_token **token)
 {
 	int		ind;
 	t_token	*tmp;
@@ -88,6 +88,8 @@ int	ft_modify_token_for_redir(t_token **token)
 				return (0);
 			if (!tmp)
 				return (error("42sh: parse error near `\\n'\n"));
+			redir = NULL;
+			cmd = NULL;
 		}
 		tmp = tmp->next;
 	}

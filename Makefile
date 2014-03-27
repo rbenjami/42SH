@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+         #
+#    By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/02/26 13:13:47 by rbenjami          #+#    #+#              #
-#    Updated: 2014/03/26 19:38:10 by rbenjami         ###   ########.fr        #
+#    Updated: 2014/03/26 21:49:09 by smakroum         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ FILES		=	main.c			\
 				parse_string.c	\
 				ft_getenv.c		\
 				redir.c			\
+				redir2.c		\
 				utils.c			\
 				pipe.c			\
 				operator.c		\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/26 19:46:38 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/26 21:13:22 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,23 @@ void	init_env(char **env)
 	handler.len = 0;
 }
 
+void	deroute(int sig)
+{
+	(void)sig;
+	close(0);
+	ft_putchar('\n');
+		prompt(0, "", "", "");
+	dup2(handler.flag, 0);
+}
+
 void	loop(t_token *token, t_ast *tree, t_ctrl_h *hist)
 {
 	char				*line;
-
 	tree = NULL;
 	token = NULL;
+
+	handler.flag = dup(0);
+	signal(SIGINT, &deroute);
 	prompt(0, "", "", "");
 	if (!(line = reader(0, hist)))
 		exit(-1);
