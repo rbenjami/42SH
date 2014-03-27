@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_term.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:11:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 17:53:07 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 11:56:19 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int			len_prompt(void)
 		return (handler.len);
 	i = 0;
 	len = 4;
-	pwd = ft_getenv("PWD");
-	home = ft_getenv("HOME");
+	if (!(pwd = ft_getenv("PWD")) || !(home = ft_getenv("HOME")))
+		return (55);
 	if (!ft_strncmp(pwd, home, ft_strlen(home)))
 	{
 		len++;
