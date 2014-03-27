@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mgarcin <mgarcin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/03 16:00:07 by rbenjami          #+#    #+#             */
-/*   Updated: 2014/03/27 11:38:14 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 12:05:30 by mgarcin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	sig_handler(int sig)
 {
 	(void)sig;
 	ft_putchar('\n');
-		prompt(0, "", "", "");
+	prompt(0, "", "", "");
 }
 
 void	loop(t_token *token, t_ast *tree, t_ctrl_h *hist)
