@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_term.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:11:20 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/27 15:37:45 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 19:37:51 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,22 @@ t_line		*obtain_list(int cursor, t_line *list)
 
 void		verif_nb(t_line *list)
 {
+	int			i;
+	t_line		*tmp;
+
+	i = 0;
+	if (!list)
+		return ;
 	while (list->prev)
 		list = list->prev;
-	while (list->next)
+	while (list)
 	{
-		if (list->prev)
-			list->nb = list->prev->nb + 1;
-		else
-			list->nb = 0;
+		if (list->next)
+		{
+			tmp = list->next;
+			tmp->prev = list;
+		}
+		list->nb = i++;
 		list = list->next;
 	}
 }

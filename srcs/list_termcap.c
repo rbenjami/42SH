@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   list_termcap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dsousa <dsousa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 19:05:59 by dsousa            #+#    #+#             */
-/*   Updated: 2014/03/26 19:27:33 by dsousa           ###   ########.fr       */
+/*   Updated: 2014/03/27 19:18:02 by dsousa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <termcap.h>
+#include <termios.h>
 #include "sh.h"
 
 static void		add_process(t_line *list, char *c, int rank)
@@ -81,14 +82,13 @@ void			add_first(t_line *list, char c, int *cursor)
 
 	if (!(tmp = (t_line *)ft_memalloc(sizeof(t_line))))
 		return ;
+	tmp->nb = 1;
 	tmp->data = list->data;
 	tmp->next = list->next;
 	tmp->prev = list;
-	tmp->nb = 1;
-	list->prev = 0;
 	list->next = tmp;
-	list->data = c;
 	list->nb = 0;
+	list->data = c;
 	verif_nb(list);
 	*cursor = *cursor + 1;
 	tputs(tgetstr("im", NULL), 1, tputs_putchar);
