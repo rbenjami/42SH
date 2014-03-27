@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   modif_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 19:43:57 by killer            #+#    #+#             */
-/*   Updated: 2014/03/27 12:46:24 by smakroum         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:51:23 by rbenjami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,21 @@ int		ft_modify_token_for_redir(t_token **token)
 
 	t[TMP] = *token;
 	t[CMD] = NULL;
-	t[REDIR] = NULL;
+	t[RED] = NULL;
 	while (t[TMP])
 	{
 		if ((ind = ft_ind_op(t[TMP]->value)) >= 0 && ind <= 3)
 		{
 			t[CMD] = t[TMP]->prev;
-			t[REDIR] = t[TMP];
+			t[RED] = t[TMP];
 		}
-		else if (t[REDIR] && (ind = ft_ind_op((t[REDIR])->value)) >= 0 && ind <= 3)
+		else if (t[RED] && (ind = ft_ind_op((t[RED])->value)) >= 0 && ind <= 3)
 		{
-			if (ft_mod_cmd(token, t + TMP, t + CMD, t + REDIR) == 1)
+			if (ft_mod_cmd(token, t + TMP, t + CMD, t + RED) == 1)
 				return (0);
 			if (!t[TMP])
 				return (error("42sh: parse error near `\\n'\n"));
-			t[REDIR] = NULL;
+			t[RED] = NULL;
 			t[CMD] = NULL;
 		}
 		t[TMP] = t[TMP]->next;
