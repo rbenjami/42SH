@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   modif_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbenjami <rbenjami@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smakroum <smakroum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/24 19:43:57 by killer            #+#    #+#             */
-/*   Updated: 2014/03/27 12:51:23 by rbenjami         ###   ########.fr       */
+/*   Updated: 2014/03/27 12:58:23 by smakroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,26 @@ int		ft_modify_token_for_redir(t_token **token)
 	int		ind;
 	t_token	*t[3];
 
-	t[TMP] = *token;
-	t[CMD] = NULL;
-	t[RED] = NULL;
-	while (t[TMP])
+	t[0] = *token;
+	t[1] = NULL;
+	t[2] = NULL;
+	while (t[0])
 	{
-		if ((ind = ft_ind_op(t[TMP]->value)) >= 0 && ind <= 3)
+		if ((ind = ft_ind_op(t[0]->value)) >= 0 && ind <= 3)
 		{
-			t[CMD] = t[TMP]->prev;
-			t[RED] = t[TMP];
+			t[1] = t[0]->prev;
+			t[2] = t[0];
 		}
-		else if (t[RED] && (ind = ft_ind_op((t[RED])->value)) >= 0 && ind <= 3)
+		else if (t[2] && (ind = ft_ind_op((t[2])->value)) >= 0 && ind <= 3)
 		{
-			if (ft_mod_cmd(token, t + TMP, t + CMD, t + RED) == 1)
+			if (ft_mod_cmd(token, t + 0, t + 1, t + 2) == 1)
 				return (0);
-			if (!t[TMP])
+			if (!t[0])
 				return (error("42sh: parse error near `\\n'\n"));
-			t[RED] = NULL;
-			t[CMD] = NULL;
+			t[2] = NULL;
+			t[1] = NULL;
 		}
-		t[TMP] = t[TMP]->next;
+		t[0] = t[0]->next;
 	}
 	return (0);
 }
